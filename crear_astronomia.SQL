@@ -1,0 +1,284 @@
+/*
+Created: 30/11/2023
+Modified: 14/03/2024
+Model: RE Oracle 10g
+Database: Oracle 10g
+*/
+
+
+-- Create sequences section -------------------------------------------------
+
+CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_PROVINCIA"
+ INCREMENT BY 1
+ MAXVALUE 99999
+ MINVALUE 0
+ CYCLE
+ CACHE 20
+/
+
+CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_PROVINCIA_EVENTO"
+ INCREMENT BY 1
+ MAXVALUE 99999
+ MINVALUE 0
+ CYCLE
+ CACHE 20
+/
+
+CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_USUARIO"
+ INCREMENT BY 1
+ MAXVALUE 99999
+ MINVALUE 0
+ CYCLE
+ CACHE 20
+/
+
+CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_MENSAJE"
+ INCREMENT BY 1
+ MAXVALUE 99999
+ MINVALUE 0
+ CYCLE
+ CACHE 20
+/
+
+CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_EVENTO"
+ INCREMENT BY 1
+ MAXVALUE 99999
+ MINVALUE 0
+ CYCLE
+ CACHE 20
+ ORDER
+/
+
+-- Create tables section -------------------------------------------------
+
+-- Table ASTRONOMIA.MENSAJE
+
+CREATE TABLE "ASTRONOMIA"."MENSAJE"(
+  "ID_MENSAJE" Number(5,0) CONSTRAINT "SYS_C005385" NOT NULL,
+  "ID_USUARIO" Number(5,0) NOT NULL,
+  "ID_EVENTO" Number(5,0) NOT NULL,
+  "MENSAJE" Varchar2(250 ) CONSTRAINT "SYS_C005386" NOT NULL,
+  "HORA_MENSAJE" Timestamp(0) CONSTRAINT "SYS_C005387" NOT NULL
+)
+/
+
+-- Create indexes for table ASTRONOMIA.MENSAJE
+
+CREATE INDEX "IX_Relationship5" ON "ASTRONOMIA"."MENSAJE" ("ID_USUARIO")
+/
+
+CREATE INDEX "IX_Relationship6" ON "ASTRONOMIA"."MENSAJE" ("ID_EVENTO")
+/
+
+-- Add keys for table ASTRONOMIA.MENSAJE
+
+ALTER TABLE "ASTRONOMIA"."MENSAJE" ADD CONSTRAINT "PK_MENSAJE" PRIMARY KEY ("ID_MENSAJE")
+/
+
+-- Table ASTRONOMIA.EVENTO
+
+CREATE TABLE "ASTRONOMIA"."EVENTO"(
+  "ID_EVENTO" Number(5,0) CONSTRAINT "SYS_C005363" NOT NULL,
+  "NOMBRE" Varchar2(100 ) CONSTRAINT "SYS_C005364" NOT NULL,
+  "TIPO" Varchar2(100 ) CONSTRAINT "SYS_C005365" NOT NULL,
+  "INICIO" Date CONSTRAINT "SYS_C005366" NOT NULL,
+  "FINAL" Date CONSTRAINT "SYS_C005367" NOT NULL,
+  "DESCRIPCION" Varchar2(250 ) CONSTRAINT "SYS_C005368" NOT NULL
+)
+/
+
+-- Add keys for table ASTRONOMIA.EVENTO
+
+ALTER TABLE "ASTRONOMIA"."EVENTO" ADD CONSTRAINT "PK_EVENTO" PRIMARY KEY ("ID_EVENTO")
+/
+
+ALTER TABLE "ASTRONOMIA"."EVENTO" ADD CONSTRAINT "NOMBRE" UNIQUE ("NOMBRE")
+/
+
+-- Table ASTRONOMIA.PROVINCIA
+
+CREATE TABLE "ASTRONOMIA"."PROVINCIA"(
+  "ID_PROVINCIA" Number(5,0) CONSTRAINT "SYS_C005358" NOT NULL,
+  "PROVINCIA" Varchar2(50 ) CONSTRAINT "SYS_C005359" NOT NULL,
+  "COMUNIDAD" Varchar2(50 ) CONSTRAINT "SYS_C005360" NOT NULL
+)
+/
+
+-- Add keys for table ASTRONOMIA.PROVINCIA
+
+ALTER TABLE "ASTRONOMIA"."PROVINCIA" ADD CONSTRAINT "PK_PROVINCIA" PRIMARY KEY ("ID_PROVINCIA")
+/
+
+ALTER TABLE "ASTRONOMIA"."PROVINCIA" ADD CONSTRAINT "PROVINCIA" UNIQUE ("PROVINCIA")
+/
+
+-- Table ASTRONOMIA.PROVINCIA-EVENTO
+
+CREATE TABLE "ASTRONOMIA"."PROVINCIA-EVENTO"(
+  "ID_PROVINCIA-EVENTO" Number(6,0) CONSTRAINT "SYS_C005390" NOT NULL,
+  "ID_PROVINCIA" Number(5,0),
+  "ID_EVENTO" Number(5,0)
+)
+/
+
+-- Create indexes for table ASTRONOMIA.PROVINCIA-EVENTO
+
+CREATE INDEX "ASTRONOMIA"."IX_Relationship1" ON "ASTRONOMIA"."PROVINCIA-EVENTO" ("ID_PROVINCIA")
+/
+
+CREATE INDEX "ASTRONOMIA"."IX_Relationship3" ON "ASTRONOMIA"."PROVINCIA-EVENTO" ("ID_EVENTO")
+/
+
+-- Add keys for table ASTRONOMIA.PROVINCIA-EVENTO
+
+ALTER TABLE "ASTRONOMIA"."PROVINCIA-EVENTO" ADD CONSTRAINT "PK_PROVINCIA-EVENTO" PRIMARY KEY ("ID_PROVINCIA-EVENTO")
+/
+
+-- Table ASTRONOMIA.USUARIO
+
+CREATE TABLE "ASTRONOMIA"."USUARIO"(
+  "ID_USUARIO" Number(5,0) CONSTRAINT "SYS_C005371" NOT NULL,
+  "ID_PROVINCIA" Number(5,0),
+  "NOMBRE" Varchar2(50 ) CONSTRAINT "SYS_C005372" NOT NULL,
+  "APE1" Varchar2(50 ) CONSTRAINT "SYS_C005373" NOT NULL,
+  "APE2" Varchar2(50 ),
+  "GENERO" Char(1 ) CONSTRAINT "SYS_C005374" NOT NULL
+        CONSTRAINT "checkGenero" CHECK (GENERO IN ('O','H','M')),
+  "EMAIL" Varchar2(100 ) CONSTRAINT "SYS_C005375" NOT NULL
+        CONSTRAINT "CheckConstraint3" CHECK (EMAIL LIKE '%@%.%'),
+  "TELEFONO" Char(9 ) CONSTRAINT "SYS_C005376" NOT NULL
+        CONSTRAINT "CheckConstraint4" CHECK (TELEFONO LIKE '_________'),
+  "NIVEL_CONOCIMIENTO" Char(1 ) CONSTRAINT "SYS_C005377" NOT NULL,
+  "CONTRASENA" Char(64 ) CONSTRAINT "SYS_C005378" NOT NULL
+)
+/
+
+-- Create indexes for table ASTRONOMIA.USUARIO
+
+CREATE INDEX "ASTRONOMIA"."IX_Relationship4" ON "ASTRONOMIA"."USUARIO" ("ID_PROVINCIA")
+/
+
+-- Add keys for table ASTRONOMIA.USUARIO
+
+ALTER TABLE "ASTRONOMIA"."USUARIO" ADD CONSTRAINT "PK_USUARIO" PRIMARY KEY ("ID_USUARIO")
+/
+
+ALTER TABLE "ASTRONOMIA"."USUARIO" ADD CONSTRAINT "TELEFONO" UNIQUE ("TELEFONO")
+/
+
+ALTER TABLE "ASTRONOMIA"."USUARIO" ADD CONSTRAINT "EMAIL" UNIQUE ("EMAIL")
+/
+
+-- Create procedures section -------------------------------------------------
+
+CREATE PROCEDURE "ASTRONOMIA"."INSERTAR_USUARIO"(u_nombre VARCHAR,
+  u_ape1 VARCHAR,
+  u_ape2 VARCHAR,
+  u_genero CHAR,
+  u_email VARCHAR,
+  u_telefono CHAR,
+  u_nivel_conocimiento CHAR,
+  u_contrasena CHAR,
+  p_id_number NUMBER
+)
+IS 
+BEGIN
+  INSERT INTO USUARIO(
+    ID_USUARIO,
+    NOMBRE,
+    APE1,
+    APE2,
+    GENERO,
+    EMAIL,
+    TELEFONO,
+    NIVEL_CONOCIMIENTO,
+    CONTRASENA,
+    ID_PROVINCIA
+  )
+  VALUES(
+    SECUENCIA_ID_USUARIO.nextval,
+    u_nombre,
+    u_ape1,
+    u_ape2,
+    u_genero,
+    u_email,
+    u_telefono,
+    u_nivel_conocimiento,
+    u_contrasena,
+    p_id_number
+  );
+END INSERTAR_USUARIO;
+/
+
+-- Create triggers section -------------------------------------------------
+-- Trigger 1: TRG_RESTRINGIR_NUMERO_HOMBRES
+CREATE OR REPLACE TRIGGER TRG_RESTRINGIR_NUMERO_HOMBRES
+BEFORE INSERT OR UPDATE ON ASTRONOMIA.USUARIO
+FOR EACH ROW
+DECLARE
+    v_contador_hombres_actual NUMBER;
+    v_contador_mujeres_actual NUMBER;
+BEGIN
+    -- Contar el número actual de hombres y mujeres
+    SELECT COUNT(*) INTO v_contador_hombres_actual
+    FROM ASTRONOMIA.USUARIO
+    WHERE GENERO = 'H';
+
+    SELECT COUNT(*) INTO v_contador_mujeres_actual
+    FROM ASTRONOMIA.USUARIO
+    WHERE GENERO = 'M';
+
+    IF :NEW.GENERO = 'H' THEN
+        -- Si hay más hombres que mujeres, generar un error
+        IF v_contador_hombres_actual >= v_contador_mujeres_actual THEN
+            RAISE_APPLICATION_ERROR(-20002, 'No se permite el registro si hay más hombres que mujeres.');
+        END IF;
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20002, 'No se permite el registro si hay más hombres que mujeres.');
+END;
+/
+-- Trigger 2: RESTRINGIR_NUMERO_EVENTOS
+CREATE OR REPLACE TRIGGER RESTRINGIR_NUMERO_EVENTOS
+BEFORE INSERT ON ASTRONOMIA.EVENTO
+FOR EACH ROW
+DECLARE
+    v_limite_max_eventos NUMBER := 3; -- Establecer el límite deseado para eventos en la misma fecha
+    v_contador_eventos_actual NUMBER;
+BEGIN
+    -- Contar el número actual de eventos en la misma fecha
+    SELECT COUNT(*) INTO v_contador_eventos_actual
+    FROM ASTRONOMIA.EVENTO
+    WHERE TRUNC(INICIO) = TRUNC(:NEW.INICIO); -- TRUNC elimina la parte de la hora para comparar solo la fecha
+
+    -- Si agregar este evento excede el límite, generar un error
+    IF v_contador_eventos_actual >= v_limite_max_eventos THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Se ha alcanzado el límite máximo de eventos para esta fecha.');
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Se ha alcanzado el límite máximo de eventos para esta fecha.');
+END;
+/
+
+-- Create foreign keys (relationships) section ------------------------------------------------- 
+
+ALTER TABLE "ASTRONOMIA"."PROVINCIA-EVENTO" ADD CONSTRAINT "Relationship1" FOREIGN KEY ("ID_PROVINCIA") REFERENCES "ASTRONOMIA"."PROVINCIA" ("ID_PROVINCIA")
+/
+
+
+ALTER TABLE "ASTRONOMIA"."PROVINCIA-EVENTO" ADD CONSTRAINT "Relationship3" FOREIGN KEY ("ID_EVENTO") REFERENCES "ASTRONOMIA"."EVENTO" ("ID_EVENTO")
+/
+
+
+ALTER TABLE "ASTRONOMIA"."USUARIO" ADD CONSTRAINT "Relationship4" FOREIGN KEY ("ID_PROVINCIA") REFERENCES "ASTRONOMIA"."PROVINCIA" ("ID_PROVINCIA")
+/
+
+
+ALTER TABLE "ASTRONOMIA"."MENSAJE" ADD CONSTRAINT "Relationship5" FOREIGN KEY ("ID_USUARIO") REFERENCES "ASTRONOMIA"."USUARIO" ("ID_USUARIO")
+/
+
+
+ALTER TABLE "ASTRONOMIA"."MENSAJE" ADD CONSTRAINT "Relationship6" FOREIGN KEY ("ID_EVENTO") REFERENCES "ASTRONOMIA"."EVENTO" ("ID_EVENTO")
+/
