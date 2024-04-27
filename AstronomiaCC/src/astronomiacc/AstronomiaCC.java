@@ -15,10 +15,12 @@ import pojosastronomia.Operaciones;
 import pojosastronomia.Peticion;
 import pojosastronomia.Provincia;
 import pojosastronomia.Respuesta;
+import pojosastronomia.Usuario;
 
 /**
  *
  * @author Cristina Zas Perez
+ * @version 1.0
  */
 public class AstronomiaCC {
     // Lo tienen que recibir todos los metodos, asi que lo ponemos como atributo de la clase
@@ -55,10 +57,159 @@ public class AstronomiaCC {
     //--------------------------------------------------------------------------------- \ TABLA PROVINCIA /----------------------------------------------------------------------------------------    
     
     public Provincia leerProvincia (Integer idProvincia) throws Excepciones {
+         // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.LEER_PROVINCIA);
+        p.setIdEntidad(idProvincia); // Le pasamos el id del evento que se desea visualizar
+
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
         
+        Provincia provincia = null; 
+        
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+            
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+            
+            ois.close();
+            oos.close();
+            
+            socketCliente.close();
+            
+            if (r.getEntidad() != null){
+                provincia = (Provincia) r.getEntidad();
+                return provincia;
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+            
+            
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }    
+        return provincia;
+    }
+
+    public ArrayList<Provincia> leerProvincias() throws Excepciones {
+
+        // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.LEER_PROVINCIAS);
+
+        
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+        
+        ArrayList<Provincia> listaProvinicias = null; 
+        
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+            
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+            
+            ois.close();
+            oos.close();
+            
+            socketCliente.close();
+            if (r.getEntidad() != null){
+                listaProvinicias = (ArrayList<Provincia>) r.getEntidad();
+                return listaProvinicias;
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }    
+            
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }    
+        return listaProvinicias;
+    }
+
+    //--------------------------------------------------------------------------------- \ TABLA USUARIO /----------------------------------------------------------------------------------------
+    
+    public int insertarUsuario(Usuario u) throws Excepciones{
+        
+        // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.INSERTAR_USUARIO);
+        p.setEntidad(u); 
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+        int cantidad = 0;
+        
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+            
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+            
+            // cerramos recursos ya que ya tenemos la respuesta 
+            ois.close();
+            oos.close();
+            
+            socketCliente.close();
+            
+            if (r.getCantidad() != null){
+                cantidad = r.getCantidad();
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }    
+        return cantidad;
     }
     
+    public int modificarUsuario(Integer idUsuario, Usuario u) throws Excepciones{
+        
+        // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.ACTUALIZAR_USUARIO);
+        p.setIdEntidad(idUsuario); 
+        p.setEntidad(u); 
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+        int cantidad = 0;
+        
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+            
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+            
+            // cerramos recursos ya que ya tenemos la respuesta 
+            ois.close();
+            oos.close();
+            
+            socketCliente.close();
+            
+            if (r.getCantidad() != null){
+                cantidad = r.getCantidad();
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
 
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }    
+        return cantidad;
+    }
+    
     //--------------------------------------------------------------------------------- \ TABLA EVENTO /----------------------------------------------------------------------------------------    
     
     public Evento leerEvento(Integer idEvento) throws Excepciones {

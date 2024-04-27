@@ -188,8 +188,6 @@ public class CadAstronomia {
 
             sentenciaLlamable.executeUpdate();
 
-            System.out.println("Registro insertado con exito.");
-
             sentenciaLlamable.close();
             conexion.close();
 

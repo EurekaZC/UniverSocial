@@ -67,12 +67,12 @@ public class NewMain {
 //        Provincia provincia = new Provincia(2, "cantabria", "cantabria");
 //        Usuario u = new Usuario();
 //        
-//        u.setNombre("Cristina");
+//        u.setNombre("prueba");
 //        u.setApe1("Zas");
 //        u.setApe2("Perez");
 //        u.setGenero("M");
-//        u.setEmail("cristiniponci@gmail.com");
-//        u.setTelefono("643152417");
+//        u.setEmail("prueba@gmail.com");
+//        u.setTelefono("643342417");
 //        u.setNivelConocimiento("N");
 //        u.setContrasena("contrasena");
 //        u.setProvincia(provincia);
