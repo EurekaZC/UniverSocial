@@ -16,7 +16,8 @@ import pojosastronomia.Excepciones;
 
 /**
  *
- * @author usuario
+ * @author Cristina Zas Perez
+ * @since 1.0
  */
 public class AstronomiaSC {
 

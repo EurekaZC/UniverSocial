@@ -19,13 +19,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import pojosastronomia.Evento;
 import pojosastronomia.Excepciones;
+import pojosastronomia.Mensaje;
 import pojosastronomia.Operaciones;
 import pojosastronomia.Peticion;
+import pojosastronomia.Provincia;
 import pojosastronomia.Respuesta;
+import pojosastronomia.Usuario;
 
 /**
  *
- * @author usuario
+ * @author Cristina Zas Perez
+ * @since 1.0
  */
 public class ManejadorPeticion extends Thread {
     
@@ -117,13 +121,54 @@ public class ManejadorPeticion extends Thread {
             
             switch (p.getIdOperacion()){
                 
-                case Operaciones.LEER_EVENTOS:
-                    leerEventos(p);
+                case Operaciones.LEER_PROVINCIA:
+                    leerProvincia(p);
+                    break;
+                    
+                case Operaciones.LEER_PROVINCIAS:
+                    leerProvincias(p);
                     break;
                 
+                case Operaciones.INSERTAR_USUARIO:
+                    insertarUsuario(p);
+                    break;
+                
+                case Operaciones.ACTUALIZAR_USUARIO:
+                    modificarUsuario(p);
+                    break;
+                    
+                case Operaciones.ELIMINAR_USUARIO:
+                    eliminarUsuario(p);
+                    break;
+                    
+                case Operaciones.LEER_USUARIO:
+                    leerUsuario(p);
+                    break;
+                    
+                case Operaciones.LEER_USUARIOS:
+                    leerUsuarios(p);
+                    break;
+                    
                 case Operaciones.INSERTAR_EVENTO:
                     insertarEvento(p);
                     break;
+                    
+                case Operaciones.LEER_EVENTO:
+                    leerEvento(p);
+                    break;
+                    
+                case Operaciones.LEER_EVENTOS:
+                    leerEventos(p);
+                    break;
+
+                case Operaciones.INSERTAR_MENSAJE:
+                    insertarMensaje(p);
+                    break;
+                    
+                case Operaciones.LEER_MENSAJES:
+                    leerMensajes(p);
+                    break;
+                
             }
             
             clienteConectado.close();
@@ -136,6 +181,166 @@ public class ManejadorPeticion extends Thread {
             manejadorClassNotFoundException(ex);
        }
     }
+    // -------------------------------------------------------------------------- >>> P R O V I N C I A 
+    
+    private void leerProvincia(Peticion p){
+        ObjectOutputStream oos = null;
+        try {
+            CadAstronomia cad = new CadAstronomia();
+            Integer idProvincia = p.getIdEntidad();
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setEntidad(cad.leerProvincia(idProvincia));
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex,oos);
+
+        } catch (Excepciones ex) {
+           manejadorExcepciones(ex);
+        }
+    }
+    
+    private void leerProvincias(Peticion p){
+        
+    ArrayList<Provincia> listaProvincias = new ArrayList();
+    ObjectOutputStream oos = null;
+        try {
+            CadAstronomia cad = new CadAstronomia();
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setEntidad(cad.leerProvincias());
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex,oos);
+
+        } catch (Excepciones ex) {
+           manejadorExcepciones(ex);
+        }
+    }
+    // -------------------------------------------------------------------------- >>> U S U A R I O
+    private void insertarUsuario(Peticion p){
+
+        ObjectOutputStream oos = null;
+        try {
+            Usuario u = (Usuario) p.getEntidad();
+
+            CadAstronomia cad = new CadAstronomia();
+            cad.insertarUsuario(u);
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setCantidad(1);
+
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex, oos);
+
+        } catch (Excepciones ex) {
+            manejadorExcepciones(ex);
+        }
+    }
+    
+    private void modificarUsuario(Peticion p){
+       
+        ObjectOutputStream oos = null;
+        try {
+            Usuario u = (Usuario) p.getEntidad();
+            Integer idUsuario = p.getIdEntidad();
+
+            CadAstronomia cad = new CadAstronomia();
+            cad.modificarUsuario(idUsuario, u);
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setCantidad(1);
+
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex, oos);
+
+        } catch (Excepciones ex) {
+            manejadorExcepciones(ex);
+        }
+    }
+    
+    private void eliminarUsuario(Peticion p){
+       
+        ObjectOutputStream oos = null;
+        try {
+            Integer idUsuario = p.getIdEntidad();
+
+            CadAstronomia cad = new CadAstronomia();
+            cad.eliminarUsuario(idUsuario);
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setCantidad(1);
+
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex, oos);
+
+        } catch (Excepciones ex) {
+            manejadorExcepciones(ex);
+        }
+    }
+    
+    private void leerUsuario(Peticion p) {
+        ObjectOutputStream oos = null;
+        try {
+            CadAstronomia cad = new CadAstronomia();
+            Integer idUsuario = p.getIdEntidad(); // Obtenemos el Id del evento del que se solicita información
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setEntidad(cad.leerUsuario(idUsuario)); // Utilizamos el método leerEvento de la clase CadAstronomia para obtener el evento
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex, oos);
+        } catch (Excepciones ex) {
+            manejadorExcepciones(ex);
+        }
+    }
+    
+    private void leerUsuarios(Peticion p){
+        
+    ArrayList<Usuario> listaUsuarios = new ArrayList();
+    ObjectOutputStream oos = null;
+        try {
+            CadAstronomia cad = new CadAstronomia();
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setEntidad(cad.leerUsuarios());
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex,oos);
+
+        } catch (Excepciones ex) {
+           manejadorExcepciones(ex);
+        }
+    }
+    
+    // -------------------------------------------------------------------------- >>> E V E N T O
    
     private void leerEvento(Peticion p) {
         ObjectOutputStream oos = null;
@@ -241,6 +446,55 @@ public class ManejadorPeticion extends Thread {
             manejadorExcepciones(ex);
         }
     }
+     
+     // -------------------------------------------------------------------------- >>> M E N S A J E
+   private void insertarMensaje(Peticion p){
+
+        ObjectOutputStream oos = null;
+        try {
+            Mensaje mensaje = (Mensaje) p.getEntidad();
+
+            CadAstronomia cad = new CadAstronomia();
+            cad.insertarMensaje(mensaje);
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setCantidad(1);
+
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex, oos);
+
+        } catch (Excepciones ex) {
+            manejadorExcepciones(ex);
+        }
+    }
+   
+    private void leerMensajes(Peticion p){
+
+    ObjectOutputStream oos = null;
+        try {
+            CadAstronomia cad = new CadAstronomia();
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setEntidad(cad.leerMensajes());
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex,oos);
+
+        } catch (Excepciones ex) {
+           manejadorExcepciones(ex);
+        }
+    }
+    
+    
+     
 
     /**
      * Método que implementa el diálogo con el cliente

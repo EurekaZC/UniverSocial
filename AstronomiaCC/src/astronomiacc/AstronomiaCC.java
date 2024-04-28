@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import pojosastronomia.Evento;
 import pojosastronomia.Excepciones;
+import pojosastronomia.Mensaje;
 import pojosastronomia.Operaciones;
 import pojosastronomia.Peticion;
 import pojosastronomia.Provincia;
@@ -210,7 +211,154 @@ public class AstronomiaCC {
         return cantidad;
     }
     
+    public int eliminarUsuario(Integer idUsuario) throws Excepciones{
+        
+        // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.ELIMINAR_USUARIO);
+        p.setIdEntidad(idUsuario); 
+        
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+        int cantidad = 0;
+        
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+            
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+            
+            // cerramos recursos ya que ya tenemos la respuesta 
+            ois.close();
+            oos.close();
+            
+            socketCliente.close();
+            
+            if (r.getCantidad() != null){
+                cantidad = r.getCantidad();
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }    
+        return cantidad;
+    }
+    
+    public Usuario leerUsuario(Integer idUsuario) throws Excepciones {
+    Peticion p = new Peticion();
+    p.setIdOperacion(Operaciones.LEER_USUARIO);
+    p.setIdEntidad(idUsuario); // Le pasamos el id del evento que se desea visualizar
+
+    Respuesta r = null;
+    Usuario usuario = null;
+
+    try {
+        ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+        oos.writeObject(p);
+
+        ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+        r = (Respuesta) ois.readObject();
+
+        ois.close();
+        oos.close();
+
+        socketCliente.close();
+
+        if (r.getEntidad() != null) {
+            usuario = (Usuario) r.getEntidad();
+        } else if (r.getE() != null) {
+            throw r.getE();
+        }
+    } catch (IOException ex) {
+        manejadorIOException(ex);
+    } catch (ClassNotFoundException ex) {
+        manejadorClassNotFoundException(ex);
+    }
+
+    return usuario;
+}
+    
+    public ArrayList<Usuario> leerUsuarios() throws Excepciones {
+
+        // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.LEER_USUARIOS);
+
+        
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+        
+        ArrayList<Usuario> listaUsuarios = null; 
+        
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+            
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+            
+            ois.close();
+            oos.close();
+            
+            socketCliente.close();
+            if (r.getEntidad() != null){
+                listaUsuarios = (ArrayList<Usuario>) r.getEntidad();
+                return listaUsuarios;
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+            
+            
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }    
+        return listaUsuarios;
+    }
     //--------------------------------------------------------------------------------- \ TABLA EVENTO /----------------------------------------------------------------------------------------    
+    
+     public int insertarEvento(Evento e) throws Excepciones{
+        
+        // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.INSERTAR_EVENTO);
+        p.setEntidad(e); // le pasamos el evento que hay que insertar
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+        int cantidad = 0;
+        
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+            
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+            
+            // cerramos recursos ya que ya tenemos la respuesta 
+            ois.close();
+            oos.close();
+            
+            socketCliente.close();
+            
+            if (r.getCantidad() != null){
+                cantidad = r.getCantidad();
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }    
+        return cantidad;
+    }
     
     public Evento leerEvento(Integer idEvento) throws Excepciones {
     Peticion p = new Peticion();
@@ -285,12 +433,14 @@ public class AstronomiaCC {
         return listaEventos;
     }
     
-    public int insertarEvento(Evento e) throws Excepciones{
+     //--------------------------------------------------------------------------------- \ TABLA MENSAJE /----------------------------------------------------------------------------------------
+    
+   public int insertarMensaje(Mensaje mensaje) throws Excepciones{
         
         // Creamos y populamos la peticion
         Peticion p = new Peticion();
-        p.setIdOperacion(Operaciones.INSERTAR_EVENTO);
-        p.setEntidad(e); // le pasamos el evento que hay que insertar
+        p.setIdOperacion(Operaciones.INSERTAR_MENSAJE);
+        p.setEntidad(mensaje); // le pasamos el evento que hay que insertar
         // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
         Respuesta r = null;
         int cantidad = 0;
@@ -321,6 +471,46 @@ public class AstronomiaCC {
         }    
         return cantidad;
     }
+    
+    public ArrayList<Mensaje> leerMensajes() throws Excepciones {
+
+        // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.LEER_MENSAJES);
+
+        
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+        
+        ArrayList<Mensaje> listaMensajes = null; 
+        
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+            
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+            
+            ois.close();
+            oos.close();
+            
+            socketCliente.close();
+            if (r.getEntidad() != null){
+                listaMensajes = (ArrayList<Mensaje>) r.getEntidad();
+                return listaMensajes;
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+            
+            
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }    
+        return listaMensajes;
+    }
+    
 
 
 }
