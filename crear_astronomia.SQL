@@ -149,7 +149,8 @@ CREATE TABLE "ASTRONOMIA"."USUARIO"(
   "TELEFONO" Char(9 ) CONSTRAINT "SYS_C005376" NOT NULL
         CONSTRAINT "CheckConstraint4" CHECK (TELEFONO LIKE '_________'),
   "NIVEL_CONOCIMIENTO" Char(1 ) CONSTRAINT "SYS_C005377" NOT NULL,
-  "CONTRASENA" Char(64 ) CONSTRAINT "SYS_C005378" NOT NULL
+  "CONTRASENA" Char(64 ) CONSTRAINT "SYS_C005378" NOT NULL,
+  "ESTA_BORRADO" Char(1 ) CONSTRAINT "SYS_C005379" NOT NULL DEFAULT '0'
 )
 /
 
@@ -208,6 +209,21 @@ BEGIN
     p_id_number
   );
 END INSERTAR_USUARIO;
+/
+
+CREATE PROCEDURE "ASTRONOMIA"."BORRAR_USUARIO"(IN _idUsuario INT(11))
+BEGIN
+    IF (SELECT ID_USUARIO FROM usuario WHERE ID_USUARIO = _idUsuario)
+    THEN
+        SIGNAL SQLSTATE '45000'
+                  SET MESSAGE_TEXT = 'No existe un elemento con ese Id',
+                        MYSQL_ERRNO = 100;
+    END IF;
+
+    UPDATE USUARIO
+    SET ESTA_BORRADO = '1'
+    WHERE ID_USUARIO = _idUsuario;
+END;
 /
 
 -- Create triggers section -------------------------------------------------
