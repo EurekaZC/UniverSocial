@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1C1C3C"
+    android:padding="16dp">
+
+    <!-- Imagen de retorno en la esquina superior izquierda -->
+    <ImageView
+        android:id="@+id/returnButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/back"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="8dp"
+        android:contentDescription="Volver"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/returnButton"
+        android:layout_marginTop="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/rounded_corner_background"
+            android:layout_margin="16dp">
+
+            <EditText
+                android:id="@+id/editTextNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/editTextApellido1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Primer apellido"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/editTextApellido2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Segundo apellido (opcional)"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/editTextMovil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nº móvil"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:inputType="phone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Género"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textSize="20sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupGenero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <RadioButton
+                    android:id="@+id/radioHombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hombre"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:id="@+id/radioMujer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mujer"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:id="@+id/radioOtro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Otro"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/editTextConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirmar contraseña"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:inputType="textPassword" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Para una mejor experiencia en nuestra plataforma, necesitamos
+                                un poco más de información. Ya casi hemos terminado."
+                android:textColor="#c2c2c2"
+                android:textSize="16sp"
+                android:layout_marginBottom="12dp"
+                android:gravity="left" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nivel de conocimiento"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupConocimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <RadioButton
+                    android:id="@+id/radioNovato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Novato"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:id="@+id/radioAvanzado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Avanzado"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:id="@+id/radioExperto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Experto"
+                    android:textColor="#FFFFFF" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/editTextComunidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Comunidad"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/editTextProvincia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Provincia"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp" />
+
+            <Button
+                android:id="@+id/btnRegistrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registrarse"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_background"
+                android:textColor="#FFFFFF"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
