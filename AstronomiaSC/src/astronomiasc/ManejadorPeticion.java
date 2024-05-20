@@ -38,79 +38,7 @@ public class ManejadorPeticion extends Thread {
     public ManejadorPeticion(Socket clienteConectado) {
         this.clienteConectado = clienteConectado;
     }
-    
-    private void manejadorIOExceptionOIS(IOException ex, ObjectInputStream ois){
-         System.out.println(ex);
-//            if (ois != null) {
-//                Excepciones e = new Excepciones();
-//                e.setMensajeUsuario("Error en la comunicación. Consulte con el administrador.");
-//                e.setMensajeErrorBd(ex.getMessage());
-//                Respuesta r = new Respuesta();
-//                r.setE(e);
-//                try {
-//                    ObjectOutputStream oos = new ObjectOutputStream(clienteConectado.getOutputStream());
-//                    oos.writeObject(r);
-//                    oos.close();
-//                } catch (IOException ex1) {
-//                    System.out.println(ex1);
-//                }
-//            }
-    }
-    
-    private void manejadorIOExceptionOOS(IOException ex, ObjectOutputStream oos){
-         System.out.println(ex);
-//            if (oos != null) {
-//                Excepciones e = new Excepciones();
-//                e.setMensajeUsuario("Error en la comunicación. Consulte con el administrador.");
-//                e.setMensajeErrorBd(ex.getMessage());
-//                Respuesta r = new Respuesta();
-//                r.setE(e);
-//                try {
-//                    ObjectOutputStream oos2 = new ObjectOutputStream(clienteConectado.getOutputStream());
-//                    oos2.writeObject(r);
-//                    oos2.close();
-//                } catch (IOException ex1) {
-//                    System.out.println(ex1);
-//                }
-//            }
-    }
-    
-    private void manejadorClassNotFoundException(ClassNotFoundException ex){
-        System.out.println(ex);
-        
-        Excepciones e = new Excepciones();
-        e.setMensajeUsuario("Error en la comunicación. Consulte con el administrador.");
-        e.setMensajeErrorBd(ex.getMessage());
-        Respuesta r = new Respuesta();
-        r.setE(e);
-        
-        ObjectOutputStream oos = null;
-        try{
-            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
-                    oos.writeObject(r);
-                    oos.close();
-        } catch (IOException ex1) {
-           manejadorIOExceptionOOS(ex1, oos);
-        }
-    }
-    
-    private void manejadorExcepciones(Excepciones ex){
-        System.out.println(ex);
-    
-        Respuesta r = new Respuesta();
-        r.setE(ex);
-        
-        ObjectOutputStream oos = null;
-        try {
-            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
-            oos.writeObject(r);
-            oos.close();
-            clienteConectado.close();
-        } catch (IOException ex1) {
-            manejadorIOExceptionOOS(ex1, oos);
-        }
-    }
-    
+
     @Override
     public void run() {;
         ObjectInputStream ois = null;
@@ -181,6 +109,7 @@ public class ManejadorPeticion extends Thread {
             manejadorClassNotFoundException(ex);
        }
     }
+
     // -------------------------------------------------------------------------- >>> P R O V I N C I A 
     
     private void leerProvincia(Peticion p){
@@ -320,8 +249,7 @@ public class ManejadorPeticion extends Thread {
     }
     
     private void leerUsuarios(Peticion p){
-        
-    ArrayList<Usuario> listaUsuarios = new ArrayList();
+
     ObjectOutputStream oos = null;
         try {
             CadAstronomia cad = new CadAstronomia();
@@ -362,47 +290,7 @@ public class ManejadorPeticion extends Thread {
     }
 
     private void leerEventos(Peticion p){
-        
-        ArrayList<Evento> listaEventos = new ArrayList();
-        
-       
-            //        // Vamos a harcodear datos para ver que funciona
-//        Evento e = new Evento();
-//        e.setIdEvento(1);
-//        e.setNombre("Prueba");
-//        e.setTipo("prueba");
-//        e.setDescripcion("esto es una prueba");
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//
-//        Date fechaInicio;
-//        Date fechaFinal;
-//        try {
-//            fechaInicio = sdf.parse("2023-01-01");
-//            fechaFinal = sdf.parse("2023-01-05");
-//            e.setInicio(fechaInicio);
-//            e.setFinalEvento(fechaFinal);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(ManejadorPeticion.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        Evento ev = new Evento();
-//        ev.setIdEvento(1);
-//        ev.setNombre("kk");
-//        ev.setTipo("kk");
-//        ev.setDescripcion("kkkkkkk");
-//
-//        try {
-//            fechaInicio = sdf.parse("2020-01-02");
-//            fechaFinal = sdf.parse("2020-01-03");
-//            e.setInicio(fechaInicio);
-//            e.setFinalEvento(fechaFinal);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(ManejadorPeticion.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        listaEventos.add(e);
-//        listaEventos.add(ev);
-    ObjectOutputStream oos = null;
+        ObjectOutputStream oos = null;
         try {
             CadAstronomia cad = new CadAstronomia();
 
@@ -420,10 +308,7 @@ public class ManejadorPeticion extends Thread {
         }
     }
     
-    
      private void insertarEvento(Peticion p){
-        
-       
         ObjectOutputStream oos = null;
         try {
             Evento e = (Evento) p.getEntidad();
@@ -449,7 +334,6 @@ public class ManejadorPeticion extends Thread {
      
      // -------------------------------------------------------------------------- >>> M E N S A J E
    private void insertarMensaje(Peticion p){
-
         ObjectOutputStream oos = null;
         try {
             Mensaje mensaje = (Mensaje) p.getEntidad();
@@ -474,7 +358,6 @@ public class ManejadorPeticion extends Thread {
     }
    
     private void leerMensajes(Peticion p){
-
     ObjectOutputStream oos = null;
         try {
             CadAstronomia cad = new CadAstronomia();
@@ -492,37 +375,78 @@ public class ManejadorPeticion extends Thread {
            manejadorExcepciones(ex);
         }
     }
-    
-    
-     
 
-    /**
-     * Método que implementa el diálogo con el cliente
-     * @param clienteConectado Socket que se usa para realizar la comunicación con el cliente
-    */
-//    public static void gestionarDialogo(Socket clienteConectado) {
-//        try {
-//            ObjectInputStream ois = new ObjectInputStream(clienteConectado.getInputStream());
-//            String nombre = (String) ois.readObject();
-//            System.out.println("Nombre recibido del Cliente: " + nombre);
-//            
-//            System.out.println("El servidor responde al cliente" + nombre);
-//            ObjectOutputStream oos = new ObjectOutputStream(clienteConectado.getOutputStream());
-//            oos.writeObject("Hola Don " + nombre);
-//            Thread.sleep(5000);
-//            ObjectOutputStream oos2 = new ObjectOutputStream(clienteConectado.getOutputStream());
-//            oos2.writeObject("Adios Don " + nombre);
-//            
-//            ois.close();
-//            oos.close();
-//            oos2.close();
-//        } catch (IOException ex) {
-//            System.out.println(ex.getMessage());
-//        } catch (ClassNotFoundException ex) {
-//            System.out.println(ex.getMessage());
-//            Logger.getLogger(AstronomiaSC.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(AstronomiaSC.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+// ----------------------------------------\ EXCEPCIONES /----------------------------------------------------------
+    private void manejadorIOExceptionOIS(IOException ex, ObjectInputStream ois){
+        System.out.println(ex);
+//            if (ois != null) {
+//                Excepciones e = new Excepciones();
+//                e.setMensajeUsuario("Error en la comunicación. Consulte con el administrador.");
+//                e.setMensajeErrorBd(ex.getMessage());
+//                Respuesta r = new Respuesta();
+//                r.setE(e);
+//                try {
+//                    ObjectOutputStream oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+//                    oos.writeObject(r);
+//                    oos.close();
+//                } catch (IOException ex1) {
+//                    System.out.println(ex1);
+//                }
+//            }
+    }
+
+    private void manejadorIOExceptionOOS(IOException ex, ObjectOutputStream oos){
+        System.out.println(ex);
+//            if (oos != null) {
+//                Excepciones e = new Excepciones();
+//                e.setMensajeUsuario("Error en la comunicación. Consulte con el administrador.");
+//                e.setMensajeErrorBd(ex.getMessage());
+//                Respuesta r = new Respuesta();
+//                r.setE(e);
+//                try {
+//                    ObjectOutputStream oos2 = new ObjectOutputStream(clienteConectado.getOutputStream());
+//                    oos2.writeObject(r);
+//                    oos2.close();
+//                } catch (IOException ex1) {
+//                    System.out.println(ex1);
+//                }
+//            }
+    }
+
+    private void manejadorClassNotFoundException(ClassNotFoundException ex){
+        System.out.println(ex);
+
+        Excepciones e = new Excepciones();
+        e.setMensajeUsuario("Error en la comunicación. Consulte con el administrador.");
+        e.setMensajeErrorBd(ex.getMessage());
+        Respuesta r = new Respuesta();
+        r.setE(e);
+
+        ObjectOutputStream oos = null;
+        try{
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+        } catch (IOException ex1) {
+            manejadorIOExceptionOOS(ex1, oos);
+        }
+    }
+
+    private void manejadorExcepciones(Excepciones ex){
+        System.out.println(ex);
+
+        Respuesta r = new Respuesta();
+        r.setE(ex);
+
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+            clienteConectado.close();
+        } catch (IOException ex1) {
+            manejadorIOExceptionOOS(ex1, oos);
+        }
+    }
+
 }

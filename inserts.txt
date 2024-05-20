@@ -22,16 +22,16 @@ VALUES (3, 'Conjunción de Júpiter y Saturno', 'Conjuncion planetaria', TO_DATE
 
 -- Insert USUARIO section ---------------------------
 -- Inserción 1
-INSERT INTO "USUARIO" ("ID_USUARIO", "ID_PROVINCIA", "NOMBRE", "APE1", "APE2", "GENERO", "EMAIL", "TELEFONO", "NIVEL_CONOCIMIENTO", "CONTRASENA")
-VALUES (1, 1, 'Carmen', 'Pérez', 'Gómez', 'M', 'carmentxu@gmail.com', '123456789', 'E', 'A1B2C3D4E5F6');
+INSERT INTO "USUARIO" ("ID_USUARIO", "ID_PROVINCIA", "NOMBRE", "APE1", "APE2", "GENERO", "EMAIL", "TELEFONO", "NIVEL_CONOCIMIENTO", "CONTRASENA", "ESTA_BORRADO")
+VALUES (1, 1, 'Carmen', 'Pérez', 'Gómez', 'M', 'carmentxu@gmail.com', '123456789', 'E', 'A1B2C3D4E5F6', '0');
 
 -- Inserción 2
-INSERT INTO "USUARIO" ("ID_USUARIO", "ID_PROVINCIA", "NOMBRE", "APE1", "APE2", "GENERO", "EMAIL", "TELEFONO", "NIVEL_CONOCIMIENTO", "CONTRASENA")
-VALUES (2, 2, 'María', 'García', 'López', 'M', 'maria@outlook.com', '987654321', 'A', 'G7H8I9J0K1L2M3');
+INSERT INTO "USUARIO" ("ID_USUARIO", "ID_PROVINCIA", "NOMBRE", "APE1", "APE2", "GENERO", "EMAIL", "TELEFONO", "NIVEL_CONOCIMIENTO", "CONTRASENA", "ESTA_BORRADO")
+VALUES (2, 2, 'María', 'García', 'López', 'M', 'maria@outlook.com', '987654321', 'A', 'G7H8I9J0K1L2M3', '1');
 
 -- Inserción 3
-INSERT INTO "USUARIO" ("ID_USUARIO", "ID_PROVINCIA", "NOMBRE", "APE1", "APE2", "GENERO", "EMAIL", "TELEFONO", "NIVEL_CONOCIMIENTO", "CONTRASENA")
-VALUES (3, 3, 'Carlos', 'Rodríguez', '', 'H', 'carlos@gmail.com', '555475895', 'N', 'N4A5E6');
+INSERT INTO "USUARIO" ("ID_USUARIO", "ID_PROVINCIA", "NOMBRE", "APE1", "APE2", "GENERO", "EMAIL", "TELEFONO", "NIVEL_CONOCIMIENTO", "CONTRASENA", "ESTA_BORRADO")
+VALUES (3, 3, 'Carlos', 'Rodríguez', '', 'H', 'carlos@gmail.com', '555475895', 'N', 'N4A5E6'), '0';
 
 -- Insert MENSAJE section ----------------------------
 
