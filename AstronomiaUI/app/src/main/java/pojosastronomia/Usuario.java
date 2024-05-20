@@ -13,7 +13,6 @@ public class Usuario implements Serializable{
     public static final long serialVersionUID = 8L;
     private Integer idUsuario;
     private String nombre, ape1, ape2, genero, email, telefono, nivelConocimiento, contrasena;
-    private boolean estaBorrado;
     private Provincia provincia;
     
     // CONSTRUCTOR ---------------------------------------------------------------------
@@ -21,7 +20,7 @@ public class Usuario implements Serializable{
         
     }
 
-    public Usuario(Integer idUsuario, String nombre, String ape1, String ape2, String genero, String email, String telefono, String nivelConocimiento, String contrasena, boolean estaBorrado, Provincia provincia) {
+    public Usuario(Integer idUsuario, String nombre, String ape1, String ape2, String genero, String email, String telefono, String nivelConocimiento, String contrasena, Provincia provincia) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.ape1 = ape1;
@@ -31,7 +30,6 @@ public class Usuario implements Serializable{
         this.telefono = telefono;
         this.nivelConocimiento = nivelConocimiento;
         this.contrasena = contrasena;
-        this.estaBorrado = estaBorrado;
         this.provincia = provincia;
     }
     
@@ -71,8 +69,6 @@ public class Usuario implements Serializable{
     public String getContrasena() {
         return contrasena;
     }
-
-    public boolean getEstaBorrado(){ return estaBorrado; }
 
     public Provincia getProvincia() {
         return provincia;
@@ -114,8 +110,6 @@ public class Usuario implements Serializable{
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-
-    public void setEstaBorrado(boolean estaBorrado) { this.estaBorrado = estaBorrado; }
 
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;

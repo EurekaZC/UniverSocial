@@ -31,13 +31,11 @@ public class AstronomiaSC {
 
             while (true) {
 
-//                 System.out.println("Servidor.Consola - El servidor se queda a la espera de algún cliente establezca conexión con el servidor");
                 Socket clienteConectado = socketServidor.accept();
                 ManejadorPeticion mp = new ManejadorPeticion(clienteConectado);
                 mp.start(); // lanza el hilo sin terminar el hilo principal, que sería el main
 
             }
-
 //            clienteConectado.close();
 //            socketServidor.close();
         } catch (IOException ex) {

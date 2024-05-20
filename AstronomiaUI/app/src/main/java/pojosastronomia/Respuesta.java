@@ -2,6 +2,7 @@
 package pojosastronomia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,16 +14,17 @@ public class Respuesta implements Serializable{
     Integer idOperacion;
     Integer cantidad;
     Object entidad;
-
+    ArrayList<Object> listaEntidades; // hay que quitar esto
     Excepciones e;
 
     public Respuesta() {
     }
 
-    public Respuesta(Integer idOperacion, Integer cantidad, Object entidad, Excepciones e) {
+    public Respuesta(Integer idOperacion, Integer cantidad, Object entidad, ArrayList<Object> listaEntidades, Excepciones e) {
         this.idOperacion = idOperacion;
         this.cantidad = cantidad;
         this.entidad = entidad;
+        this.listaEntidades = listaEntidades;
         this.e = e;
     }
 
@@ -50,6 +52,14 @@ public class Respuesta implements Serializable{
         this.entidad = entidad;
     }
 
+    public ArrayList<Object> getListaEntidades() {
+        return listaEntidades;
+    }
+
+    public void setListaEntidades(ArrayList<Object> listaEntidades) {
+        this.listaEntidades = listaEntidades;
+    }
+
     public Excepciones getE() {
         return e;
     }
@@ -60,7 +70,7 @@ public class Respuesta implements Serializable{
 
     @Override
     public String toString() {
-        return "Respuesta{" + "idOperacion=" + idOperacion + ", cantidad=" + cantidad + ", entidad=" + entidad + ", e=" + e + '}';
+        return "Respuesta{" + "idOperacion=" + idOperacion + ", cantidad=" + cantidad + ", entidad=" + entidad + ", listaEntidades=" + listaEntidades + ", e=" + e + '}';
     }
     
 }

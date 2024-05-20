@@ -21,7 +21,7 @@ import pojosastronomia.Provincia;
 import pojosastronomia.Usuario;
 
 /**
- * Los métodos de gestión del componente de acceso a datos
+ * Métodos de gestión del componente de acceso a datos
  *
  * @author Cristina Zas Perez
  * @version 1.0
@@ -30,7 +30,7 @@ public class CadAstronomia {
 
     Connection conexion;
 
-    // ---------------------------------------------------------------------- \ CONSTRUCTOR/ ------------------------------------------
+    // --------------------------------------------------------- \ CONSTRUCTOR/ ------------------------------------------
     /**
      * Constructor vacío de la clase de CadAstronomía
      *
@@ -68,7 +68,7 @@ public class CadAstronomia {
 
     }
 
-    // ------------------------------------------------------- \ TABLA PROVINCIA /-----------------------------------------------------------------
+    // ------------------------------------------------------- \ TABLA PROVINCIA /-------------------------------------------------------
     /**
      * Lee una provincia desde la base de datos utilizando su identificador
      * único.
@@ -221,9 +221,7 @@ public class CadAstronomia {
 
             }
             throw e;
-
         }
-
     }
 
     /**
@@ -308,7 +306,7 @@ public class CadAstronomia {
      */
     public int eliminarUsuario(Integer idUsuario) throws Excepciones { // ---------------------------------------------------------------------------------------------------------------------------------------
         conectar();
-        int registrosAfectados = 0;
+        /*int registrosAfectados = 0;
         String dml = "delete from USUARIO where ID_USUARIO=?";
         try {
             PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
@@ -336,7 +334,39 @@ public class CadAstronomia {
             }
             throw e;
         }
-        return registrosAfectados;
+        return registrosAfectados;*/
+        String llamada = "call borrar_usuario(?)";
+        try {
+
+            CallableStatement sentenciaLlamable = conexion.prepareCall(llamada);
+
+            sentenciaLlamable.setInt(1, idUsuario);
+
+            sentenciaLlamable.executeUpdate();
+
+            sentenciaLlamable.close();
+            conexion.close();
+
+        } catch (SQLException ex) {
+
+            Excepciones e = new Excepciones();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorBd(ex.getMessage());
+            e.setSentenciaSQL(llamada);
+
+            switch (ex.getErrorCode()) {
+
+                case 45000: //no se encuentra el id del usuario
+                    e.setMensajeUsuario("El usuario seleccionado no existe.");
+                    break;
+
+                default:
+                    e.setMensajeUsuario("Error general en el sistema, contacte con el administrador.");
+
+            }
+            throw e;
+        }
+        return 1;
     }
 
     /**
@@ -371,6 +401,7 @@ public class CadAstronomia {
                 usuario.setEmail(resultado.getString("EMAIL"));
                 usuario.setTelefono(resultado.getString("TELEFONO"));
                 usuario.setNivelConocimiento(resultado.getString("NIVEL_CONOCIMIENTO"));
+                usuario.setEstaBorrado(resultado.getString("ESTA_BORRADO"));
                 //tambien tenemos que popular la tabla de la clave foranea, por lo que creamos el objeto y demas
                 Provincia p = new Provincia();
                 p.setIdProvincia(((BigDecimal) resultado.getObject("ID_PROVINCIA")).intValue());
@@ -424,6 +455,7 @@ public class CadAstronomia {
                 u.setEmail(resultado.getString("EMAIL"));
                 u.setTelefono(resultado.getString("TELEFONO"));
                 u.setNivelConocimiento(resultado.getString("NIVEL_CONOCIMIENTO"));
+                u.setEstaBorrado(resultado.getString("ESTA_BORRADO"));
                 //tambien tenemos que popular la tabla de la clave foranea, por lo que creamos el objeto y demas
                 Provincia p = new Provincia();
                 p.setIdProvincia(((BigDecimal) resultado.getObject("ID_PROVINCIA")).intValue());
@@ -671,7 +703,7 @@ public class CadAstronomia {
                 ev.setFinalEvento(resultado.getDate("FINAL"));
 
             }
-            // recomendado leer con getObject por si tenemos not nulls, nos van a llegar nulls
+
             resultado.close();
             sentencia.close();
             conexion.close();
@@ -717,10 +749,8 @@ public class CadAstronomia {
                 e.setInicio(resultado.getDate("INICIO"));
                 e.setFinalEvento(resultado.getDate("FINAL"));
 
-                // Una vez hemos populado todos los datos, toca añadir el usuario al ArrayList 
                 listaEventos.add(e);
             }
-            // recomendado leer con getObject por si tenemos not nulls, nos van a llegar nulls
             resultado.close();
             sentencia.close();
             conexion.close();
@@ -760,25 +790,25 @@ public class CadAstronomia {
 
         sentenciaPreparada.close();
         conexion.close();
-    } catch (SQLException ex) {
-        Excepciones e = new Excepciones();
-        e.setCodigoErrorBd(ex.getErrorCode());
-        e.setMensajeErrorBd(ex.getMessage());
-        e.setSentenciaSQL(dml);
+        } catch (SQLException ex) {
+            Excepciones e = new Excepciones();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorBd(ex.getMessage());
+            e.setSentenciaSQL(dml);
 
-        switch (ex.getErrorCode()) {
-            case 1407:
-                e.setMensajeUsuario("El mensaje no puede estar vacío.");
-                break;
-            case 1:
-                e.setMensajeUsuario("Error al insertar el mensaje.");
-                break;
-            default:
-                e.setMensajeUsuario("Error general en el sistema, contacte con el administrador.");
+            switch (ex.getErrorCode()) {
+                case 1407:
+                    e.setMensajeUsuario("El mensaje no puede estar vacío.");
+                    break;
+                case 1:
+                    e.setMensajeUsuario("Error al insertar el mensaje.");
+                    break;
+                default:
+                    e.setMensajeUsuario("Error general en el sistema, contacte con el administrador.");
+            }
+            throw e;
         }
-        throw e;
     }
-}
  
     /**
      * Lee todos los mensajes almacenados en la base de datos junto con la
@@ -837,20 +867,20 @@ public class CadAstronomia {
         sentencia.close();
         conexion.close();
         
-    } catch (SQLException ex) {
-        
-        Excepciones e = new Excepciones();
-        e.setCodigoErrorBd(ex.getErrorCode());
-        e.setMensajeErrorBd(ex.getMessage());
-        e.setSentenciaSQL(dql);
-        e.setMensajeUsuario("Error general del sistema. Consulte con el administrador");
-        throw e;
-        
+        } catch (SQLException ex) {
+
+            Excepciones e = new Excepciones();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorBd(ex.getMessage());
+            e.setSentenciaSQL(dql);
+            e.setMensajeUsuario("Error general del sistema. Consulte con el administrador");
+            throw e;
+
+        }
+
+        return listaMensajes;
+
     }
-    
-    return listaMensajes;
-    
-}
 
 
     
