@@ -152,12 +152,12 @@ public class simuladorAndroid {
 //        Provincia provincia = new Provincia(2, "cantabria", "cantabria");
 //        Usuario u = new Usuario();
 //        
-//        u.setNombre("Cristina");
+//        u.setNombre("jejejeje");
 //        u.setApe1("Zas");
 //        u.setApe2("Perez");
 //        u.setGenero("M");
-//        u.setEmail("cristiniponciiiiii@gmail.com");
-//        u.setTelefono("634503576");
+//        u.setEmail("comotroleasamigoi@gmail.com");
+//        u.setTelefono("444503576");
 //        u.setNivelConocimiento("N");
 //        u.setContrasena("contrasena");
 //        u.setProvincia(provincia);
