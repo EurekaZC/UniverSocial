@@ -8,7 +8,27 @@
 <!--        android:right="16dp"-->
 <!--        android:bottom="10dp"/>-->
 <!--</shape>-->
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#5C6BC0"/>
-    <corners android:radius="8dp"/>
-</shape>
+
+
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <solid android:color="#5C6BC0"/>-->
+<!--    <corners android:radius="8dp"/>-->
+<!--</shape>-->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="#5C6BC0"/> <!-- Color más oscuro al presionar -->
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#5C6BC0"
+                android:endColor="#8E99F3"
+                android:angle="90"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+</selector>

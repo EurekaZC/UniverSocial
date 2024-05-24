@@ -3,10 +3,12 @@ package com.example.universocialui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.universocialui.R;
@@ -32,7 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
         EditText editTextPassword = findViewById(R.id.editTextPassword);
         EditText editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         RadioGroup radioGroupConocimiento = findViewById(R.id.radioGroupConocimiento);
-        EditText editTextComunidad = findViewById(R.id.editTextComunidad);
+        Spinner spinnerComunidad = findViewById(R.id.spinnerComunidad);
+        Spinner spinnerProvincia = findViewById(R.id.spinnerProvincia);
         Button btnRegistrar = findViewById(R.id.btnRegistrar);
 
         returnButton.setOnClickListener(new View.OnClickListener() {
@@ -44,10 +47,20 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // Inicializar los Spinners
+        ArrayAdapter<CharSequence> comunidadAdapter = ArrayAdapter.createFromResource(this,
+                R.array.comunidades_array, android.R.layout.simple_spinner_item);
+        comunidadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerComunidad.setAdapter(comunidadAdapter);
+
+        ArrayAdapter<CharSequence> provinciaAdapter = ArrayAdapter.createFromResource(this,
+                R.array.provincias_array, android.R.layout.simple_spinner_item);
+        provinciaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerProvincia.setAdapter(provinciaAdapter);
+
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AstronomiaCC cliente = null;
                 // Recopilar datos de los campos de entrada
                 String nombre = editTextNombre.getText().toString();
                 String apellido1 = editTextApellido1.getText().toString();
@@ -56,9 +69,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String confirmPassword = editTextConfirmPassword.getText().toString();
-                String comunidad = editTextComunidad.getText().toString();
+                String comunidad = spinnerComunidad.getSelectedItem().toString();
+                String provincia = spinnerProvincia.getSelectedItem().toString();
 
                 int selectedGeneroId = radioGroupGenero.getCheckedRadioButtonId();
+                int selectedConocimientoId = radioGroupConocimiento.getCheckedRadioButtonId();
+
                 String genero = "";
                 if (selectedGeneroId == R.id.radioHombre) {
                     genero = "Hombre";
@@ -70,7 +86,6 @@ public class RegisterActivity extends AppCompatActivity {
                     genero = "No especificado";
                 }
 
-                int selectedConocimientoId = radioGroupConocimiento.getCheckedRadioButtonId();
                 String conocimiento = "";
                 if (selectedConocimientoId == R.id.radioNovato) {
                     conocimiento = "Novato";
@@ -82,41 +97,15 @@ public class RegisterActivity extends AppCompatActivity {
                     conocimiento = "No especificado";
                 }
 
-                // Validar que las contraseñas coinciden
+                // Validar que las contraseñas coincidan
                 if (!password.equals(confirmPassword)) {
                     Toast.makeText(RegisterActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Crear objeto Provincia (aquí asumimos que comunidad es el nombre de la provincia)
-                Provincia provincia = new Provincia(2, comunidad, comunidad);
-
-                // Crear objeto Usuario y asignar los valores
-                Usuario usuario = new Usuario();
-                usuario.setNombre(nombre);
-                usuario.setApe1(apellido1);
-                usuario.setApe2(apellido2);
-                usuario.setGenero(genero);
-                usuario.setEmail(email);
-                usuario.setTelefono(movil);
-                usuario.setNivelConocimiento(conocimiento);
-                usuario.setContrasena(password);
-                usuario.setProvincia(provincia);
-
-                // Guardar el usuario en la base de datos
-                try {
-                cliente.insertarUsuario(usuario);
-                } catch (Excepciones e) {
-                        throw new RuntimeException(e);
-                }
-
-                // Mostrar mensaje de confirmación
+                // Aquí puedes agregar la lógica para registrar al usuario con los datos recopilados
+                // Por ahora, mostraremos un mensaje de confirmación
                 Toast.makeText(RegisterActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
-
-                // Redirigir al usuario a la pantalla de inicio
-                Intent intent = new Intent(RegisterActivity.this, SplashActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
     }

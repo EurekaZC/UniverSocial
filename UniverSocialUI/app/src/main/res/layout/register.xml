@@ -2,14 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1C3C"
+    android:background="@drawable/background_stars"
     android:padding="16dp">
 
-    <!-- Imagen de retorno en la esquina superior izquierda -->
     <ImageView
         android:id="@+id/returnButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/back"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -30,47 +29,76 @@
             android:background="@drawable/rounded_corner_background"
             android:layout_margin="16dp">
 
+            <!-- Campo Nombre -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/editTextNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp" />
 
+            <!-- Campo Apellido 1 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Primer Apellido"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/editTextApellido1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Primer apellido"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp" />
 
+            <!-- Campo Apellido 2 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Segundo Apellido"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/editTextApellido2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Segundo apellido (opcional)"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp" />
 
+            <!-- Campo Móvil -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nº móvil"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/editTextMovil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nº móvil"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
                 android:inputType="phone" />
 
+            <!-- Texto para Género -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,6 +122,8 @@
                     android:layout_height="wrap_content"
                     android:text="Hombre"
                     android:textSize="18sp"
+                    android:buttonTint="@color/white"
+                    android:background="?attr/selectableItemBackground"
                     android:textColor="#FFFFFF" />
 
                 <RadioButton
@@ -102,6 +132,8 @@
                     android:layout_height="wrap_content"
                     android:text="Mujer"
                     android:textSize="18sp"
+                    android:buttonTint="@color/white"
+                    android:background="?attr/selectableItemBackground"
                     android:textColor="#FFFFFF" />
 
                 <RadioButton
@@ -110,42 +142,66 @@
                     android:layout_height="wrap_content"
                     android:text="Otro"
                     android:textSize="18sp"
+                    android:buttonTint="@color/white"
+                    android:background="?attr/selectableItemBackground"
                     android:textColor="#FFFFFF" />
             </RadioGroup>
 
+            <!-- Campo Email -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
                 android:inputType="textEmailAddress" />
 
+            <!-- Campo Contraseña -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contraseña"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contraseña"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
                 android:inputType="textPassword" />
 
+            <!-- Campo Confirmar Contraseña -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirmar contraseña"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
             <EditText
                 android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirmar contraseña"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
                 android:inputType="textPassword" />
 
+            <!-- Línea de separación -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -162,6 +218,7 @@
                 android:layout_marginBottom="12dp"
                 android:gravity="left" />
 
+            <!-- Línea de separación -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -190,42 +247,60 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Novato"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="@drawable/radio_button_selector"
+                    android:buttonTint="@drawable/radio_button_selector"
+                    android:background="?attr/selectableItemBackground" />
 
                 <RadioButton
                     android:id="@+id/radioAvanzado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Avanzado"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="@drawable/radio_button_selector"
+                    android:buttonTint="@drawable/radio_button_selector"
+                    android:background="?attr/selectableItemBackground" />
 
                 <RadioButton
                     android:id="@+id/radioExperto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Experto"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="@drawable/radio_button_selector"
+                    android:buttonTint="@drawable/radio_button_selector"
+                    android:background="?attr/selectableItemBackground" />
             </RadioGroup>
 
-            <EditText
-                android:id="@+id/editTextComunidad"
+            <!-- Campo Comunidad -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Comunidad"
+                android:text="Comunidad"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
+            <Spinner
+                android:id="@+id/spinnerComunidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_background"
                 android:layout_marginBottom="16dp"
-                android:padding="12dp" />
+                android:padding="12dp"/>
 
-            <EditText
-                android:id="@+id/editTextProvincia"
+            <!-- Campo Provincia -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Provincia"
+                android:text="Provincia"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
+            <Spinner
+                android:id="@+id/spinnerProvincia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner_background"
                 android:layout_marginBottom="16dp"
-                android:padding="12dp" />
+                android:padding="12dp"/>
 
             <Button
                 android:id="@+id/btnRegistrar"

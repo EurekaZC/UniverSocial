@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1C3C"
+    android:background="@drawable/background_stars"
     android:padding="16dp"
     tools:context=".login.LoginActivity">
 
     <ImageView
         android:id="@+id/returnButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/back"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"

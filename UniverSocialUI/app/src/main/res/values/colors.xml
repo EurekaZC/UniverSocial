@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+<!--    <color name="background_color">#EDEDED</color> &lt;!&ndash; fondo gris claro &ndash;&gt;-->
+<!--    <color name="button_background">#5C6BC0</color> &lt;!&ndash; fondo púrpura para botones &ndash;&gt;-->
+    <color name="background_dark">#0B0B2D</color>
+    <color name="background_color">#1C1C3C</color>
+    <color name="button_background">#5C6BC0</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="blue">#03A9F4</color>
 </resources>
