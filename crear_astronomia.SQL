@@ -150,7 +150,7 @@ CREATE TABLE "ASTRONOMIA"."USUARIO"(
         CONSTRAINT "CheckConstraint4" CHECK (TELEFONO LIKE '_________'),
   "NIVEL_CONOCIMIENTO" Char(1 ) CONSTRAINT "SYS_C005377" NOT NULL,
   "CONTRASENA" Char(64 ) CONSTRAINT "SYS_C005378" NOT NULL,
-  "ESTA_BORRADO" Char(1 ) CONSTRAINT "SYS_C005379" NOT NULL DEFAULT '0'
+  "ESTA_BORRADO" Char(1) DEFAULT '0' CONSTRAINT "SYS_C005379" NOT NULL
 )
 /
 
@@ -227,7 +227,7 @@ END;
 /
 
 -- Create triggers section -------------------------------------------------
--- Trigger 1: TRG_RESTRINGIR_NUMERO_HOMBRES
+/*-- Trigger 1: TRG_RESTRINGIR_NUMERO_HOMBRES
 CREATE OR REPLACE TRIGGER TRG_RESTRINGIR_NUMERO_HOMBRES
 BEFORE INSERT OR UPDATE ON ASTRONOMIA.USUARIO
 FOR EACH ROW
@@ -277,6 +277,7 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20003, 'Se ha alcanzado el límite máximo de eventos para esta fecha.');
 END;
 /
+*/
 
 -- Create foreign keys (relationships) section ------------------------------------------------- 
 

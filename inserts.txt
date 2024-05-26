@@ -31,7 +31,7 @@ VALUES (2, 2, 'María', 'García', 'López', 'M', 'maria@outlook.com', '98765432
 
 -- Inserción 3
 INSERT INTO "USUARIO" ("ID_USUARIO", "ID_PROVINCIA", "NOMBRE", "APE1", "APE2", "GENERO", "EMAIL", "TELEFONO", "NIVEL_CONOCIMIENTO", "CONTRASENA", "ESTA_BORRADO")
-VALUES (3, 3, 'Carlos', 'Rodríguez', '', 'H', 'carlos@gmail.com', '555475895', 'N', 'N4A5E6'), '0';
+VALUES (3, 3, 'Carlos', 'Rodríguez', '', 'H', 'carlos@gmail.com', '555475895', 'N', 'N4A5E6', '0');
 
 -- Insert MENSAJE section ----------------------------
 
