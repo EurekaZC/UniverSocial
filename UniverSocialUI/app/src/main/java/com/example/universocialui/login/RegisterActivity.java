@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.universocialui.R;
+import com.example.universocialui.menu.MenuActivity;
 
 import astronomiacc.AstronomiaCC;
 import pojosastronomia.Excepciones;
@@ -106,6 +107,11 @@ public class RegisterActivity extends AppCompatActivity {
                 // Aquí puedes agregar la lógica para registrar al usuario con los datos recopilados
                 // Por ahora, mostraremos un mensaje de confirmación
                 Toast.makeText(RegisterActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
+
+                // Redirigir a MenuActivity después del registro exitoso
+                Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

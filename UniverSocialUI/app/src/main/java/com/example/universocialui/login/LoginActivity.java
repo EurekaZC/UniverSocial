@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.universocialui.R;
+import com.example.universocialui.menu.MenuActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText usernameEditText;
@@ -45,6 +46,11 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 // Aquí puedes añadir la lógica para autenticar al usuario
                 Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+
+                // Redirigir a MenuActivity después de la autenticación exitosa
+                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

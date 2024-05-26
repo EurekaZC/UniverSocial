@@ -22,11 +22,24 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".events.AllEventsActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".help.HelpActivity"
+            android:exported="true"/>
+        <activity
             android:name=".login.LoginActivity"
             android:exported="true"/>
         <activity
             android:name=".login.RegisterActivity"
             android:exported="true"/>
+        <activity
+            android:name=".menu.MenuActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".profile.ProfileActivity"
+            android:exported="true"/>
+
         <activity android:name=".MainActivity"></activity>
 
     </application>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_stars"
+    android:padding="16dp">
+
+    <!-- Cabecera con logo y botones -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_background"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/logo"
+            android:contentDescription="Logo" />
+
+        <Button
+            android:id="@+id/myProvinceButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mi provincia"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/filtersButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filtros"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <!-- Lista de eventos usando RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eventsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:background="#EDEEF0"
+        android:padding="8dp"/>
+
+    <!-- Botón volver al menú -->
+    <Button
+        android:id="@+id/backToMenuButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volver al menú"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_stars"
+    android:padding="16dp"
+    tools:context=".chat.ChatActivity">
+
+    <!-- Cabecera con logo y botón de atrás -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_background"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:contentDescription="Logo"
+            android:src="@drawable/logo" />
+
+        <ImageView
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:contentDescription="Logo" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="20dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/back" />
+    </LinearLayout>
+
+    <!-- Lista de mensajes usando RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:background="#EDEEF0"
+        android:padding="8dp"/>
+
+    <!-- Campo de entrada y botón de enviar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#1C1C3C"
+        android:padding="8dp">
+
+        <EditText
+            android:id="@+id/messageEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Escribe un mensaje"
+            android:padding="12dp"
+            android:background="@drawable/edit_text_background"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enviar"
+            android:background="@drawable/button_background"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+</LinearLayout>
