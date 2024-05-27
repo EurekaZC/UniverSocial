@@ -77,6 +77,10 @@ public class ManejadorPeticion extends Thread {
                     leerUsuarios(p);
                     break;
                     
+                case Operaciones.BUCAR_USUARIO_POR_EMAIL:
+                    buscarUsuarioPorEmail(p);
+                    break;
+                    
                 case Operaciones.INSERTAR_EVENTO:
                     insertarEvento(p);
                     break;
@@ -264,9 +268,33 @@ public class ManejadorPeticion extends Thread {
             manejadorIOExceptionOOS(ex,oos);
 
         } catch (Excepciones ex) {
-           manejadorExcepciones(ex);
+            manejadorExcepciones(ex);
         }
     }
+
+    private void buscarUsuarioPorEmail(Peticion p) {
+        ObjectOutputStream oos = null;
+        try {
+            String email = (String) p.getEntidad();
+
+            CadAstronomia cad = new CadAstronomia();
+            Usuario usuario = cad.buscarUsuarioPorEmail(email);
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setEntidad(usuario);
+
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex, oos);
+        } catch (Excepciones ex) {
+            manejadorExcepciones(ex);
+        }
+    }
+
     
     // -------------------------------------------------------------------------- >>> E V E N T O
    

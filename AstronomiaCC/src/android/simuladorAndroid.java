@@ -227,6 +227,17 @@ public class simuladorAndroid {
 //        } catch (Excepciones ex) {
 //            System.out.println(ex);
 //        }
+
+//-------------------------------------------\ BUSCAR POR EMAIL /--------------------------------------
+        AstronomiaCC c;
+        try {
+            c = new AstronomiaCC();
+            Usuario usuario = c.buscarUsuarioPorEmail("comotroleasamigoi@gmail.com");
+            System.out.println(usuario);
+        } catch (Excepciones ex) {
+            System.out.println(ex.getMensajeUsuario());
+            System.out.println("Log: " + ex.getCodigoErrorBd() + " - " + ex.getMensajeErrorBd() + " - " + ex.getSentenciaSQL());
+        }
   
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------------ >>> M E N S A J E
     

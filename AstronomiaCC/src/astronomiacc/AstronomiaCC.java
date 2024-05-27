@@ -318,9 +318,45 @@ public class AstronomiaCC {
             manejadorIOException(ex);
         } catch (ClassNotFoundException ex) {
             manejadorClassNotFoundException(ex);
-        }    
+        }
         return listaUsuarios;
     }
+
+    public Usuario buscarUsuarioPorEmail(String email) throws Excepciones {
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.BUCAR_USUARIO_POR_EMAIL);
+        p.setEntidad(email); 
+
+        Respuesta r = null;
+        Usuario usuario = null;
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+
+            // Cerramos recursos ya que ya tenemos la respuesta 
+            ois.close();
+            oos.close();
+            socketCliente.close();
+
+            if (r.getEntidad() != null) {
+                usuario = (Usuario) r.getEntidad();
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }
+
+        return usuario;
+    }
+
+    
     //--------------------------------------------------------------------------------- \ TABLA EVENTO /----------------------------------------------------------------------------------------    
     
      public int insertarEvento(Evento e) throws Excepciones{

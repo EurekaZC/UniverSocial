@@ -20,6 +20,8 @@ import pojosastronomia.Mensaje;
 import pojosastronomia.Provincia;
 import pojosastronomia.Usuario;
 
+
+
 /**
  * Métodos de gestión del componente de acceso a datos
  *
@@ -401,7 +403,7 @@ public class CadAstronomia {
                 usuario.setEmail(resultado.getString("EMAIL"));
                 usuario.setTelefono(resultado.getString("TELEFONO"));
                 usuario.setNivelConocimiento(resultado.getString("NIVEL_CONOCIMIENTO"));
-                usuario.setEstaBorrado(resultado.getString("ESTA_BORRADO"));
+                usuario.setEstaBorrado(resultado.getBoolean("ESTA_BORRADO"));
                 //tambien tenemos que popular la tabla de la clave foranea, por lo que creamos el objeto y demas
                 Provincia p = new Provincia();
                 p.setIdProvincia(((BigDecimal) resultado.getObject("ID_PROVINCIA")).intValue());
@@ -455,7 +457,7 @@ public class CadAstronomia {
                 u.setEmail(resultado.getString("EMAIL"));
                 u.setTelefono(resultado.getString("TELEFONO"));
                 u.setNivelConocimiento(resultado.getString("NIVEL_CONOCIMIENTO"));
-                u.setEstaBorrado(resultado.getString("ESTA_BORRADO"));
+                u.setEstaBorrado(resultado.getBoolean("ESTA_BORRADO"));
                 //tambien tenemos que popular la tabla de la clave foranea, por lo que creamos el objeto y demas
                 Provincia p = new Provincia();
                 p.setIdProvincia(((BigDecimal) resultado.getObject("ID_PROVINCIA")).intValue());
@@ -482,6 +484,61 @@ public class CadAstronomia {
         }
         return listaUsuario;
     }
+    
+    /**
+     * Método que permite buscar un usuario por su email
+     *
+     * @param email variable de tipo String que almacena el email del usuario a
+     * buscar
+     * @return objeto Usuario
+     * @throws pojosastronomia.Excepciones La excepcion se produce cuando se ha
+     * violado alguna constraint de la base de datos
+     */
+    public Usuario buscarUsuarioPorEmail(String email) throws Excepciones {
+        conectar();
+        Usuario usuario = new Usuario();
+        String dml = "SELECT u.*, p.* FROM usuario u, provincia p WHERE u.email = ? AND u.id_provincia = p.id_provincia";
+
+        try {
+            PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
+            sentenciaPreparada.setString(1, email);
+
+            ResultSet resultado = sentenciaPreparada.executeQuery();
+
+            if (resultado.next()) {
+                // Populamos el objeto usuario con los datos
+                usuario.setIdUsuario(((BigDecimal) resultado.getObject("ID_USUARIO")).intValue());
+                usuario.setNombre(resultado.getString("NOMBRE"));
+                usuario.setApe1(resultado.getString("APE1"));
+                usuario.setApe2(resultado.getString("APE2"));
+                usuario.setGenero(resultado.getString("GENERO"));
+                usuario.setEmail(resultado.getString("EMAIL"));
+                usuario.setTelefono(resultado.getString("TELEFONO"));
+                usuario.setNivelConocimiento(resultado.getString("NIVEL_CONOCIMIENTO"));
+                usuario.setEstaBorrado(resultado.getBoolean("ESTA_BORRADO"));
+
+                // Populamos el objeto Provincia
+                Provincia p = new Provincia();
+                p.setIdProvincia(((BigDecimal) resultado.getObject("ID_PROVINCIA")).intValue());
+                p.setProvincia(resultado.getString("PROVINCIA"));
+                p.setComunidad(resultado.getString("COMUNIDAD"));
+                usuario.setProvincia(p);
+            }
+
+            sentenciaPreparada.close();
+            conexion.close();
+        } catch (SQLException ex) {
+            Excepciones e = new Excepciones();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorBd(ex.getMessage());
+            e.setSentenciaSQL(dml);
+            e.setMensajeUsuario("Error general del sistema. Consulte con el administrador");
+            throw e;
+        }
+
+        return usuario;
+    }
+
 
     //--------------------------------------------------------------------------------- \ TABLA EVENTO /----------------------------------------------------------------------------------------
     /**
