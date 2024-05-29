@@ -1,12 +1,14 @@
 package com.example.universocialui.login;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -14,16 +16,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.universocialui.R;
 import com.example.universocialui.menu.MenuActivity;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+
 import astronomiacc.AstronomiaCC;
 import pojosastronomia.Excepciones;
 import pojosastronomia.Provincia;
 import pojosastronomia.Usuario;
 
 public class RegisterActivity extends AppCompatActivity {
+    private Map<String, Integer> provinciasMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+
+        // Cargar los arrays de recursos
+        String[] provinciasArray = getResources().getStringArray(R.array.provinces_array);
+        int[] provinciasIdsArray = getResources().getIntArray(R.array.provinces_ids);
+
+        // Inicializar el mapa de provincias a IDs
+        provinciasMap = new HashMap<>();
+        for (int i = 0; i < provinciasArray.length; i++) {
+            provinciasMap.put(provinciasArray[i], provinciasIdsArray[i]);
+        }
 
         ImageView returnButton = findViewById(R.id.returnButton);
         EditText editTextNombre = findViewById(R.id.editTextNombre);
@@ -50,12 +69,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Inicializar los Spinners
         ArrayAdapter<CharSequence> comunidadAdapter = ArrayAdapter.createFromResource(this,
-                R.array.comunidades_array, android.R.layout.simple_spinner_item);
+                R.array.comunities_array, android.R.layout.simple_spinner_item);
         comunidadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerComunidad.setAdapter(comunidadAdapter);
 
         ArrayAdapter<CharSequence> provinciaAdapter = ArrayAdapter.createFromResource(this,
-                R.array.provincias_array, android.R.layout.simple_spinner_item);
+                R.array.provinces_array, android.R.layout.simple_spinner_item);
         provinciaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerProvincia.setAdapter(provinciaAdapter);
 
@@ -78,24 +97,24 @@ public class RegisterActivity extends AppCompatActivity {
 
                 String genero = "";
                 if (selectedGeneroId == R.id.radioHombre) {
-                    genero = "Hombre";
+                    genero = "H";
                 } else if (selectedGeneroId == R.id.radioMujer) {
-                    genero = "Mujer";
+                    genero = "M";
                 } else if (selectedGeneroId == R.id.radioOtro) {
-                    genero = "Otro";
+                    genero = "O";
                 } else {
-                    genero = "No especificado";
+                    genero = "N";
                 }
 
                 String conocimiento = "";
                 if (selectedConocimientoId == R.id.radioNovato) {
-                    conocimiento = "Novato";
+                    conocimiento = "N";
                 } else if (selectedConocimientoId == R.id.radioAvanzado) {
-                    conocimiento = "Avanzado";
+                    conocimiento = "A";
                 } else if (selectedConocimientoId == R.id.radioExperto) {
-                    conocimiento = "Experto";
+                    conocimiento = "E";
                 } else {
-                    conocimiento = "No especificado";
+                    conocimiento = "N";
                 }
 
                 // Validar que las contraseñas coincidan
@@ -104,15 +123,80 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Aquí puedes agregar la lógica para registrar al usuario con los datos recopilados
-                // Por ahora, mostraremos un mensaje de confirmación
-                Toast.makeText(RegisterActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
+                // Hashear la contraseña
+                String hashedPassword = null;
+                try {
+                    hashedPassword = Password.passCodificada(password);
+                    Log.d("RegisterActivity", "Hashed Password: " + hashedPassword);
+                } catch (Excepciones e) {
+                    Toast.makeText(RegisterActivity.this, e.getMensajeUsuario(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                // Redirigir a MenuActivity después del registro exitoso
+                // Obtener el ID de la provincia seleccionada
+                Integer provinciaId = provinciasMap.get(provincia);
+                if (provinciaId == null) {
+                    Toast.makeText(RegisterActivity.this, "Provincia no válida", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Crear el objeto Usuario
+                Provincia provinciaObj = new Provincia();
+                provinciaObj.setIdProvincia(provinciaId);
+                Usuario usuario = new Usuario();
+                usuario.setNombre(nombre);
+                usuario.setApe1(apellido1);
+                usuario.setApe2(apellido2);
+                usuario.setTelefono(movil);
+                usuario.setEmail(email);
+                usuario.setGenero(genero);
+                usuario.setNivelConocimiento(conocimiento);
+                usuario.setContrasena(hashedPassword);
+                usuario.setProvincia(provinciaObj);
+
+                // Llamar a la tarea de registro
+                new RegistrarUsuarioTask().execute(usuario);
+            }
+        });
+    }
+
+    private class RegistrarUsuarioTask extends AsyncTask<Usuario, Void, Boolean> {
+        private Excepciones excepcion;
+
+        @Override
+        protected Boolean doInBackground(Usuario... params) {
+            Usuario usuario = params[0];
+            boolean registrado = false;
+
+            try {
+                String equipoServidor = "192.168.1.122"; // Cambia esto según sea necesario
+                int puertoServidor = 30500;
+                Socket socketCliente = new Socket(equipoServidor, puertoServidor);
+
+                AstronomiaCC cc = new AstronomiaCC(socketCliente);
+                cc.insertarUsuario(usuario);
+                registrado = true;
+            } catch (Excepciones ex) {
+                excepcion = ex;
+            } catch (IOException e) {
+                Log.e("RegisterActivity", "IOException: " + e.getMessage(), e);
+            }
+
+            return registrado;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean registrado) {
+            if (excepcion != null) {
+                Toast.makeText(RegisterActivity.this, excepcion.getMensajeUsuario(), Toast.LENGTH_SHORT).show();
+            } else if (registrado) {
+                Toast.makeText(RegisterActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
                 startActivity(intent);
                 finish();
+            } else {
+                Toast.makeText(RegisterActivity.this, "Error en el registro", Toast.LENGTH_SHORT).show();
             }
-        });
+        }
     }
 }

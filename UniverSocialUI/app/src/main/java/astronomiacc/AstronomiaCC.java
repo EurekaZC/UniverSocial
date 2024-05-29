@@ -1,13 +1,11 @@
 
 package astronomiacc;
 
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-
 import pojosastronomia.Evento;
 import pojosastronomia.Excepciones;
 import pojosastronomia.Mensaje;
@@ -23,7 +21,6 @@ import pojosastronomia.Usuario;
  * @version 1.0
  */
 public class AstronomiaCC {
-    // Lo tienen que recibir todos los metodos, asi que lo ponemos como atributo de la clase
     Socket socketCliente;
 
     private void manejadorIOException(IOException ex) throws Excepciones {
@@ -41,7 +38,10 @@ public class AstronomiaCC {
 
         throw e;
     }
-    
+
+    public AstronomiaCC(Socket socketCliente) {
+        this.socketCliente = socketCliente;
+    }
     public AstronomiaCC() throws Excepciones {
         try {
 //            String equipoServidor = "172.16.222.69";
@@ -105,7 +105,7 @@ public class AstronomiaCC {
         // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
         Respuesta r = null;
         
-        ArrayList<Provincia> listaProvinicias = null;
+        ArrayList<Provincia> listaProvinicias = null; 
         
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
@@ -317,9 +317,45 @@ public class AstronomiaCC {
             manejadorIOException(ex);
         } catch (ClassNotFoundException ex) {
             manejadorClassNotFoundException(ex);
-        }    
+        }
         return listaUsuarios;
     }
+
+    public Usuario buscarUsuarioPorEmail(String email) throws Excepciones {
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.BUCAR_USUARIO_POR_EMAIL);
+        p.setEntidad(email); 
+
+        Respuesta r = null;
+        Usuario usuario = null;
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+
+            // Cerramos recursos ya que ya tenemos la respuesta 
+            ois.close();
+            oos.close();
+            socketCliente.close();
+
+            if (r.getEntidad() != null) {
+                usuario = (Usuario) r.getEntidad();
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }
+
+        return usuario;
+    }
+
+    
     //--------------------------------------------------------------------------------- \ TABLA EVENTO /----------------------------------------------------------------------------------------    
     
      public int insertarEvento(Evento e) throws Excepciones{
@@ -403,7 +439,7 @@ public class AstronomiaCC {
         // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
         Respuesta r = null;
         
-        ArrayList<Evento> listaEventos = null;
+        ArrayList<Evento> listaEventos = null; 
         
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());

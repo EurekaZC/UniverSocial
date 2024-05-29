@@ -1,40 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#EDEEF0"
-    android:padding="16dp"
+    android:background="#FBFCFD"
     tools:context=".login.SplashActivity">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/logoImageView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/logoImageView"
-            android:layout_width="500dp"
-            android:layout_height="600dp"
-            android:src="@drawable/universocial"
-        android:contentDescription="@string/logo_desc" />
-
-    </LinearLayout>
+        android:layout_height="600dp"
+        android:contentDescription="@string/logo_desc"
+        android:scaleType="fitXY"
+        android:src="@drawable/universocial" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_gravity="bottom"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="76dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/button_background"
             android:text="Iniciar sesión"
@@ -43,11 +34,11 @@
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:background="@drawable/button_background"
             android:text="Registrarse"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

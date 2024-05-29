@@ -280,6 +280,7 @@ public class ManejadorPeticion extends Thread {
             CadAstronomia cad = new CadAstronomia();
             Usuario usuario = cad.buscarUsuarioPorEmail(email);
 
+            System.out.println("usuario:"+usuario);
             Respuesta r = new Respuesta();
             r.setIdOperacion(p.getIdOperacion());
             r.setEntidad(usuario);

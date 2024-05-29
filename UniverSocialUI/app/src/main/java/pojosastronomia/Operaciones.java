@@ -35,4 +35,8 @@ public class Operaciones implements Serializable{
     public static final int LEER_PROVINCIA  = 19;
     public static final int LEER_PROVINCIAS = 20;
     
+    // Implementaciones posteriores a la creacion de los pojos
+    
+    public static final int BUCAR_USUARIO_POR_EMAIL = 21;
+    
 }

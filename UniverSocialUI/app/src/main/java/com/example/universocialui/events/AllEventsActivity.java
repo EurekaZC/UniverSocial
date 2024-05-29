@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.universocialui.MainActivity;
 import com.example.universocialui.R;
 import com.example.universocialui.menu.MenuActivity;
 

@@ -10,9 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.universocialui.R;
 import com.example.universocialui.chat.ChatActivity;
-import com.example.universocialui.menu.MenuActivity;
-
-import pojosastronomia.Evento;
 
 
 public class EventActivity extends AppCompatActivity {
