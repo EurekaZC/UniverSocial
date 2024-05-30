@@ -33,10 +33,10 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/filtersButton"
+            android:id="@+id/spainButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filtros"
+            android:text="España"
             android:background="@drawable/button_background"
             android:textColor="@color/white"
             android:layout_marginStart="16dp"

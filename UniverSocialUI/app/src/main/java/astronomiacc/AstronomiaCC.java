@@ -467,6 +467,46 @@ public class AstronomiaCC {
         }    
         return listaEventos;
     }
+
+    public ArrayList<Evento> obtenerEventosPorProvinciaUsuario(Integer idUsuario) throws Excepciones {
+
+        // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.EVENTOS_POR_PROVINCIA_USUARIO);
+        p.setIdEntidad(idUsuario);
+
+
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+
+        ArrayList<Evento> listaEventos = null;
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+
+            ois.close();
+            oos.close();
+
+            socketCliente.close();
+            if (r.getEntidad() != null){
+                listaEventos = (ArrayList<Evento>) r.getEntidad();
+                return listaEventos;
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+
+
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }
+        return listaEventos;
+    }
     
      //--------------------------------------------------------------------------------- \ TABLA MENSAJE /----------------------------------------------------------------------------------------
     
