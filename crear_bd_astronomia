@@ -1,11 +1,3 @@
-/*
-Created: 30/11/2023
-Modified: 14/03/2024
-Model: RE Oracle 10g
-Database: Oracle 10g
-*/
-
-
 -- Create sequences section -------------------------------------------------
 
 CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_PROVINCIA"
@@ -27,7 +19,7 @@ CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_PROVINCIA_EVENTO"
 CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_USUARIO"
  INCREMENT BY 1
  MAXVALUE 99999
- MINVALUE 0
+ MINVALUE 400
  CYCLE
  CACHE 20
 /
@@ -35,7 +27,7 @@ CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_USUARIO"
 CREATE SEQUENCE "ASTRONOMIA"."SECUENCIA_ID_MENSAJE"
  INCREMENT BY 1
  MAXVALUE 99999
- MINVALUE 0
+ MINVALUE 400
  CYCLE
  CACHE 20
 /
@@ -150,7 +142,8 @@ CREATE TABLE "ASTRONOMIA"."USUARIO"(
         CONSTRAINT "CheckConstraint4" CHECK (TELEFONO LIKE '_________'),
   "NIVEL_CONOCIMIENTO" Char(1 ) CONSTRAINT "SYS_C005377" NOT NULL,
   "CONTRASENA" Char(64 ) CONSTRAINT "SYS_C005378" NOT NULL,
-  "ESTA_BORRADO" Char(1) DEFAULT '0' CONSTRAINT "SYS_C005379" NOT NULL
+  "ESTA_BORRADO" Char(1) DEFAULT '0' CONSTRAINT "SYS_C005379" NOT NULL,
+  "DESCRIPCION" Varchar2(400) DEFAULT 'Añade una descripción' 
 )
 /
 
@@ -172,7 +165,8 @@ ALTER TABLE "ASTRONOMIA"."USUARIO" ADD CONSTRAINT "EMAIL" UNIQUE ("EMAIL")
 
 -- Create procedures section -------------------------------------------------
 
-CREATE PROCEDURE "ASTRONOMIA"."INSERTAR_USUARIO"(u_nombre VARCHAR,
+CREATE PROCEDURE "ASTRONOMIA"."INSERTAR_USUARIO"(
+  u_nombre VARCHAR,
   u_ape1 VARCHAR,
   u_ape2 VARCHAR,
   u_genero CHAR,
@@ -180,7 +174,8 @@ CREATE PROCEDURE "ASTRONOMIA"."INSERTAR_USUARIO"(u_nombre VARCHAR,
   u_telefono CHAR,
   u_nivel_conocimiento CHAR,
   u_contrasena CHAR,
-  p_id_number NUMBER
+  p_id_number NUMBER,
+  u_descripcion VARCHAR DEFAULT 'Añade una descripción'
 )
 IS 
 BEGIN
@@ -194,7 +189,8 @@ BEGIN
     TELEFONO,
     NIVEL_CONOCIMIENTO,
     CONTRASENA,
-    ID_PROVINCIA
+    ID_PROVINCIA,
+    DESCRIPCION
   )
   VALUES(
     SECUENCIA_ID_USUARIO.nextval,
@@ -206,56 +202,27 @@ BEGIN
     u_telefono,
     u_nivel_conocimiento,
     u_contrasena,
-    p_id_number
+    p_id_number,
+    u_descripcion
   );
 END INSERTAR_USUARIO;
 /
 
-CREATE PROCEDURE "ASTRONOMIA"."BORRAR_USUARIO"(IN _idUsuario INT(11))
+CREATE PROCEDURE "ASTRONOMIA"."BORRAR_USUARIO"(IN _idUsuario INT)
+IS
 BEGIN
-    IF (SELECT ID_USUARIO FROM usuario WHERE ID_USUARIO = _idUsuario)
-    THEN
-        SIGNAL SQLSTATE '45000'
-                  SET MESSAGE_TEXT = 'No existe un elemento con ese Id',
-                        MYSQL_ERRNO = 100;
+    IF NOT EXISTS (SELECT 1 FROM USUARIO WHERE ID_USUARIO = _idUsuario) THEN
+        RAISE_APPLICATION_ERROR(-20001, 'No existe un elemento con ese Id');
     END IF;
 
     UPDATE USUARIO
     SET ESTA_BORRADO = '1'
     WHERE ID_USUARIO = _idUsuario;
-END;
+END BORRAR_USUARIO;
 /
 
 -- Create triggers section -------------------------------------------------
-/*-- Trigger 1: TRG_RESTRINGIR_NUMERO_HOMBRES
-CREATE OR REPLACE TRIGGER TRG_RESTRINGIR_NUMERO_HOMBRES
-BEFORE INSERT OR UPDATE ON ASTRONOMIA.USUARIO
-FOR EACH ROW
-DECLARE
-    v_contador_hombres_actual NUMBER;
-    v_contador_mujeres_actual NUMBER;
-BEGIN
-    -- Contar el número actual de hombres y mujeres
-    SELECT COUNT(*) INTO v_contador_hombres_actual
-    FROM ASTRONOMIA.USUARIO
-    WHERE GENERO = 'H';
-
-    SELECT COUNT(*) INTO v_contador_mujeres_actual
-    FROM ASTRONOMIA.USUARIO
-    WHERE GENERO = 'M';
-
-    IF :NEW.GENERO = 'H' THEN
-        -- Si hay más hombres que mujeres, generar un error
-        IF v_contador_hombres_actual >= v_contador_mujeres_actual THEN
-            RAISE_APPLICATION_ERROR(-20002, 'No se permite el registro si hay más hombres que mujeres.');
-        END IF;
-    END IF;
-EXCEPTION
-    WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20002, 'No se permite el registro si hay más hombres que mujeres.');
-END;
-/
--- Trigger 2: RESTRINGIR_NUMERO_EVENTOS
+-- Trigger 1: RESTRINGIR_NUMERO_EVENTOS
 CREATE OR REPLACE TRIGGER RESTRINGIR_NUMERO_EVENTOS
 BEFORE INSERT ON ASTRONOMIA.EVENTO
 FOR EACH ROW
@@ -277,25 +244,20 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20003, 'Se ha alcanzado el límite máximo de eventos para esta fecha.');
 END;
 /
-*/
 
 -- Create foreign keys (relationships) section ------------------------------------------------- 
 
 ALTER TABLE "ASTRONOMIA"."PROVINCIA-EVENTO" ADD CONSTRAINT "Relationship1" FOREIGN KEY ("ID_PROVINCIA") REFERENCES "ASTRONOMIA"."PROVINCIA" ("ID_PROVINCIA")
 /
 
-
 ALTER TABLE "ASTRONOMIA"."PROVINCIA-EVENTO" ADD CONSTRAINT "Relationship3" FOREIGN KEY ("ID_EVENTO") REFERENCES "ASTRONOMIA"."EVENTO" ("ID_EVENTO")
 /
-
 
 ALTER TABLE "ASTRONOMIA"."USUARIO" ADD CONSTRAINT "Relationship4" FOREIGN KEY ("ID_PROVINCIA") REFERENCES "ASTRONOMIA"."PROVINCIA" ("ID_PROVINCIA")
 /
 
-
 ALTER TABLE "ASTRONOMIA"."MENSAJE" ADD CONSTRAINT "Relationship5" FOREIGN KEY ("ID_USUARIO") REFERENCES "ASTRONOMIA"."USUARIO" ("ID_USUARIO")
 /
-
 
 ALTER TABLE "ASTRONOMIA"."MENSAJE" ADD CONSTRAINT "Relationship6" FOREIGN KEY ("ID_EVENTO") REFERENCES "ASTRONOMIA"."EVENTO" ("ID_EVENTO")
 /

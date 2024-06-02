@@ -1,10 +1,12 @@
 package com.example.universocialui.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +20,10 @@ import com.example.universocialui.menu.MenuActivity;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import astronomiacc.AstronomiaCC;
@@ -28,21 +33,50 @@ import pojosastronomia.Usuario;
 
 public class RegisterActivity extends AppCompatActivity {
     private Map<String, Integer> provinciasMap;
+    private Map<String, List<String>> comunidadesProvinciasMap;
+    private Spinner spinnerProvincia; // Declaración como variable miembro
+    private EditText editTextEmail; // Declaración como variable miembro
+    private Spinner spinnerComunidad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
+        // Inicializar los mapas
+        provinciasMap = new HashMap<>();
+        comunidadesProvinciasMap = new HashMap<>();
+
         // Cargar los arrays de recursos
         String[] provinciasArray = getResources().getStringArray(R.array.provinces_array);
         int[] provinciasIdsArray = getResources().getIntArray(R.array.provinces_ids);
+        String[] comunidadesArray = getResources().getStringArray(R.array.comunities_array);
 
         // Inicializar el mapa de provincias a IDs
-        provinciasMap = new HashMap<>();
         for (int i = 0; i < provinciasArray.length; i++) {
             provinciasMap.put(provinciasArray[i], provinciasIdsArray[i]);
         }
+
+        // Inicializar el mapa de comunidades a provincias
+        comunidadesProvinciasMap.put("Andalucía", new ArrayList<>(Arrays.asList("Almería", "Cádiz", "Córdoba", "Granada", "Huelva", "Jaén", "Málaga", "Sevilla")));
+        comunidadesProvinciasMap.put("Aragón", new ArrayList<>(Arrays.asList("Huesca", "Teruel", "Zaragoza")));
+        comunidadesProvinciasMap.put("Asturias", new ArrayList<>(Arrays.asList("Asturias")));
+        comunidadesProvinciasMap.put("Islas Baleares", new ArrayList<>(Arrays.asList("Islas Baleares")));
+        comunidadesProvinciasMap.put("Canarias", new ArrayList<>(Arrays.asList("Las Palmas", "Santa Cruz de Tenerife")));
+        comunidadesProvinciasMap.put("Cantabria", new ArrayList<>(Arrays.asList("Cantabria")));
+        comunidadesProvinciasMap.put("Castilla-La Mancha", new ArrayList<>(Arrays.asList("Albacete", "Ciudad Real", "Cuenca", "Guadalajara", "Toledo")));
+        comunidadesProvinciasMap.put("Castilla y León", new ArrayList<>(Arrays.asList("Ávila", "Burgos", "León", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora")));
+        comunidadesProvinciasMap.put("Cataluña", new ArrayList<>(Arrays.asList("Barcelona", "Gerona", "Lérida", "Tarragona")));
+        comunidadesProvinciasMap.put("Comunidad Valenciana", new ArrayList<>(Arrays.asList("Alicante", "Castellón", "Valencia")));
+        comunidadesProvinciasMap.put("Extremadura", new ArrayList<>(Arrays.asList("Badajoz", "Cáceres")));
+        comunidadesProvinciasMap.put("Galicia", new ArrayList<>(Arrays.asList("La Coruña", "Lugo", "Orense", "Pontevedra")));
+        comunidadesProvinciasMap.put("Madrid", new ArrayList<>(Arrays.asList("Madrid")));
+        comunidadesProvinciasMap.put("Murcia", new ArrayList<>(Arrays.asList("Murcia")));
+        comunidadesProvinciasMap.put("Navarra", new ArrayList<>(Arrays.asList("Navarra")));
+        comunidadesProvinciasMap.put("País Vasco", new ArrayList<>(Arrays.asList("Álava", "Guipúzcoa", "Vizcaya")));
+        comunidadesProvinciasMap.put("La Rioja", new ArrayList<>(Arrays.asList("La Rioja")));
+        comunidadesProvinciasMap.put("Ceuta", new ArrayList<>(Arrays.asList("Ceuta")));
+        comunidadesProvinciasMap.put("Melilla", new ArrayList<>(Arrays.asList("Melilla")));
 
         ImageView returnButton = findViewById(R.id.returnButton);
         EditText editTextNombre = findViewById(R.id.editTextNombre);
@@ -50,12 +84,12 @@ public class RegisterActivity extends AppCompatActivity {
         EditText editTextApellido2 = findViewById(R.id.editTextApellido2);
         EditText editTextMovil = findViewById(R.id.editTextMovil);
         RadioGroup radioGroupGenero = findViewById(R.id.radioGroupGenero);
-        EditText editTextEmail = findViewById(R.id.editTextEmail);
+        editTextEmail = findViewById(R.id.editTextEmail); // Inicialización
         EditText editTextPassword = findViewById(R.id.editTextPassword);
         EditText editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         RadioGroup radioGroupConocimiento = findViewById(R.id.radioGroupConocimiento);
-        Spinner spinnerComunidad = findViewById(R.id.spinnerComunidad);
-        Spinner spinnerProvincia = findViewById(R.id.spinnerProvincia);
+        spinnerComunidad = findViewById(R.id.spinnerComunidad);
+        spinnerProvincia = findViewById(R.id.spinnerProvincia); // Inicialización
         Button btnRegistrar = findViewById(R.id.btnRegistrar);
 
         returnButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +111,25 @@ public class RegisterActivity extends AppCompatActivity {
                 R.array.provinces_array, android.R.layout.simple_spinner_item);
         provinciaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerProvincia.setAdapter(provinciaAdapter);
+
+        // Establecer el listener para el spinnerComunidad
+        spinnerComunidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String comunidadSeleccionada = spinnerComunidad.getSelectedItem().toString();
+                List<String> provincias = comunidadesProvinciasMap.get(comunidadSeleccionada);
+                if (provincias != null) {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(RegisterActivity.this, android.R.layout.simple_spinner_item, provincias);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerProvincia.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No hacer nada
+            }
+        });
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +215,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     private class RegistrarUsuarioTask extends AsyncTask<Usuario, Void, Boolean> {
         private Excepciones excepcion;
+        private String email;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            email = editTextEmail.getText().toString();
+        }
 
         @Override
         protected Boolean doInBackground(Usuario... params) {
@@ -190,12 +250,56 @@ public class RegisterActivity extends AppCompatActivity {
             if (excepcion != null) {
                 Toast.makeText(RegisterActivity.this, excepcion.getMensajeUsuario(), Toast.LENGTH_SHORT).show();
             } else if (registrado) {
+                // Registro exitoso, ahora obtener el usuario por email
+                new ObtenerUsuarioPorEmailTask().execute(email);
+            } else {
+                Toast.makeText(RegisterActivity.this, "Error en el registro", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class ObtenerUsuarioPorEmailTask extends AsyncTask<String, Void, Usuario> {
+        private Excepciones excepcion;
+
+        @Override
+        protected Usuario doInBackground(String... params) {
+            String email = params[0];
+            Usuario usuario = null;
+
+            try {
+                String equipoServidor = "192.168.1.122"; // Cambia esto según sea necesario
+                int puertoServidor = 30500;
+                Socket socketCliente = new Socket(equipoServidor, puertoServidor);
+
+                AstronomiaCC cc = new AstronomiaCC(socketCliente);
+                usuario = cc.buscarUsuarioPorEmail(email);
+            } catch (Excepciones ex) {
+                excepcion = ex;
+            } catch (IOException e) {
+                Log.e("RegisterActivity", "IOException: " + e.getMessage(), e);
+            }
+
+            return usuario;
+        }
+
+        @Override
+        protected void onPostExecute(Usuario usuario) {
+            if (excepcion != null) {
+                Toast.makeText(RegisterActivity.this, excepcion.getMensajeUsuario(), Toast.LENGTH_SHORT).show();
+            } else if (usuario != null) {
+                // Guardar userId en SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("userId", usuario.getIdUsuario());
+                editor.putString("userProvince", spinnerProvincia.getSelectedItem().toString());
+                editor.apply();
+
                 Toast.makeText(RegisterActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(RegisterActivity.this, "Error en el registro", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Error al obtener el usuario", Toast.LENGTH_SHORT).show();
             }
         }
     }

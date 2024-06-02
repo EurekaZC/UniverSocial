@@ -38,5 +38,6 @@ public class Operaciones implements Serializable{
     // Implementaciones posteriores a la creacion de los pojos
     
     public static final int BUCAR_USUARIO_POR_EMAIL = 21;
+    public static final int EVENTOS_POR_PROVINCIA_USUARIO = 22;
     
 }

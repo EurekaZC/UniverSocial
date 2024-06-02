@@ -76,7 +76,7 @@
                 android:id="@+id/editTextApellido1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp" />
@@ -93,7 +93,7 @@
                 android:id="@+id/editTextApellido2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp" />
@@ -111,7 +111,7 @@
                 android:id="@+id/editTextMovil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
@@ -178,7 +178,7 @@
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
@@ -196,7 +196,7 @@
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
@@ -214,7 +214,7 @@
                 android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
@@ -226,7 +226,6 @@
                 android:layout_height="1dp"
                 android:background="#CCCCCC"
                 android:layout_marginBottom="16dp" />
-
 
 
             <TextView
@@ -306,6 +305,24 @@
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"/>
 
+            <!-- Campo Descripción -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripción"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editTextDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="177dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp"
+                android:textColor="#000000" />
+
             <Button
                 android:id="@+id/btnGuardar"
                 android:layout_width="wrap_content"
@@ -316,6 +333,7 @@
                 android:textColor="#FFFFFF"
                 android:padding="12dp"
                 android:layout_marginTop="16dp"/>
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

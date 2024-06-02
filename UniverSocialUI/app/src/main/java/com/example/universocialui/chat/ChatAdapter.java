@@ -7,18 +7,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.universocialui.R;
-
+import java.text.SimpleDateFormat;
 import java.util.List;
-
 import pojosastronomia.Mensaje;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHolder> {
 
-    private final List<Mensaje> messages;
-    private final Context context;
-    private final String currentUser;
+    private Context context;
+    private List<Mensaje> messages;
+    private String currentUser;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
     public ChatAdapter(Context context, List<Mensaje> messages, String currentUser) {
         this.context = context;
@@ -28,25 +27,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
     @NonNull
     @Override
-    public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_message, parent, false);
-        return new ChatViewHolder(view);
+    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_chat_message, parent, false);
+        return new MessageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        Mensaje message = messages.get(position);
-
-//        holder.messageTextView.setText(message.getText());
-//        holder.usernameTextView.setText(message.getUsername());
-//
-//        if (message.getUsername().equals(currentUser)) {
-//            holder.usernameTextView.setBackgroundResource(R.drawable.user_message_background);
-//            holder.messageTextView.setBackgroundResource(R.drawable.user_message_background);
-//        } else {
-//            holder.usernameTextView.setBackgroundResource(R.drawable.other_message_background);
-//            holder.messageTextView.setBackgroundResource(R.drawable.other_message_background);
-//        }
+    public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
+        Mensaje mensaje = messages.get(position);
+        holder.usernameTextView.setText(mensaje.getUsuario().getNombre());
+        holder.messageTextView.setText(mensaje.getMensaje());
+        holder.dateTextView.setText(dateFormat.format(mensaje.getHoraMensaje()));
     }
 
     @Override
@@ -54,14 +45,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         return messages.size();
     }
 
-    static class ChatViewHolder extends RecyclerView.ViewHolder {
+    static class MessageViewHolder extends RecyclerView.ViewHolder {
+
         TextView usernameTextView;
         TextView messageTextView;
+        TextView dateTextView;
 
-        public ChatViewHolder(@NonNull View itemView) {
+        public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
             usernameTextView = itemView.findViewById(R.id.usernameTextView);
             messageTextView = itemView.findViewById(R.id.messageTextView);
+            dateTextView = itemView.findViewById(R.id.dateTextView);
         }
     }
 }

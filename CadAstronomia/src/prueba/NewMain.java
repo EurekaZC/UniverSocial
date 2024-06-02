@@ -279,6 +279,24 @@ public class NewMain {
 //            
 //        }
 
+//      ------------------------------------- \ MOSTRAR EVENTOS EN BASE A LA PROVINCIA DEL USUARIO / ------------------------------------------------------------------
+
+//        Evento e = new Evento();
+//        CadAstronomia cad;
+//        
+//        try {
+//            
+//            cad = new CadAstronomia();
+//            ArrayList le  = cad.obtenerEventosPorProvinciaUsuario(0);
+//            System.out.println(le);
+//            
+//        } catch (Excepciones ex) {
+//            
+//            System.out.println(ex.getMensajeUsuario());
+//            System.out.println("Log: " + ex.getCodigoErrorBd() + " - " + ex.getMensajeErrorBd() + " - " + ex.getSentenciaSQL());
+//            
+//        }
+
 //      -------------------------------------------------------------------------------------------------------------------------------------------------------------------- >>> M E N S A J E
 
 //       ------------------------------------- \ INSERTAR MENSAJE/ -------------------------------------------------------------------

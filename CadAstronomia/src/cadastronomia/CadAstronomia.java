@@ -173,9 +173,8 @@ public class CadAstronomia {
      */
     public void insertarUsuario(Usuario usuario) throws Excepciones {
         conectar();
-        String llamada = "call insertar_usuario(?,?,?,?,?,?,?,?,?)";
+        String llamada = "call insertar_usuario(?,?,?,?,?,?,?,?,?,?)";
         try {
-
             CallableStatement sentenciaLlamable = conexion.prepareCall(llamada);
 
             sentenciaLlamable.setString(1, usuario.getNombre());
@@ -187,6 +186,7 @@ public class CadAstronomia {
             sentenciaLlamable.setString(7, usuario.getNivelConocimiento());
             sentenciaLlamable.setString(8, usuario.getContrasena());
             sentenciaLlamable.setObject(9, usuario.getProvincia().getIdProvincia(), Types.INTEGER);
+            sentenciaLlamable.setString(10, usuario.getDescripcion());
 
             sentenciaLlamable.executeUpdate();
 
@@ -194,33 +194,26 @@ public class CadAstronomia {
             conexion.close();
 
         } catch (SQLException ex) {
-
             Excepciones e = new Excepciones();
             e.setCodigoErrorBd(ex.getErrorCode());
             e.setMensajeErrorBd(ex.getMessage());
             e.setSentenciaSQL(llamada);
 
             switch (ex.getErrorCode()) {
-
-                case 1400: //codigo de violacion de un notnull
+                case 1400: // código de violación de un not null
                     e.setMensajeUsuario("Todos los campos son obligatorios menos el segundo apellido.");
                     break;
-
-                case 1: //codigo de violacion de una uk
+                case 1: // código de violación de una UK
                     e.setMensajeUsuario("El telefono y el email no se pueden repetir. Ya hay un registro con este telefono o email.");
                     break;
-
-                case 2290: //codigo de violacion de una cc
-                    e.setMensajeUsuario("Se ha introducido algun dato sin tener en cuenta el formato:  1) El genero solo puede ser 'M' de mujer, 'H' de hombre u 'O' de otro    2) el email debe contener el @     3) El telefono debe tener 9 caracteres como maximo.");
+                case 2290: // código de violación de una CC
+                    e.setMensajeUsuario("Se ha introducido algun dato sin tener en cuenta el formato:  1) El genero solo puede ser 'M' de mujer, 'H' de hombre u 'O' de otro  2) el email debe contener el @  3) El telefono debe tener 9 caracteres como maximo.");
                     break;
-
-                case 2291: //codigo de error de la fk
+                case 2291: // código de error de la FK
                     e.setMensajeUsuario("La provincia seleccionada no existe");
                     break;
-
                 default:
                     e.setMensajeUsuario("Error general en el sistema, contacte con el administrador.");
-
             }
             throw e;
         }
@@ -237,10 +230,10 @@ public class CadAstronomia {
      * @throws pojosastronomia.Excepciones La excepcion se produce cuando se ha
      * violado alguna constraint de la base de datos
      */
-    public int modificarUsuario(Integer idUsuario, Usuario usuario) throws Excepciones { // -----------------------------------------------------------------------------------------------------------------
+    public int modificarUsuario(Integer idUsuario, Usuario usuario) throws Excepciones {
         conectar();
         int registrosAfectados = 0;
-        String dml = "update USUARIO set NOMBRE=?, APE1=?, APE2=?, GENERO=?, EMAIL=?, TELEFONO=?, NIVEL_CONOCIMIENTO=?, CONTRASENA=?, ID_PROVINCIA=? where ID_USUARIO=?";
+        String dml = "update USUARIO set NOMBRE=?, APE1=?, APE2=?, GENERO=?, EMAIL=?, TELEFONO=?, NIVEL_CONOCIMIENTO=?, CONTRASENA=?, ID_PROVINCIA=?, DESCRIPCION=? where ID_USUARIO=?";
 
         try {
             PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
@@ -254,7 +247,8 @@ public class CadAstronomia {
             sentenciaPreparada.setString(7, usuario.getNivelConocimiento());
             sentenciaPreparada.setString(8, usuario.getContrasena());
             sentenciaPreparada.setObject(9, usuario.getProvincia().getIdProvincia(), Types.INTEGER);
-            sentenciaPreparada.setObject(10, idUsuario);
+            sentenciaPreparada.setString(10, usuario.getDescripcion()); 
+            sentenciaPreparada.setObject(11, idUsuario);
 
             registrosAfectados = sentenciaPreparada.executeUpdate();
 
@@ -262,42 +256,34 @@ public class CadAstronomia {
             conexion.close();
 
         } catch (SQLException ex) {
-
             Excepciones e = new Excepciones();
             e.setCodigoErrorBd(ex.getErrorCode());
             e.setMensajeErrorBd(ex.getMessage());
             e.setSentenciaSQL(dml);
 
             switch (ex.getErrorCode()) {
-
-                case 1407: //codigo de violacion de un notnull
+                case 1407: // código de violación de un not null
                     e.setMensajeUsuario("Todos los campos son obligatorios menos el segundo apellido.");
                     break;
-
-                case 1: //codigo de violacion de una uk
+                case 1: // código de violación de una UK
                     e.setMensajeUsuario("El telefono y el email no se pueden repetir. Ya hay un registro con este telefono o email.");
                     break;
-
-                case 2290: //codigo de violacion de una cc
-                    e.setMensajeUsuario("Se ha introducido algun dato sin tener en cuenta el formato:  1) El genero solo puede ser 'M' de mujer, 'H' de hombre u 'O' de otro    2) el email debe contener el @     3) El telefono debe tener 9 caracteres como maximo.");
+                case 2290: // código de violación de una CC
+                    e.setMensajeUsuario("Se ha introducido algun dato sin tener en cuenta el formato:  1) El genero solo puede ser 'M' de mujer, 'H' de hombre u 'O' de otro  2) el email debe contener el @  3) El telefono debe tener 9 caracteres como maximo.");
                     break;
-
-                case 2291: //codigo de error de la fk
+                case 2291: // código de error de la FK
                     e.setMensajeUsuario("La provincia seleccionada no existe.");
                     break;
-
                 default:
                     e.setMensajeUsuario("Error general en el sistema, contacte con el administrador.");
-
             }
             throw e;
-
         }
 
         return registrosAfectados;
     }
-
-    /**
+    
+      /**
      * Método que permite eliminar un usuario de la base de datos
      *
      * @param idUsuario varibale de tipo Integer que almacena el id de registro
@@ -308,35 +294,6 @@ public class CadAstronomia {
      */
     public int eliminarUsuario(Integer idUsuario) throws Excepciones { // ---------------------------------------------------------------------------------------------------------------------------------------
         conectar();
-        /*int registrosAfectados = 0;
-        String dml = "delete from USUARIO where ID_USUARIO=?";
-        try {
-            PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
-            sentenciaPreparada.setObject(1, idUsuario, Types.INTEGER);
-
-            registrosAfectados = sentenciaPreparada.executeUpdate();
-
-            sentenciaPreparada.close();
-            conexion.close();
-
-        } catch (SQLException ex) {
-            Excepciones e = new Excepciones();
-            e.setCodigoErrorBd(ex.getErrorCode());
-            e.setMensajeErrorBd(ex.getMessage());
-            e.setSentenciaSQL(dml);
-
-            switch (ex.getErrorCode()) {
-
-                case 2292: // codigo de restricción de integridad. No se puede borrar el registro padre, sin haber borrado el registro hijo antes
-                    e.setMensajeUsuario("No se puede eliminar un registro sin borrar antes los registros de su chat."); // el id_usuario es clave foranea de la tabla chat
-                    break;
-                default:
-                    e.setMensajeUsuario("Error general en el sistema, contacte con el administrador.");
-
-            }
-            throw e;
-        }
-        return registrosAfectados;*/
         String llamada = "call borrar_usuario(?)";
         try {
 
@@ -380,17 +337,14 @@ public class CadAstronomia {
      * @throws pojosastronomia.Excepciones La excepcion se produce cuando se ha
      * violado alguna constraint de la base de datos
      */
-    public Usuario leerUsuario(Integer idUsuario) throws Excepciones { // ---------------------------------------------------------------------------------------------------------------------------------------
+    public Usuario leerUsuario(Integer idUsuario) throws Excepciones {
         conectar();
         Usuario usuario = new Usuario();
         String dml = "SELECT u.*, p.* FROM usuario u, provincia p WHERE u.id_usuario = ? AND u.id_provincia = p.id_provincia";
 
         try {
-
             PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
-
             sentenciaPreparada.setObject(1, idUsuario, Types.INTEGER);
-
             ResultSet resultado = sentenciaPreparada.executeQuery();
 
             if (resultado.next()) {
@@ -403,8 +357,11 @@ public class CadAstronomia {
                 usuario.setEmail(resultado.getString("EMAIL"));
                 usuario.setTelefono(resultado.getString("TELEFONO"));
                 usuario.setNivelConocimiento(resultado.getString("NIVEL_CONOCIMIENTO"));
+                usuario.setContrasena(resultado.getString("CONTRASENA"));
                 usuario.setEstaBorrado(resultado.getBoolean("ESTA_BORRADO"));
-                //tambien tenemos que popular la tabla de la clave foranea, por lo que creamos el objeto y demas
+                usuario.setDescripcion(resultado.getString("DESCRIPCION")); 
+                
+                // también tenemos que popular la tabla de la clave foranea, por lo que creamos el objeto y demás
                 Provincia p = new Provincia();
                 p.setIdProvincia(((BigDecimal) resultado.getObject("ID_PROVINCIA")).intValue());
                 p.setProvincia(resultado.getString("PROVINCIA"));
@@ -416,7 +373,6 @@ public class CadAstronomia {
                 conexion.close();
             }
         } catch (SQLException ex) {
-
             Excepciones e = new Excepciones();
             e.setCodigoErrorBd(ex.getErrorCode());
             e.setMensajeErrorBd(ex.getMessage());
@@ -434,21 +390,17 @@ public class CadAstronomia {
      * @throws pojosastronomia.Excepciones La excepcion se produce cuando se ha
      * violado alguna constraint de la base de datos
      */
-    public ArrayList<Usuario> leerUsuarios() throws Excepciones { // ---------------------------------------------------------------------------------------------------------------------------------------
+    public ArrayList<Usuario> leerUsuarios() throws Excepciones {
         conectar();
         ArrayList<Usuario> listaUsuario = new ArrayList();
         String dql1 = "select * from provincia p, usuario u where p.id_provincia = u.id_provincia";
         try {
             Statement sentencia = conexion.createStatement();
-
-            //necesitamos listar tambien los datos de Provincia asociados a cada usuario, por lo que metemos el inner join
-            //lanzamos la sentencia
-            ResultSet resultado = sentencia.executeQuery(dql1); //nos devuelve un objeto de la clase resultset, que es parecido a un arraylist
-            while (resultado.next()) { //devuelve false cuando no ha sido capaz de posicionar en otro registro, puesto que ya no hay. El next informa entonces del fin de registros.
-                //tenemos primero que crear un objeto de la clase usuario
+            ResultSet resultado = sentencia.executeQuery(dql1);
+            while (resultado.next()) {
+                // tenemos primero que crear un objeto de la clase usuario
                 Usuario u = new Usuario();
                 // Ahora populamos ese objeto con los datos
-                //hacemos casting porque devuelve un int y necesitamos que devuelva un integer y hacemos el arreglo de getInt porque sabemos que no va a haber nulos y así no da fallo
                 u.setIdUsuario(((BigDecimal) resultado.getObject("ID_USUARIO")).intValue());
                 u.setNombre(resultado.getString("NOMBRE"));
                 u.setApe1(resultado.getString("APE1"));
@@ -458,7 +410,9 @@ public class CadAstronomia {
                 u.setTelefono(resultado.getString("TELEFONO"));
                 u.setNivelConocimiento(resultado.getString("NIVEL_CONOCIMIENTO"));
                 u.setEstaBorrado(resultado.getBoolean("ESTA_BORRADO"));
-                //tambien tenemos que popular la tabla de la clave foranea, por lo que creamos el objeto y demas
+                u.setDescripcion(resultado.getString("DESCRIPCION")); 
+                
+                // también tenemos que popular la tabla de la clave foranea, por lo que creamos el objeto y demás
                 Provincia p = new Provincia();
                 p.setIdProvincia(((BigDecimal) resultado.getObject("ID_PROVINCIA")).intValue());
                 p.setProvincia(resultado.getString("PROVINCIA"));
@@ -467,14 +421,11 @@ public class CadAstronomia {
                 u.setProvincia(p);
                 // Una vez hemos populado todos los datos, toca añadir el usuario al ArrayList 
                 listaUsuario.add(u);
-            } // se le esta pidiendo que devuelva el first name y el last name del registro que estoy posicionado con el next
-            // recomendado leer con getObject por si tenemos not nulls, nos van a llegar nulls
+            }
             resultado.close();
             sentencia.close();
             conexion.close();
-
         } catch (SQLException ex) {
-
             Excepciones e = new Excepciones();
             e.setCodigoErrorBd(ex.getErrorCode());
             e.setMensajeErrorBd(ex.getMessage());
@@ -484,7 +435,7 @@ public class CadAstronomia {
         }
         return listaUsuario;
     }
-    
+
     /**
      * Método que permite buscar un usuario por su email
      *
@@ -502,7 +453,6 @@ public class CadAstronomia {
         try {
             PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
             sentenciaPreparada.setString(1, email);
-
             ResultSet resultado = sentenciaPreparada.executeQuery();
 
             if (resultado.next()) {
@@ -515,7 +465,9 @@ public class CadAstronomia {
                 usuario.setEmail(resultado.getString("EMAIL"));
                 usuario.setTelefono(resultado.getString("TELEFONO"));
                 usuario.setNivelConocimiento(resultado.getString("NIVEL_CONOCIMIENTO"));
+                usuario.setContrasena(resultado.getString("CONTRASENA"));
                 usuario.setEstaBorrado(resultado.getBoolean("ESTA_BORRADO"));
+                usuario.setDescripcion(resultado.getString("DESCRIPCION")); 
 
                 // Populamos el objeto Provincia
                 Provincia p = new Provincia();
@@ -524,7 +476,6 @@ public class CadAstronomia {
                 p.setComunidad(resultado.getString("COMUNIDAD"));
                 usuario.setProvincia(p);
             }
-
             sentenciaPreparada.close();
             conexion.close();
         } catch (SQLException ex) {
@@ -535,10 +486,8 @@ public class CadAstronomia {
             e.setMensajeUsuario("Error general del sistema. Consulte con el administrador");
             throw e;
         }
-
         return usuario;
     }
-
 
     //--------------------------------------------------------------------------------- \ TABLA EVENTO /----------------------------------------------------------------------------------------
     /**
@@ -823,7 +772,43 @@ public class CadAstronomia {
         }
         return listaEventos;
     }
+    
+    public ArrayList<Evento> obtenerEventosPorProvinciaUsuario(Integer idUsuario) throws Excepciones { // ---------------------------------------------------------------------------------------------------------------------------------------
+       conectar();
+    ArrayList<Evento> eventos = new ArrayList<>();
+    String dql1 = "SELECT E.* " +
+                  "FROM EVENTO E " +
+                  "INNER JOIN \"PROVINCIA-EVENTO\" PE ON E.ID_EVENTO = PE.ID_EVENTO " +
+                  "INNER JOIN PROVINCIA P ON PE.ID_PROVINCIA = P.ID_PROVINCIA " +
+                  "INNER JOIN USUARIO U ON P.ID_PROVINCIA = U.ID_PROVINCIA " +
+                  "WHERE U.ID_USUARIO = ?";
+    try {
+        PreparedStatement sentencia = conexion.prepareStatement(dql1);
+        sentencia.setInt(1, idUsuario);
+        ResultSet resultado = sentencia.executeQuery();
+        while (resultado.next()) {
+            Evento evento = new Evento();
+            evento.setIdEvento(resultado.getInt("ID_EVENTO"));
+            evento.setNombre(resultado.getString("NOMBRE"));
+            evento.setTipo(resultado.getString("TIPO"));
+            evento.setInicio(resultado.getDate("INICIO"));
+            evento.setFinalEvento(resultado.getDate("FINAL"));
+            evento.setDescripcion(resultado.getString("DESCRIPCION"));
 
+            eventos.add(evento);
+        }
+        resultado.close();
+        sentencia.close();
+        conexion.close();
+    } catch (SQLException e) {
+        Excepciones excepcion = new Excepciones();
+        excepcion.setMensajeUsuario("Error al obtener los eventos.");
+        excepcion.setMensajeErrorBd(e.getMessage());
+        throw excepcion;
+    }
+    return eventos;
+    }
+    
     // ------------------------------------------------------- \ TABLA MENSAJE /-----------------------------------------------------------------
     /**
      * Inserta un nuevo mensaje en la base de datos.

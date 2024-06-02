@@ -64,7 +64,7 @@
             android:hint="Escribe un mensaje"
             android:padding="12dp"
             android:background="@drawable/edit_text_background"
-            android:textColor="#FFFFFF" />
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/sendButton"

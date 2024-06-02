@@ -92,6 +92,10 @@ public class ManejadorPeticion extends Thread {
                 case Operaciones.LEER_EVENTOS:
                     leerEventos(p);
                     break;
+                    
+                case Operaciones.EVENTOS_POR_PROVINCIA_USUARIO:
+                    obtenerEventosPorProvinciaUsuario(p);
+                    break;
 
                 case Operaciones.INSERTAR_MENSAJE:
                     insertarMensaje(p);
@@ -336,6 +340,25 @@ public class ManejadorPeticion extends Thread {
            manejadorExcepciones(ex);
         }
     }
+    
+    private void obtenerEventosPorProvinciaUsuario(Peticion p) {
+        ObjectOutputStream oos = null;
+        try {
+            CadAstronomia cad = new CadAstronomia();
+            Integer idUsuario = p.getIdEntidad(); 
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setEntidad(cad.obtenerEventosPorProvinciaUsuario(idUsuario)); 
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex, oos);
+        } catch (Excepciones ex) {
+            manejadorExcepciones(ex);
+        }
+    }    
     
      private void insertarEvento(Peticion p){
         ObjectOutputStream oos = null;

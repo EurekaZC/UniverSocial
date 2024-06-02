@@ -1,5 +1,6 @@
 package com.example.universocialui.profile;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,13 +10,20 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.universocialui.R;
 import com.example.universocialui.login.Password;
+import com.example.universocialui.menu.MenuActivity;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import astronomiacc.AstronomiaCC;
 import pojosastronomia.Excepciones;
-import pojosastronomia.Usuario;
 import pojosastronomia.Provincia;
+import pojosastronomia.Usuario;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -26,6 +34,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
+    private EditText editTextDescripcion; // Nueva variable
     private RadioGroup radioGroupGenero;
     private RadioGroup radioGroupConocimiento;
     private Spinner spinnerComunidad;
@@ -34,6 +43,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private ImageView returnButton;
 
     private Usuario usuarioActual;
+
+    private Map<String, Integer> provinciasMap;
+    private Map<String, List<String>> comunidadesProvinciasMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +59,48 @@ public class EditProfileActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
+        editTextDescripcion = findViewById(R.id.editTextDescripcion); // Nueva línea
         radioGroupGenero = findViewById(R.id.radioGroupGenero);
         radioGroupConocimiento = findViewById(R.id.radioGroupConocimiento);
         spinnerComunidad = findViewById(R.id.spinnerComunidad);
         spinnerProvincia = findViewById(R.id.spinnerProvincia);
         btnGuardar = findViewById(R.id.btnGuardar);
         returnButton = findViewById(R.id.returnButton);
+
+        // Inicializar los mapas
+        provinciasMap = new HashMap<>();
+        comunidadesProvinciasMap = new HashMap<>();
+
+        // Cargar los arrays de recursos
+        String[] provinciasArray = getResources().getStringArray(R.array.provinces_array);
+        int[] provinciasIdsArray = getResources().getIntArray(R.array.provinces_ids);
+        String[] comunidadesArray = getResources().getStringArray(R.array.comunities_array);
+
+        // Inicializar el mapa de provincias a IDs
+        for (int i = 0; i < provinciasArray.length; i++) {
+            provinciasMap.put(provinciasArray[i], provinciasIdsArray[i]);
+        }
+
+        // Inicializar el mapa de comunidades a provincias
+        comunidadesProvinciasMap.put("Andalucía", new ArrayList<>(Arrays.asList("Almería", "Cádiz", "Córdoba", "Granada", "Huelva", "Jaén", "Málaga", "Sevilla")));
+        comunidadesProvinciasMap.put("Aragón", new ArrayList<>(Arrays.asList("Huesca", "Teruel", "Zaragoza")));
+        comunidadesProvinciasMap.put("Asturias", new ArrayList<>(Arrays.asList("Asturias")));
+        comunidadesProvinciasMap.put("Islas Baleares", new ArrayList<>(Arrays.asList("Islas Baleares")));
+        comunidadesProvinciasMap.put("Canarias", new ArrayList<>(Arrays.asList("Las Palmas", "Santa Cruz de Tenerife")));
+        comunidadesProvinciasMap.put("Cantabria", new ArrayList<>(Arrays.asList("Cantabria")));
+        comunidadesProvinciasMap.put("Castilla-La Mancha", new ArrayList<>(Arrays.asList("Albacete", "Ciudad Real", "Cuenca", "Guadalajara", "Toledo")));
+        comunidadesProvinciasMap.put("Castilla y León", new ArrayList<>(Arrays.asList("Ávila", "Burgos", "León", "Palencia", "Salamanca", "Segovia", "Soria", "Valladolid", "Zamora")));
+        comunidadesProvinciasMap.put("Cataluña", new ArrayList<>(Arrays.asList("Barcelona", "Gerona", "Lérida", "Tarragona")));
+        comunidadesProvinciasMap.put("Comunidad Valenciana", new ArrayList<>(Arrays.asList("Alicante", "Castellón", "Valencia")));
+        comunidadesProvinciasMap.put("Extremadura", new ArrayList<>(Arrays.asList("Badajoz", "Cáceres")));
+        comunidadesProvinciasMap.put("Galicia", new ArrayList<>(Arrays.asList("La Coruña", "Lugo", "Orense", "Pontevedra")));
+        comunidadesProvinciasMap.put("Madrid", new ArrayList<>(Arrays.asList("Madrid")));
+        comunidadesProvinciasMap.put("Murcia", new ArrayList<>(Arrays.asList("Murcia")));
+        comunidadesProvinciasMap.put("Navarra", new ArrayList<>(Arrays.asList("Navarra")));
+        comunidadesProvinciasMap.put("País Vasco", new ArrayList<>(Arrays.asList("Álava", "Guipúzcoa", "Vizcaya")));
+        comunidadesProvinciasMap.put("La Rioja", new ArrayList<>(Arrays.asList("La Rioja")));
+        comunidadesProvinciasMap.put("Ceuta", new ArrayList<>(Arrays.asList("Ceuta")));
+        comunidadesProvinciasMap.put("Melilla", new ArrayList<>(Arrays.asList("Melilla")));
 
         // Configurar los Spinners
         setupSpinners();
@@ -75,6 +123,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     String email = editTextEmail.getText().toString().isEmpty() ? usuarioActual.getEmail() : editTextEmail.getText().toString();
                     String password = editTextPassword.getText().toString();
                     String confirmPassword = editTextConfirmPassword.getText().toString();
+                    String descripcion = editTextDescripcion.getText().toString(); // Nueva línea para obtener la descripción
 
                     int selectedGeneroId = radioGroupGenero.getCheckedRadioButtonId();
                     String genero = "";
@@ -109,7 +158,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     String contrasenaFinal = password.isEmpty() ? usuarioActual.getContrasena() : Password.passCodificada(password);
 
                     // Crear un objeto Usuario actualizado
-                    Provincia provinciaSeleccionada = new Provincia(null, provincia, comunidad);
+                    Provincia provinciaSeleccionada = new Provincia(provinciasMap.get(provincia), provincia, comunidad);
                     Usuario usuarioActualizado = new Usuario(
                             usuarioActual.getIdUsuario(), // ID del usuario existente
                             nombre,
@@ -120,8 +169,9 @@ public class EditProfileActivity extends AppCompatActivity {
                             movil,
                             conocimiento,
                             contrasenaFinal, // Mantener la contraseña existente si no se cambia
-                            usuarioActual.getEstaBorrado(),
-                            provinciaSeleccionada // Utilizar la provincia seleccionada
+                            usuarioActual.isEstaBorrado(),
+                            provinciaSeleccionada, // Utilizar la provincia seleccionada
+                            descripcion // Añadir descripción
                     );
 
                     // Llamar al método para actualizar el usuario
@@ -192,6 +242,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 editTextApellido2.setHint(usuario.getApe2());
                 editTextMovil.setHint(usuario.getTelefono());
                 editTextEmail.setHint(usuario.getEmail());
+                editTextDescripcion.setText(usuario.getDescripcion());
 
                 // Configurar los radio buttons de género
                 switch (usuario.getGenero()) {
@@ -221,6 +272,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 // Seleccionar la comunidad y provincia del usuario
                 selectSpinnerItemByValue(spinnerComunidad, usuario.getProvincia().getComunidad());
+                updateProvincesSpinner(usuario.getProvincia().getComunidad());
                 selectSpinnerItemByValue(spinnerProvincia, usuario.getProvincia().getProvincia());
             } else {
                 Toast.makeText(EditProfileActivity.this, "No se pudieron cargar los datos del usuario", Toast.LENGTH_SHORT).show();
@@ -233,9 +285,30 @@ public class EditProfileActivity extends AppCompatActivity {
         comunidadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerComunidad.setAdapter(comunidadAdapter);
 
-        ArrayAdapter<CharSequence> provinciaAdapter = ArrayAdapter.createFromResource(this, R.array.provinces_array, android.R.layout.simple_spinner_item);
-        provinciaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerProvincia.setAdapter(provinciaAdapter);
+        spinnerComunidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String comunidadSeleccionada = (String) parent.getItemAtPosition(position);
+                updateProvincesSpinner(comunidadSeleccionada);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No hacer nada
+            }
+        });
+
+        // Inicializar el spinner de provincias
+        updateProvincesSpinner(spinnerComunidad.getSelectedItem().toString());
+    }
+
+    private void updateProvincesSpinner(String comunidad) {
+        List<String> provincias = comunidadesProvinciasMap.get(comunidad);
+        if (provincias != null) {
+            ArrayAdapter<String> provinciaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, provincias);
+            provinciaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerProvincia.setAdapter(provinciaAdapter);
+        }
     }
 
     private void selectSpinnerItemByValue(Spinner spinner, String value) {
@@ -281,6 +354,13 @@ public class EditProfileActivity extends AppCompatActivity {
             if (excepcion != null) {
                 Toast.makeText(EditProfileActivity.this, excepcion.getMensajeUsuario(), Toast.LENGTH_SHORT).show();
             } else if (actualizado) {
+                // Guardar userId y userProvince en SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("userId", usuarioActual.getIdUsuario());
+                editor.putString("userProvince", spinnerProvincia.getSelectedItem().toString());
+                editor.apply();
+
                 Toast.makeText(EditProfileActivity.this, "Datos guardados", Toast.LENGTH_SHORT).show();
                 finish();
             } else {

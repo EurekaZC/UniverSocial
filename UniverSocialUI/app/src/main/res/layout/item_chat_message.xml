@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="8dp"
     android:layout_marginBottom="8dp"
     android:background="@drawable/rounded_corner_background">
@@ -15,7 +14,8 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:background="@color/blue"
-        android:padding="4dp"/>
+        android:padding="4dp"
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:id="@+id/messageTextView"
@@ -25,5 +25,18 @@
         android:textColor="#000000"
         android:layout_marginTop="4dp"
         android:padding="8dp"
-        android:background="@color/white"/>
-</LinearLayout>
+        android:background="@color/white"
+        android:layout_below="@id/usernameTextView"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01/01/2024"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:padding="4dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@id/usernameTextView"/>
+</RelativeLayout>

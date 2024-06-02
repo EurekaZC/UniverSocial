@@ -16,10 +16,10 @@
 
         <ImageView
             android:id="@+id/logoImageView"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
+            android:layout_width="78dp"
+            android:layout_height="79dp"
             android:layout_weight="1"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo_empty" />
 
         <Button
             android:id="@+id/logoutButton"

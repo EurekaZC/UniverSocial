@@ -1,11 +1,3 @@
-﻿/*
-Created: 30/11/2023
-Modified: 14/03/2024
-Model: RE Oracle 10g
-Database: Oracle 10g
-*/
-
-
 -- Drop triggers section -------------------------------------------------
 DROP TRIGGER "ASTRONOMIA"."TRG_RESTRINGIR_NUMERO_HOMBRES";
 /

@@ -1,16 +1,20 @@
 package com.example.universocialui.profile;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.universocialui.R;
-import com.example.universocialui.events.AllEventsActivity;
 import com.example.universocialui.login.SplashActivity;
 import com.example.universocialui.menu.MenuActivity;
 import java.io.IOException;
@@ -27,9 +31,9 @@ public class ProfileActivity extends AppCompatActivity {
     private View avanzadoCircle;
     private View expertoCircle;
     private TextView descriptionTextView;
-    private Button logoutButton;
     private Button editProfileButton;
     private Button menuButton;
+    private Button optionsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,36 +46,9 @@ public class ProfileActivity extends AppCompatActivity {
         avanzadoCircle = findViewById(R.id.avanzadoCircle);
         expertoCircle = findViewById(R.id.expertoCircle);
         descriptionTextView = findViewById(R.id.descriptionTextView);
-        logoutButton = findViewById(R.id.logoutButton);
         editProfileButton = findViewById(R.id.editProfileButton);
         menuButton = findViewById(R.id.menuButton);
-
-        // Recuperar el ID del usuario desde SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("userId", -1);
-
-        if (userId != -1) {
-            // Cargar datos del usuario
-            new LoadUserProfileTask().execute(userId);
-        } else {
-            Toast.makeText(this, "No se pudo cargar el perfil del usuario", Toast.LENGTH_SHORT).show();
-        }
-
-        // Botón de cerrar sesión
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Limpiar SharedPreferences
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.apply();
-
-                // Redirigir a SplashActivity
-                Intent intent = new Intent(ProfileActivity.this, SplashActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        optionsButton = findViewById(R.id.optionsButton);
 
         // Botón de editar perfil
         editProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +68,130 @@ public class ProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Botón de opciones
+        optionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionsMenu(v);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Recuperar el ID del usuario desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("userId", -1);
+
+        if (userId != -1) {
+            // Cargar datos del usuario
+            new LoadUserProfileTask().execute(userId);
+        } else {
+            Toast.makeText(this, "No se pudo cargar el perfil del usuario", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showOptionsMenu(View v) {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.profile_options, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.logout) {
+                    logout();
+                    return true;
+                } else if (id == R.id.delete_account) {
+                    confirmDeleteAccount();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        popupMenu.show();
+    }
+
+    private void logout() {
+        // Limpiar SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+
+        // Redirigir a SplashActivity
+        Intent intent = new Intent(ProfileActivity.this, SplashActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void confirmDeleteAccount() {
+        new AlertDialog.Builder(this)
+                .setTitle("Eliminar cuenta")
+                .setMessage("¿Está seguro de que desea eliminar su cuenta?")
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Eliminar la cuenta
+                        new DeleteUserAccountTask().execute();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private class DeleteUserAccountTask extends AsyncTask<Void, Void, Boolean> {
+        private Excepciones excepcion;
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            int userId = sharedPreferences.getInt("userId", -1);
+
+            if (userId == -1) {
+                return false;
+            }
+
+            boolean eliminado = false;
+            try {
+                String equipoServidor = "192.168.1.122"; // Cambia esto según sea necesario
+                int puertoServidor = 30500;
+                Socket socketCliente = new Socket(equipoServidor, puertoServidor);
+
+                AstronomiaCC cc = new AstronomiaCC(socketCliente);
+                int result = cc.eliminarUsuario(userId);
+                eliminado = result > 0; // Verifica que se haya eliminado al menos un registro
+            } catch (Excepciones ex) {
+                excepcion = ex;
+            } catch (IOException e) {
+                excepcion = new Excepciones();
+                excepcion.setMensajeUsuario("Fallo en la comunicación con el servidor.");
+            }
+
+            return eliminado;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean eliminado) {
+            if (excepcion != null) {
+                Toast.makeText(ProfileActivity.this, excepcion.getMensajeUsuario(), Toast.LENGTH_SHORT).show();
+            } else if (eliminado) {
+                // Mostrar mensaje de despedida y cerrar sesión
+                new AlertDialog.Builder(ProfileActivity.this)
+                        .setTitle("Cuenta eliminada")
+                        .setMessage("Le echaremos de menos en UniverSocial")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                logout();
+                            }
+                        })
+                        .show();
+            } else {
+                Toast.makeText(ProfileActivity.this, "Error al eliminar la cuenta", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private class LoadUserProfileTask extends AsyncTask<Integer, Void, Usuario> {

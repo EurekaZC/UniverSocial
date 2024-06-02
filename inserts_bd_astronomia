@@ -1,0 +1,235 @@
+-- Insert PROVINCIA section ---------------------------
+
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (1, 'Álava', 'País Vasco');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (2, 'Albacete', 'Castilla-La Mancha');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (3, 'Alicante', 'Comunidad Valenciana');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (4, 'Almería', 'Andalucía');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (5, 'Ávila', 'Castilla y León');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (6, 'Badajoz', 'Extremadura');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (7, 'Islas Baleares', 'Islas Baleares');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (8, 'Barcelona', 'Cataluña');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (9, 'Burgos', 'Castilla y León');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (10, 'Cáceres', 'Extremadura');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (11, 'Cádiz', 'Andalucía');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (12, 'Castellón', 'Comunidad Valenciana');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (13, 'Ciudad Real', 'Castilla-La Mancha');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (14, 'Córdoba', 'Andalucía');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (15, 'La Coruña', 'Galicia');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (16, 'Cuenca', 'Castilla-La Mancha');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (17, 'Gerona', 'Cataluña');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (18, 'Granada', 'Andalucía');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (19, 'Guadalajara', 'Castilla-La Mancha');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (20, 'Guipúzcoa', 'País Vasco');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (21, 'Huelva', 'Andalucía');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (22, 'Huesca', 'Aragón');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (23, 'Jaén', 'Andalucía');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (24, 'León', 'Castilla y León');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (25, 'Lérida', 'Cataluña');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (26, 'La Rioja', 'La Rioja');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (27, 'Lugo', 'Galicia');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (28, 'Madrid', 'Comunidad de Madrid');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (29, 'Málaga', 'Andalucía');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (30, 'Murcia', 'Región de Murcia');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (31, 'Navarra', 'Navarra');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (32, 'Orense', 'Galicia');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (33, 'Asturias', 'Asturias');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (34, 'Palencia', 'Castilla y León');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (35, 'Las Palmas', 'Canarias');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (36, 'Pontevedra', 'Galicia');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (37, 'Salamanca', 'Castilla y León');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (38, 'Santa Cruz de Tenerife', 'Canarias');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (39, 'Cantabria', 'Cantabria');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (40, 'Segovia', 'Castilla y León');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (41, 'Sevilla', 'Andalucía');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (42, 'Soria', 'Castilla y León');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (43, 'Tarragona', 'Cataluña');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (44, 'Teruel', 'Aragón');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (45, 'Toledo', 'Castilla-La Mancha');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (46, 'Valencia', 'Comunidad Valenciana');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (47, 'Valladolid', 'Castilla y León');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (48, 'Vizcaya', 'País Vasco');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (49, 'Zamora', 'Castilla y León');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (50, 'Zaragoza', 'Aragón');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (51, 'Ceuta', 'Ceuta');
+INSERT INTO "PROVINCIA" ("ID_PROVINCIA", "PROVINCIA", "COMUNIDAD")
+VALUES (52, 'Melilla', 'Melilla');
+
+-- Insert EVENTO section ---------------------------
+
+INSERT INTO "EVENTO" ("ID_EVENTO", "NOMBRE", "TIPO", "INICIO", "FINAL", "DESCRIPCION")
+VALUES (1, 'Eclipse Lunar Penumbral', 'Eclipse', TO_DATE('2024-07-27', 'yyyy-mm-dd'), TO_DATE('2024-07-27', 'yyyy-mm-dd'), 'Un eclipse lunar penumbral visible en varias regiones del mundo.');
+INSERT INTO "EVENTO" ("ID_EVENTO", "NOMBRE", "TIPO", "INICIO", "FINAL", "DESCRIPCION")
+VALUES (2, 'Lluvia de Meteoros Cuadrántidas', 'Lluvia de meteoros', TO_DATE('2024-01-03', 'yyyy-mm-dd'), TO_DATE('2024-01-04', 'yyyy-mm-dd'), 'Una lluvia de meteoros de las Cuadrántidas visible en el hemisferio norte.');
+INSERT INTO "EVENTO" ("ID_EVENTO", "NOMBRE", "TIPO", "INICIO", "FINAL", "DESCRIPCION")
+VALUES (3, 'Conjunción de Marte y Venus', 'Conjunción planetaria', TO_DATE('2024-03-15', 'yyyy-mm-dd'), TO_DATE('2024-03-15', 'yyyy-mm-dd'), 'Una conjunción planetaria entre Marte y Venus visible en el cielo nocturno.');
+
+DECLARE
+    v_id_evento NUMBER := 4;
+    v_id_provincia NUMBER := 1;
+BEGIN
+    FOR i IN 1..37 LOOP
+        -- Evento
+        INSERT INTO "EVENTO" ("ID_EVENTO", "NOMBRE", "TIPO", "INICIO", "FINAL", "DESCRIPCION")
+        VALUES (v_id_evento, 'Evento Astronómico ' || v_id_evento, 'Evento ' || v_id_evento, TO_DATE('2024-' || LPAD(1 + MOD(i, 12), 2, '0') || '-' || LPAD(10 + MOD(i, 20), 2, '0'), 'yyyy-mm-dd'), TO_DATE('2024-' || LPAD(1 + MOD(i, 12), 2, '0') || '-' || LPAD(10 + MOD(i, 20), 2, '0'), 'yyyy-mm-dd'), 'Descripción del evento astronómico ' || v_id_evento);
+        
+        -- Asignar el evento a una provincia
+        INSERT INTO "PROVINCIA-EVENTO" ("ID_PROVINCIA-EVENTO", "ID_PROVINCIA", "ID_EVENTO")
+        VALUES (v_id_evento, v_id_provincia, v_id_evento);
+
+        v_id_evento := v_id_evento + 1;
+        v_id_provincia := v_id_provincia + 1;
+        IF v_id_provincia > 52 THEN
+            v_id_provincia := 1;
+        END IF;
+    END LOOP;
+END;
+/
+
+-- Insert USUARIO section ---------------------------
+
+-- Generar usuarios automáticamente para cada provincia
+DECLARE
+    v_id_usuario NUMBER := 4;
+    v_id_provincia NUMBER := 1;
+BEGIN
+    FOR i IN 1..52 LOOP
+        -- Usuario 1
+        INSERT INTO "USUARIO" ("ID_USUARIO", "ID_PROVINCIA", "NOMBRE", "APE1", "APE2", "GENERO", "EMAIL", "TELEFONO", "NIVEL_CONOCIMIENTO", "CONTRASENA", "ESTA_BORRADO")
+        VALUES (v_id_usuario, v_id_provincia, 'Nombre' || v_id_usuario, 'Apellido1', 'Apellido2', 'M', 'usuario' || v_id_usuario || '@example.com', LPAD(v_id_usuario, 9, '0'), 'N', 'CONTRASENA1', '0');
+        v_id_usuario := v_id_usuario + 1;
+
+        -- Usuario 2
+        INSERT INTO "USUARIO" ("ID_USUARIO", "ID_PROVINCIA", "NOMBRE", "APE1", "APE2", "GENERO", "EMAIL", "TELEFONO", "NIVEL_CONOCIMIENTO", "CONTRASENA", "ESTA_BORRADO")
+        VALUES (v_id_usuario, v_id_provincia, 'Nombre' || v_id_usuario, 'Apellido1', 'Apellido2', 'H', 'usuario' || v_id_usuario || '@example.com', LPAD(v_id_usuario, 9, '0'), 'E', 'CONTRASENA2', '0');
+        v_id_usuario := v_id_usuario + 1;
+
+        v_id_provincia := v_id_provincia + 1;
+    END LOOP;
+END;
+/
+
+-- Insert MENSAJE section ----------------------------
+
+DECLARE
+    v_id_mensaje NUMBER := 1;
+    v_id_usuario1 NUMBER := 4;
+    v_id_usuario2 NUMBER := 5;
+    v_id_evento NUMBER := 1;
+    v_mensaje VARCHAR2(250);
+    v_hora_mensaje TIMESTAMP;
+BEGIN
+    FOR i IN 1..200 LOOP
+        -- Generar la hora del mensaje de forma incremental
+        v_hora_mensaje := SYSTIMESTAMP + INTERVAL '1' MINUTE * i;
+
+        -- Generar mensajes realistas
+        CASE MOD(i, 5)
+            WHEN 1 THEN
+                v_mensaje := 'Estoy muy emocionado por el evento ' || v_id_evento || '. ¿Alguien más planea asistir?';
+            WHEN 2 THEN
+                v_mensaje := 'Sí, yo también iré. Me han dicho que será espectacular.';
+            WHEN 3 THEN
+                v_mensaje := '¿Alguien sabe a qué hora es el mejor momento para verlo?';
+            WHEN 4 THEN
+                v_mensaje := 'Creo que el mejor momento es justo después del atardecer.';
+            WHEN 0 THEN
+                v_mensaje := '¡Gracias por la información! Nos vemos allí.';
+        END CASE;
+
+        -- Insertar mensaje del primer usuario
+        INSERT INTO "MENSAJE" ("ID_MENSAJE", "ID_USUARIO", "ID_EVENTO", "MENSAJE", "HORA_MENSAJE")
+        VALUES (v_id_mensaje, v_id_usuario1, v_id_evento, v_mensaje, v_hora_mensaje);
+        v_id_mensaje := v_id_mensaje + 1;
+
+        -- Generar la hora del mensaje de respuesta de forma incremental
+        v_hora_mensaje := v_hora_mensaje + INTERVAL '1' MINUTE;
+
+        -- Generar mensajes de respuesta
+        CASE MOD(i, 5)
+            WHEN 1 THEN
+                v_mensaje := '¡Qué emoción! Yo también asistiré al evento ' || v_id_evento || '.';
+            WHEN 2 THEN
+                v_mensaje := 'Será genial. He estado esperando este evento por meses.';
+            WHEN 3 THEN
+                v_mensaje := 'Leí que el mejor momento es alrededor de las 8 PM.';
+            WHEN 4 THEN
+                v_mensaje := 'Perfecto, estaré allí a tiempo.';
+            WHEN 0 THEN
+                v_mensaje := '¡Nos vemos entonces!';
+        END CASE;
+
+        -- Insertar mensaje de respuesta del segundo usuario
+        INSERT INTO "MENSAJE" ("ID_MENSAJE", "ID_USUARIO", "ID_EVENTO", "MENSAJE", "HORA_MENSAJE")
+        VALUES (v_id_mensaje, v_id_usuario2, v_id_evento, v_mensaje, v_hora_mensaje);
+        v_id_mensaje := v_id_mensaje + 1;
+
+        -- Alternar usuarios y eventos
+        v_id_usuario1 := v_id_usuario1 + 2;
+        v_id_usuario2 := v_id_usuario2 + 2;
+        IF v_id_usuario1 > 106 THEN
+            v_id_usuario1 := 4;
+        END IF;
+        IF v_id_usuario2 > 107 THEN
+            v_id_usuario2 := 5;
+        END IF;
+
+        v_id_evento := v_id_evento + 1;
+        IF v_id_evento > 40 THEN
+            v_id_evento := 1;
+        END IF;
+    END LOOP;
+END;
+/
+
+COMMIT;
