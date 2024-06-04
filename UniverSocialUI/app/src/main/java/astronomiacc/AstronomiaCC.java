@@ -1,6 +1,8 @@
 
 package astronomiacc;
 
+import static com.example.universocialui.constants.constants.*;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -44,9 +46,8 @@ public class AstronomiaCC {
     }
     public AstronomiaCC() throws Excepciones {
         try {
-//            String equipoServidor = "172.16.222.69";
-            String equipoServidor = "192.168.1.122";
-            int puertoServidor = 30500;
+            String equipoServidor = EQUIPO_SERVIDOR;
+            int puertoServidor = PUERTO_SERVIDOR;
             socketCliente = new Socket(equipoServidor, puertoServidor);
             socketCliente.setSoTimeout(10000); // para establecer un tiempo de espera máximo en la comunicacion
 
@@ -355,7 +356,46 @@ public class AstronomiaCC {
         return usuario;
     }
 
-    
+    public int recuperarCuenta(Integer idUsuario) throws Excepciones {
+
+        // Creamos y populamos la petición
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.RECUPERAR_CUENTA); // Asegúrate de que esta constante está definida en tu enumeración de operaciones
+        p.setIdEntidad(idUsuario);
+
+        // Ahora que ya tenemos la petición populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+        int cantidad = 0;
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+
+            ObjectInputStream ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+
+            // Cerramos recursos ya que ya tenemos la respuesta
+            ois.close();
+            oos.close();
+
+            socketCliente.close();
+
+            if (r.getCantidad() != null) {
+                cantidad = r.getCantidad();
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        }
+        return cantidad;
+    }
+
+
+
     //--------------------------------------------------------------------------------- \ TABLA EVENTO /----------------------------------------------------------------------------------------    
     
      public int insertarEvento(Evento e) throws Excepciones{

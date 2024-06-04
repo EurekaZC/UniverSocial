@@ -1,5 +1,7 @@
 package com.example.universocialui.login;
 
+import static com.example.universocialui.constants.constants.*;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -78,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 // Crear el socket en doInBackground
-                String equipoServidor = "192.168.1.122";
-                int puertoServidor = 30500;
+                String equipoServidor = EQUIPO_SERVIDOR;
+                int puertoServidor = PUERTO_SERVIDOR;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 
                 // Pasar el socket a AstronomiaCC
@@ -166,15 +168,14 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 // Crear el socket en doInBackground
-                String equipoServidor = "192.168.1.122";
-                int puertoServidor = 30500;
+                String equipoServidor = EQUIPO_SERVIDOR;
+                int puertoServidor = PUERTO_SERVIDOR;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 
                 // Pasar el socket a AstronomiaCC
                 AstronomiaCC cc = new AstronomiaCC(socketCliente);
-                usuario.setEstaBorrado(false); // Marcar la cuenta como no eliminada
-                int result = cc.modificarUsuario(usuario.getIdUsuario(), usuario);
-                recuperado = result > 0; // Verifica que se haya actualizado al menos un registro
+                cc.recuperarCuenta(usuario.getIdUsuario());
+                recuperado = true;
             } catch (Excepciones ex) {
                 excepcion = ex;
             } catch (IOException e) {

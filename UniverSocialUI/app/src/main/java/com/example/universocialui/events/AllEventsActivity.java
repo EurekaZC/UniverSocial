@@ -1,5 +1,7 @@
 package com.example.universocialui.events;
 
+import static com.example.universocialui.constants.constants.*;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -91,8 +93,8 @@ public class AllEventsActivity extends AppCompatActivity {
 
             try {
                 // Crear el socket en doInBackground
-                String equipoServidor = "192.168.1.122";
-                int puertoServidor = 30500;
+                String equipoServidor = EQUIPO_SERVIDOR;
+                int puertoServidor = PUERTO_SERVIDOR;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
                 AstronomiaCC cc = new AstronomiaCC(socketCliente);
 

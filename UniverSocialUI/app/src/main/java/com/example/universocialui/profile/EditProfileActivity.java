@@ -1,6 +1,7 @@
 package com.example.universocialui.profile;
 
-import android.content.Intent;
+import static com.example.universocialui.constants.constants.*;
+
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.universocialui.R;
 import com.example.universocialui.login.Password;
-import com.example.universocialui.menu.MenuActivity;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -212,8 +212,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
             try {
                 // Crear el socket en doInBackground
-                String equipoServidor = "192.168.1.122";
-                int puertoServidor = 30500;
+                String equipoServidor = EQUIPO_SERVIDOR;
+                int puertoServidor = PUERTO_SERVIDOR;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 
                 // Pasar el socket a AstronomiaCC
@@ -331,8 +331,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
             try {
                 // Crear el socket en doInBackground
-                String equipoServidor = "192.168.1.122";
-                int puertoServidor = 30500;
+                String equipoServidor = EQUIPO_SERVIDOR;
+                int puertoServidor = PUERTO_SERVIDOR;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 
                 // Pasar el socket a AstronomiaCC

@@ -1,5 +1,7 @@
 package com.example.universocialui.login;
 
+import static com.example.universocialui.constants.constants.*;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -229,8 +231,8 @@ public class RegisterActivity extends AppCompatActivity {
             boolean registrado = false;
 
             try {
-                String equipoServidor = "192.168.1.122"; // Cambia esto según sea necesario
-                int puertoServidor = 30500;
+                String equipoServidor = EQUIPO_SERVIDOR;
+                int puertoServidor = PUERTO_SERVIDOR;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 
                 AstronomiaCC cc = new AstronomiaCC(socketCliente);
@@ -267,8 +269,8 @@ public class RegisterActivity extends AppCompatActivity {
             Usuario usuario = null;
 
             try {
-                String equipoServidor = "192.168.1.122"; // Cambia esto según sea necesario
-                int puertoServidor = 30500;
+                String equipoServidor = EQUIPO_SERVIDOR;
+                int puertoServidor = PUERTO_SERVIDOR;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 
                 AstronomiaCC cc = new AstronomiaCC(socketCliente);

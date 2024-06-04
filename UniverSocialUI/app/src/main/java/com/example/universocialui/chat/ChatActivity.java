@@ -36,7 +36,7 @@ public class ChatActivity extends AppCompatActivity {
     private Button backButton;
     private int userId;
     private int eventId;
-    private String currentUser;
+    private Usuario currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,6 @@ public class ChatActivity extends AppCompatActivity {
         // Obtener el ID del usuario desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         userId = sharedPreferences.getInt("userId", -1);
-        currentUser = sharedPreferences.getString("currentUserName", "Unknown User");
 
         // Obtener el ID del evento desde SharedPreferences
         SharedPreferences eventPrefs = getSharedPreferences("EventPrefs", MODE_PRIVATE);
@@ -68,15 +67,15 @@ public class ChatActivity extends AppCompatActivity {
         allMessages = new ArrayList<>();
 
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        chatAdapter = new ChatAdapter(this, messages, currentUser);
+        chatAdapter = new ChatAdapter(this, messages, currentUser != null ? currentUser.getNombre() : "Unknown User");
         chatRecyclerView.setAdapter(chatAdapter);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String messageText = messageEditText.getText().toString();
-                if (!messageText.isEmpty()) {
-                    Mensaje mensaje = new Mensaje(null, messageText, new Date(), new Usuario(userId, currentUser), new Evento(eventId));
+                if (!messageText.isEmpty() && currentUser != null) {
+                    Mensaje mensaje = new Mensaje(null, messageText, new Date(), currentUser, new Evento(eventId));
                     new SendMessageTask().execute(mensaje);
                     messageEditText.setText("");
                 }
@@ -90,7 +89,8 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        // Cargar todos los mensajes
+        // Cargar usuario y mensajes
+        new LoadUserTask().execute(userId);
         new LoadMessagesTask().execute();
     }
 
@@ -111,6 +111,34 @@ public class ChatActivity extends AppCompatActivity {
 
         chatAdapter.notifyDataSetChanged();
         chatRecyclerView.scrollToPosition(messages.size() - 1);
+    }
+
+    private class LoadUserTask extends AsyncTask<Integer, Void, Usuario> {
+        private Excepciones excepcion;
+
+        @Override
+        protected Usuario doInBackground(Integer... params) {
+            int userId = params[0];
+            try {
+                AstronomiaCC cc = new AstronomiaCC();
+                return cc.leerUsuario(userId);
+            } catch (Excepciones ex) {
+                excepcion = ex;
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Usuario usuario) {
+            if (excepcion != null) {
+                Toast.makeText(ChatActivity.this, excepcion.getMensajeUsuario(), Toast.LENGTH_SHORT).show();
+            } else if (usuario != null) {
+                currentUser = usuario;
+                chatAdapter.setCurrentUserName(usuario.getNombre());
+            } else {
+                Toast.makeText(ChatActivity.this, "Error al cargar el usuario", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private class LoadMessagesTask extends AsyncTask<Void, Void, ArrayList<Mensaje>> {

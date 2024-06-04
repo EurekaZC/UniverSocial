@@ -156,7 +156,8 @@ public class ProfileActivity extends AppCompatActivity {
 
             boolean eliminado = false;
             try {
-                String equipoServidor = "192.168.1.122"; // Cambia esto según sea necesario
+                String equipoServidor = "192.168.1.122";
+//                String equipoServidor = "172.16.4.47";
                 int puertoServidor = 30500;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 
@@ -205,6 +206,7 @@ public class ProfileActivity extends AppCompatActivity {
             try {
                 // Crear el socket en doInBackground
                 String equipoServidor = "192.168.1.122";
+//                String equipoServidor = "172.16.4.47";
                 int puertoServidor = 30500;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 

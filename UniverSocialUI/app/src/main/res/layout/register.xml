@@ -33,10 +33,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre"
+                android:text="Nombre*"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextNombre"
                 android:layout_width="match_parent"
@@ -44,16 +44,17 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp" />
 
             <!-- Campo Apellido 1 -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Primer Apellido"
+                android:text="Primer Apellido*"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextApellido1"
                 android:layout_width="match_parent"
@@ -61,6 +62,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp" />
 
             <!-- Campo Apellido 2 -->
@@ -70,7 +72,7 @@
                 android:text="Segundo Apellido"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextApellido2"
                 android:layout_width="match_parent"
@@ -78,16 +80,17 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp" />
 
             <!-- Campo Móvil -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nº móvil"
+                android:text="Nº móvil*"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextMovil"
                 android:layout_width="match_parent"
@@ -95,6 +98,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp"
                 android:inputType="phone" />
 
@@ -102,7 +106,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Género"
+                android:text="Género*"
                 android:textColor="#FFFFFF"
                 android:gravity="center"
                 android:layout_marginBottom="8dp"
@@ -120,6 +124,7 @@
                     android:id="@+id/radioHombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
                     android:text="Hombre"
                     android:textSize="18sp"
                     android:buttonTint="@color/white"
@@ -131,6 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mujer"
+                    android:layout_marginRight="20dp"
                     android:textSize="18sp"
                     android:buttonTint="@color/white"
                     android:background="?attr/selectableItemBackground"
@@ -151,10 +157,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="Email*"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
@@ -162,6 +168,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18dp"
                 android:padding="12dp"
                 android:inputType="textEmailAddress" />
 
@@ -169,10 +176,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contraseña"
+                android:text="Contraseña*"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
@@ -180,6 +187,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp"
                 android:inputType="textPassword" />
 
@@ -187,10 +195,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirmar contraseña"
+                android:text="Confirmar contraseña*"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
@@ -198,6 +206,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp"
                 android:inputType="textPassword" />
 
@@ -214,7 +223,7 @@
                 android:text="Para una mejor experiencia en nuestra plataforma, necesitamos
                                 un poco más de información. Ya casi hemos terminado."
                 android:textColor="#c2c2c2"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_marginBottom="12dp"
                 android:gravity="left" />
 
@@ -228,9 +237,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nivel de conocimiento"
+                android:text="Nivel de conocimiento*"
                 android:textColor="#FFFFFF"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:layout_marginBottom="8dp"
                 android:gravity="center" />
 
@@ -247,6 +256,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Novato"
+                    android:layout_marginRight="20dp"
                     android:textColor="@drawable/radio_button_selector"
                     android:buttonTint="@drawable/radio_button_selector"
                     android:background="?attr/selectableItemBackground" />
@@ -256,6 +266,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Avanzado"
+                    android:layout_marginRight="20dp"
                     android:textColor="@drawable/radio_button_selector"
                     android:buttonTint="@drawable/radio_button_selector"
                     android:background="?attr/selectableItemBackground" />
@@ -277,13 +288,14 @@
                 android:text="Comunidad"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <Spinner
                 android:id="@+id/spinnerComunidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/spinner_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp"/>
 
             <!-- Campo Provincia -->
@@ -293,13 +305,14 @@
                 android:text="Provincia"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <Spinner
                 android:id="@+id/spinnerProvincia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/spinner_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp"/>
 
             <Button
@@ -311,6 +324,8 @@
                 android:background="@drawable/button_background"
                 android:textColor="#FFFFFF"
                 android:padding="12dp"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="16dp"/>
         </LinearLayout>
     </ScrollView>

@@ -21,6 +21,7 @@ public class SplashActivity extends AppCompatActivity{
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.registerButton);
 
+        // Redirige a la pantalla de Login
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,6 +30,7 @@ public class SplashActivity extends AppCompatActivity{
             }
         });
 
+        // Redirige a la pantalla de Register
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -29,6 +29,7 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/button_background"
             android:text="Iniciar sesión"
+            android:textSize="20dp"
             android:textColor="#FFFFFF" />
 
         <Button
@@ -37,6 +38,7 @@
             android:layout_height="68dp"
             android:background="@drawable/button_background"
             android:text="Registrarse"
+            android:textSize="20dp"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>

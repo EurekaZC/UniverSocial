@@ -45,6 +45,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         return messages.size();
     }
 
+    public void setCurrentUserName(String currentUserName) {
+        this.currentUser = currentUserName;
+        notifyDataSetChanged();  // Notificar al adaptador que los datos han cambiado para que se actualice la vista
+    }
+
     static class MessageViewHolder extends RecyclerView.ViewHolder {
 
         TextView usernameTextView;

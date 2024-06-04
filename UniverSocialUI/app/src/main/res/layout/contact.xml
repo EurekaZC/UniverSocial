@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_stars"
-    android:padding="16dp">
+    android:background="@drawable/background_stars">
 
     <!-- Cabecera con logo y botones -->
     <LinearLayout
@@ -13,13 +12,13 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/border_background"
-        android:padding="8dp">
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/logoImageView"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/logo_empty"
             android:contentDescription="Logo" />
 
         <Button
@@ -34,7 +33,7 @@
 
         <Button
             android:id="@+id/contactButton"
-            android:layout_width="wrap_content"
+            android:layout_width="127dp"
             android:layout_height="59dp"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
@@ -48,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="521dp"
         android:layout_margin="16dp"
+        android:layout_weight="1"
         android:background="@drawable/rounded_corner_background"
         android:orientation="vertical"
         android:padding="16dp">
@@ -60,7 +60,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="22dp"
                 android:text="Información de contacto"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -70,25 +71,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                android:text="Para cualquier duda que tenga y no se haya podido resolver en las preguntas anteriores, puede contactarnos a través de nuestro email."
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
+
+            <!-- Línea de separación -->
+            <View
+                android:layout_width="317dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="16dp"
+                android:background="#CCCCCC" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="tengoUnaPregunta@universocial.com"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <!-- Línea de separación -->
+            <View
+                android:layout_width="317dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="#CCCCCC" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                android:text="Estaremos encantados de resolver todas sus preguntas."
                 android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -96,10 +117,13 @@
     <!-- Botón para volver al menú -->
     <Button
         android:id="@+id/menuButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Volver al menú"
+        android:layout_width="368dp"
+        android:layout_height="49dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="3dp"
         android:background="@drawable/button_background"
+        android:text="Volver al menú"
         android:textColor="@color/white"
-        android:layout_marginTop="16dp"/>
+        android:textSize="18dp" />
 </LinearLayout>
