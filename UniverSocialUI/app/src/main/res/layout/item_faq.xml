@@ -3,24 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:layout_marginBottom="8dp"
-    android:background="@drawable/rounded_corner_background">
+    android:padding="16dp"
+    android:layout_marginBottom="8dp">
 
     <TextView
         android:id="@+id/questionTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pregunta"
-        android:textColor="#FFFFFF"
+        android:textSize="22sp"
         android:textStyle="bold"
-        android:textSize="18sp"/>
+        android:textColor="@android:color/white"
+        android:padding="8dp"
+        android:background="@drawable/question_background" />
 
     <TextView
         android:id="@+id/answerTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Respuesta"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="4dp"/>
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:padding="8dp"
+        android:visibility="gone"
+        android:background="@drawable/answer_background" />
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.universocialui.profile;
 
+import static com.example.universocialui.constants.constants.*;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +29,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView nameTextView;
     private TextView provinceTextView;
+    private TextView surnameTextView;
+    private TextView emailTextView;
     private View novatoCircle;
     private View avanzadoCircle;
     private View expertoCircle;
@@ -42,7 +46,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         nameTextView = findViewById(R.id.nameTextView);
         provinceTextView = findViewById(R.id.provinceTextView);
+        emailTextView = findViewById(R.id.emailTextView);   // Añadido
         novatoCircle = findViewById(R.id.novatoCircle);
+        surnameTextView = findViewById(R.id.surnameTextView);
         avanzadoCircle = findViewById(R.id.avanzadoCircle);
         expertoCircle = findViewById(R.id.expertoCircle);
         descriptionTextView = findViewById(R.id.descriptionTextView);
@@ -156,9 +162,8 @@ public class ProfileActivity extends AppCompatActivity {
 
             boolean eliminado = false;
             try {
-                String equipoServidor = "192.168.1.122";
-//                String equipoServidor = "172.16.4.47";
-                int puertoServidor = 30500;
+                String equipoServidor = EQUIPO_SERVIDOR;
+                int puertoServidor = PUERTO_SERVIDOR;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 
                 AstronomiaCC cc = new AstronomiaCC(socketCliente);
@@ -206,7 +211,6 @@ public class ProfileActivity extends AppCompatActivity {
             try {
                 // Crear el socket en doInBackground
                 String equipoServidor = "192.168.1.122";
-//                String equipoServidor = "172.16.4.47";
                 int puertoServidor = 30500;
                 Socket socketCliente = new Socket(equipoServidor, puertoServidor);
 
@@ -229,9 +233,10 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this, excepcion.getMensajeUsuario(), Toast.LENGTH_SHORT).show();
             } else if (usuario != null) {
                 // Actualizar la interfaz de usuario con los datos del perfil
-                nameTextView.setText(usuario.getNombre() + " " + usuario.getApe1() + " " + usuario.getApe2());
-                provinceTextView.setText(usuario.getProvincia().getProvincia());
-                descriptionTextView.setText(usuario.getEmail()); // Suponiendo que la descripción es el email
+                nameTextView.setText(usuario.getNombre());
+                surnameTextView.setText(usuario.getApe1() + " " + usuario.getApe2());
+                emailTextView.setText(usuario.getEmail());
+                descriptionTextView.setText(usuario.getDescripcion());
                 setKnowledgeLevel(usuario.getNivelConocimiento());
             } else {
                 Toast.makeText(ProfileActivity.this, "No se pudieron cargar los datos del usuario", Toast.LENGTH_SHORT).show();

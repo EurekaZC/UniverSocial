@@ -62,7 +62,7 @@ public class AllEventsActivity extends AppCompatActivity {
         });
 
         // Botón Mi Provincia
-        Button myProvinceButton = findViewById(R.id.myProvinceButton);
+        Button myProvinceButton = findViewById(R.id.provinceButton);
         myProvinceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

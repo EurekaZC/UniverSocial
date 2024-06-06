@@ -36,16 +36,16 @@
                 android:layout_height="wrap_content"
                 android:text="Escribe los datos nuevos que deseas modificar"
                 android:textColor="#c2c2c2"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_marginBottom="12dp"
                 android:gravity="left" />
 
-            <!-- Línea de separación -->
+            <!-- Línea azul separadora -->
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CCCCCC"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
 
             <!-- Campo Nombre -->
             <TextView
@@ -54,7 +54,7 @@
                 android:text="Nombre"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextNombre"
                 android:layout_width="match_parent"
@@ -62,6 +62,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp" />
 
             <!-- Campo Apellido 1 -->
@@ -71,7 +72,7 @@
                 android:text="Primer Apellido"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextApellido1"
                 android:layout_width="match_parent"
@@ -79,6 +80,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp" />
 
             <!-- Campo Apellido 2 -->
@@ -88,7 +90,7 @@
                 android:text="Segundo Apellido"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextApellido2"
                 android:layout_width="match_parent"
@@ -96,6 +98,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp" />
 
             <!-- Campo Móvil -->
@@ -105,7 +108,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="Nº móvil"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextMovil"
@@ -115,7 +118,15 @@
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
+                android:textSize="18sp"
                 android:inputType="phone" />
+
+            <!-- Línea azul separadora -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
 
             <!-- Texto para Género -->
             <TextView
@@ -132,6 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:textSize="20sp"
                 android:gravity="center"
                 android:layout_marginBottom="16dp">
 
@@ -166,6 +178,13 @@
                     android:textColor="#FFFFFF" />
             </RadioGroup>
 
+            <!-- Línea azul separadora -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
+
             <!-- Campo Email -->
             <TextView
                 android:layout_width="match_parent"
@@ -173,7 +192,7 @@
                 android:text="Email"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
@@ -181,6 +200,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp"
                 android:inputType="textEmailAddress" />
 
@@ -191,7 +211,7 @@
                 android:text="Contraseña"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
@@ -199,6 +219,7 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp"
                 android:inputType="textPassword" />
 
@@ -209,7 +230,7 @@
                 android:text="Confirmar contraseña"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <EditText
                 android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
@@ -217,14 +238,15 @@
                 android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginBottom="16dp"
+                android:textSize="18sp"
                 android:padding="12dp"
                 android:inputType="textPassword" />
 
-            <!-- Línea de separación -->
+            <!-- Línea azul separadora -->
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CCCCCC"
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
                 android:layout_marginBottom="16dp" />
 
 
@@ -273,6 +295,13 @@
                     android:background="?attr/selectableItemBackground" />
             </RadioGroup>
 
+            <!-- Línea azul separadora -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
+
             <!-- Campo Comunidad -->
             <TextView
                 android:layout_width="match_parent"
@@ -280,7 +309,7 @@
                 android:text="Comunidad"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <Spinner
                 android:id="@+id/spinnerComunidad"
                 android:layout_width="match_parent"
@@ -296,7 +325,7 @@
                 android:text="Provincia"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
             <Spinner
                 android:id="@+id/spinnerProvincia"
                 android:layout_width="match_parent"
@@ -312,15 +341,16 @@
                 android:text="Descripción"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="8dp"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="177dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/edit_text_background"
                 android:padding="12dp"
+                android:textSize="18sp"
                 android:textColor="#000000" />
 
             <Button
@@ -328,9 +358,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Guardar"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/button_background"
+                android:backgroundTint="#1E7EA1"
                 android:textColor="#FFFFFF"
+                android:textSize="20dp"
                 android:padding="12dp"
                 android:layout_marginTop="16dp"/>
 

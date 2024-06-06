@@ -12,7 +12,6 @@ import com.example.universocialui.R;
 import com.example.universocialui.menu.MenuActivity;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class HelpActivity extends AppCompatActivity {
     @Override
@@ -20,25 +19,14 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help);
 
-        // Datos de ejemplo para las preguntas frecuentes
-        List<String> questions = Arrays.asList(
-                "Pregunta 1",
-                "Pregunta 2",
-                "Pregunta 3",
-                "Pregunta 4"
-        );
-
-        List<String> answers = Arrays.asList(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        );
+        // Cargar preguntas y respuestas desde XML
+        String[] questions = getResources().getStringArray(R.array.questions);
+        String[] answers = getResources().getStringArray(R.array.answers);
 
         // Configurar RecyclerView
         RecyclerView faqRecyclerView = findViewById(R.id.faqRecyclerView);
         faqRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        FAQAdapter adapter = new FAQAdapter(questions, answers);
+        FAQAdapter adapter = new FAQAdapter(Arrays.asList(questions), Arrays.asList(answers));
         faqRecyclerView.setAdapter(adapter);
 
         // Botón Volver al Menú

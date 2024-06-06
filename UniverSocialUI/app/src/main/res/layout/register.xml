@@ -102,6 +102,13 @@
                 android:padding="12dp"
                 android:inputType="phone" />
 
+            <!-- Línea azul separadora -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
+
             <!-- Texto para Género -->
             <TextView
                 android:layout_width="match_parent"
@@ -152,6 +159,13 @@
                     android:background="?attr/selectableItemBackground"
                     android:textColor="#FFFFFF" />
             </RadioGroup>
+
+            <!-- Línea azul separadora -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
 
             <!-- Campo Email -->
             <TextView
@@ -210,13 +224,12 @@
                 android:padding="12dp"
                 android:inputType="textPassword" />
 
-            <!-- Línea de separación -->
+            <!-- Línea azul separadora -->
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CCCCCC"
-                android:layout_marginBottom="16dp" />
-
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -227,12 +240,12 @@
                 android:layout_marginBottom="12dp"
                 android:gravity="left" />
 
-            <!-- Línea de separación -->
+            <!-- Línea azul separadora -->
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CCCCCC"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -281,6 +294,13 @@
                     android:background="?attr/selectableItemBackground" />
             </RadioGroup>
 
+            <!-- Línea azul separadora -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
+
             <!-- Campo Comunidad -->
             <TextView
                 android:layout_width="match_parent"
@@ -321,7 +341,7 @@
                 android:layout_height="wrap_content"
                 android:text="Registrarse"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/button_background"
+                android:backgroundTint="#1E7EA1"
                 android:textColor="#FFFFFF"
                 android:padding="12dp"
                 android:textSize="20sp"

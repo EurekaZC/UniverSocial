@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_stars"
-    android:padding="16dp">
+    android:background="@drawable/background_stars">
 
     <!-- Cabecera con logo y botones -->
     <LinearLayout
@@ -13,34 +11,62 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/border_background"
-        android:padding="8dp">
+        android:padding="0dp">
 
         <ImageView
             android:id="@+id/logoImageView"
             android:layout_width="64dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:layout_height="64dp"
             android:src="@drawable/logo_empty"
             android:contentDescription="Logo" />
 
-        <Button
-            android:id="@+id/faqButton"
-            android:layout_width="151dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:text="Preguntas frecuentes"
-            android:textColor="@color/white" />
+        <!-- Línea azul separadora -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#1E7EA1" />
 
         <Button
-            android:id="@+id/contactButton"
-            android:layout_width="wrap_content"
-            android:layout_height="59dp"
-            android:layout_marginStart="16dp"
+            android:id="@+id/editProfileButton"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:background="@drawable/button_background"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="18dp"
+            android:background="@drawable/bar_button_background"
+            android:stateListAnimator="@null"
+            android:text="Preguntas frecuentes"
+            android:textColor="@android:color/white" />
+
+        <!-- Línea azul separadora -->
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#1E7EA1" />
+
+        <Button
+            android:id="@+id/optionsButton"
+            android:layout_width="0dp"
+            android:layout_height="66dp"
+            android:layout_weight="1"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="18dp"
+            android:background="@drawable/bar_button_background"
+            android:stateListAnimator="@null"
             android:text="Contacto"
-            android:textColor="@color/white" />
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <!-- Lista de preguntas frecuentes usando RecyclerView -->
@@ -48,18 +74,21 @@
         android:id="@+id/faqRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="16dp"
         android:layout_weight="1"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_corner_background"
         android:padding="8dp"/>
 
-    <!-- Botón volver al menú -->
+    <!-- Botón para volver al menú -->
     <Button
-        android:id="@+id/backToMenuButton"
+        android:id="@+id/menuButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Volver al menú"
-        android:background="@drawable/button_background"
-        android:textColor="@color/white"
+        android:text="Menú"
+        android:layout_margin="16dp"
+        android:backgroundTint="#1E7EA1"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
         android:layout_marginTop="16dp"/>
 </LinearLayout>

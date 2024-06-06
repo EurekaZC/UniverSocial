@@ -1,40 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_stars"
-    android:padding="16dp">
+    android:background="@drawable/background_stars">
 
-    <!-- Cabecera con logo y botón de atrás -->
+    <!-- Cabecera con logo y botones -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/border_background"
-        android:padding="8dp">
+        android:padding="0dp">
 
         <ImageView
             android:id="@+id/logoImageView"
-            android:layout_width="77dp"
-            android:layout_height="77dp"
-            android:contentDescription="Logo"
-            android:src="@drawable/logo" />
-
-        <ImageView
-            android:layout_width="230dp"
-            android:layout_height="50dp"
+            android:layout_width="64dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_height="64dp"
+            android:src="@drawable/logo_empty"
             android:contentDescription="Logo" />
+
+        <!-- Línea azul separadora -->
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#1E7EA1" />
+
+        <Button
+            android:id="@+id/chatButton"
+            android:layout_width="0dp"
+            android:layout_height="66dp"
+            android:layout_weight="1"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="18dp"
+            android:background="@drawable/bar_button_background"
+            android:stateListAnimator="@null"
+            android:text="Chat grupal"
+            android:textColor="@android:color/white" />
+        <!-- Línea azul separadora -->
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="#1E7EA1" />
 
         <Button
             android:id="@+id/backButton"
-            android:layout_width="20dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@drawable/back" />
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="18dp"
+            android:background="@drawable/back"
+            android:stateListAnimator="@null" />
     </LinearLayout>
 
     <!-- Contenido del evento -->
@@ -43,7 +71,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="16dp"
-        android:background="#EDEEF0"
+        android:layout_margin="16dp"
+        android:background="@drawable/rounded_corner_background"
         android:padding="8dp">
 
         <LinearLayout
@@ -51,60 +80,85 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/eventImageView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:contentDescription="Imagen del evento"
-                android:scaleType="centerCrop"
-                android:layout_marginBottom="16dp"/>
-
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="79dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
                 android:text="Título del evento"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:layout_marginBottom="8dp"/>
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/communityTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Comunidad"
-                android:textColor="#000000"
-                android:textStyle="italic"
-                android:textSize="18sp"
-                android:layout_marginBottom="8dp"/>
+            <!-- Línea azul separadora -->
+            <View
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
 
             <TextView
                 android:id="@+id/eventTypeTextView"
                 android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Tipo de evento"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"/>
+
+            <!-- Campo para la fecha -->
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Fecha del evento"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/descriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Descripción"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
+
+            <!-- Línea azul separadora -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#1E7EA1"
+                android:layout_marginBottom="8dp" />
+
 
             <TextView
                 android:id="@+id/eventDescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Descripción del evento"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp"/>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Botón de chat -->
+    <!-- Botón para volver al menú -->
     <Button
-        android:id="@+id/chatButton"
+        android:id="@+id/menuButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CHAT"
-        android:background="@drawable/button_background"
-        android:textColor="@color/white"
+        android:text="Menú"
+        android:layout_margin="16dp"
+        android:backgroundTint="#1E7EA1"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
         android:layout_marginTop="16dp"/>
 </LinearLayout>
