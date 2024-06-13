@@ -1,6 +1,7 @@
 # UniverSocial
 
-_Esta aplicación fue pensada y creada para presentar como proyecto final en un ciclo de Desarrollo de Aplicaciones Multiplataforma. Es por esto mismo que se ha hecho con los lenguajes, tecnologías y herramientas requeridas en el propio centro._
+> _Esta aplicación fue pensada y creada para presentar como proyecto final en un ciclo de Desarrollo de Aplicaciones Multiplataforma. Es por esto mismo que se ha hecho con los lenguajes,  tecnologías y herramientas requeridas en el propio centro._
+
 
 Universocial es una aplicación móvil que tiene como objetivo conectar a los entusiastas de la astronomía, brindándoles una experiencia enriquecedora y social. La plataforma ofrece información sobre eventos celestes y permite a los usuario crear perfiles, buscar eventos locales y conectarse con los demás aficionados para preguntar sus dudas o realizar quedadas mediante un chat. Esta aplicación pretende transformar la observación del cielo en una actividad comunitaria. 
 
