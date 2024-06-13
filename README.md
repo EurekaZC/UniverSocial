@@ -4,7 +4,7 @@ _Esta aplicación fue pensada y creada para presentar como proyecto final en un 
 
 Universocial es una aplicación móvil que tiene como objetivo conectar a los entusiastas de la astronomía, brindándoles una experiencia enriquecedora y social. La plataforma ofrece información sobre eventos celestes y permite a los usuario crear perfiles, buscar eventos locales y conectarse con los demás aficionados para preguntar sus dudas o realizar quedadas mediante un chat. Esta aplicación pretende transformar la observación del cielo en una actividad comunitaria. 
 
-![image](https://github.com/EurekaZC/UniverSocial/assets/128409004/368b4a1c-2087-44dd-8f6d-c97071bf4afd)
+   ![image](https://github.com/EurekaZC/UniverSocial/assets/128409004/368b4a1c-2087-44dd-8f6d-c97071bf4afd)
 
 
 
@@ -40,12 +40,12 @@ PAra ejecutar la aplicación y obtener un funcionamiento completo, se deben segu
    
 2. Crearemos una conexión para la base de datos con un usuario en el SQLDeveloper.
    
-  ![image](https://github.com/EurekaZC/UniverSocial/assets/128409004/59c33f66-c64c-430f-bb62-d9ab779cb70a)
+   ![image](https://github.com/EurekaZC/UniverSocial/assets/128409004/59c33f66-c64c-430f-bb62-d9ab779cb70a)
 
   
 3. Cargaremos los scripts de creación de la base de datos e inserción de los datos de prueba.
 
- ![image](https://github.com/EurekaZC/UniverSocial/assets/128409004/bac5d7d6-d8eb-48b4-ab08-be30312cac3b)
+   ![image](https://github.com/EurekaZC/UniverSocial/assets/128409004/bac5d7d6-d8eb-48b4-ab08-be30312cac3b)
 
 4. Ahora abriremos el proyecto `AstronomiaSC` y ejecutaremos su main para que el hilo ejerza el papel de servidor.
 
