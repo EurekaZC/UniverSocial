@@ -28,13 +28,13 @@ Descarga el proyecto completo desde este repositorio, donde se encuentra todo el
 
 Tener a disposición Android Studio, VirtualBox u algún entorno donde ejecutar un proyecto Java.
 
-> Mira **Construido con** para información más detallada.
+> Mira   **Construido con**   para información más detallada.
 
 
 
 ## Despliegue 📦
 
-PAra ejecutar la aplicación y obtener un funcionamiento completo, se deben seguir los siguientes pasos:
+Para ejecutar la aplicación y obtener un funcionamiento completo, se deben seguir los siguientes pasos:
 
 1. Abrir una máquina virtual con Windows 7 donde tendremos NetBeans 8.1 y SQLDeveloper 4.1.3 instalados.
    
