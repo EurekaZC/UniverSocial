@@ -12,7 +12,7 @@ Universocial es una aplicación móvil que tiene como objetivo conectar a los en
 
 Descarga el proyecto completo desde este repositorio, donde se encuentra todo el código necesario para su despliegue. 
 
-> Mira **Despliegue** para conocer como desplegar el proyecto.
+> Mira  **Despliegue**  para conocer como desplegar el proyecto.
 
 
 
