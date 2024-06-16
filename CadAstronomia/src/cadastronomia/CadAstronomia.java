@@ -58,7 +58,7 @@ public class CadAstronomia {
      */
     private void conectar() throws Excepciones {
         try {
-//           conexion = DriverManager.getConnection("jdbc:oracle:thin:@172.16.222.69:1521:test", "ASTRONOMIA", "kk");
+//           conexion = DriverManager.getConnection("jdbc:oracle:thin:@172.16.4.47:1521:XE", "ASTRONOMIA", "kk");
             conexion = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.122:1521:XE", "ASTRONOMIA", "kk");
         } catch (SQLException ex) {
             Excepciones e = new Excepciones();
@@ -487,6 +487,49 @@ public class CadAstronomia {
             throw e;
         }
         return usuario;
+    }
+
+    /**
+     * Método que permite recuperar una cuenta de usuario marcando el campo
+     * "ESTA_BORRADO" a 0
+     *
+     * @param idUsuario variable de tipo Integer que almacena el id de registro
+     * del usuario
+     * @throws pojosastronomia.Excepciones La excepción se produce cuando se ha
+     * violado alguna constraint de la base de datos
+     */
+    public void recuperarCuenta(Integer idUsuario) throws Excepciones {
+        conectar();
+        String dml = "UPDATE USUARIO SET ESTA_BORRADO = 0 WHERE ID_USUARIO = ?";
+
+        try {
+            PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
+            sentenciaPreparada.setObject(1, idUsuario, Types.INTEGER);
+
+            int registrosAfectados = sentenciaPreparada.executeUpdate();
+
+            if (registrosAfectados == 0) {
+                throw new SQLException("No se encontró el usuario con el ID especificado", "S0002", 0);
+            }
+
+            sentenciaPreparada.close();
+            conexion.close();
+
+        } catch (SQLException ex) {
+            Excepciones e = new Excepciones();
+            e.setCodigoErrorBd(ex.getErrorCode());
+            e.setMensajeErrorBd(ex.getMessage());
+            e.setSentenciaSQL(dml);
+
+            switch (ex.getErrorCode()) {
+                case 0: // No se encontró el usuario
+                    e.setMensajeUsuario("No se encontró el usuario con el ID especificado.");
+                    break;
+                default:
+                    e.setMensajeUsuario("Error general en el sistema, contacte con el administrador.");
+            }
+            throw e;
+        }
     }
 
     //--------------------------------------------------------------------------------- \ TABLA EVENTO /----------------------------------------------------------------------------------------

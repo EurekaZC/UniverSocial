@@ -134,6 +134,46 @@ public class AstronomiaCC {
         return listaProvinicias;
     }
 
+    public Provincia leerProvinciaPorEvento(Integer idEvento) throws Excepciones {
+        // Creamos y populamos la peticion
+        Peticion p = new Peticion();
+        p.setIdOperacion(Operaciones.PROVINCIA_POR_EVENTO);
+        p.setIdEntidad(idEvento);
+
+        // Ahora que ya tenemos la peticion populada, tenemos que enviarla al servidor
+        Respuesta r = null;
+        Provincia provincia = null;
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
+
+        try {
+            oos = new ObjectOutputStream(socketCliente.getOutputStream());
+            oos.writeObject(p);
+
+            ois = new ObjectInputStream(socketCliente.getInputStream());
+            r = (Respuesta) ois.readObject();
+
+            if (r.getEntidad() != null) {
+                provincia = (Provincia) r.getEntidad();
+            } else if (r.getE() != null) {
+                throw r.getE();
+            }
+
+        } catch (IOException ex) {
+            manejadorIOException(ex);
+        } catch (ClassNotFoundException ex) {
+            manejadorClassNotFoundException(ex);
+        } finally {
+            try {
+                if (ois != null) ois.close();
+                if (oos != null) oos.close();
+            } catch (IOException ex) {
+                manejadorIOException(ex);
+            }
+        }
+        return provincia;
+    }
+
     //--------------------------------------------------------------------------------- \ TABLA USUARIO /----------------------------------------------------------------------------------------
     
     public int insertarUsuario(Usuario u) throws Excepciones{

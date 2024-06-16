@@ -27,6 +27,7 @@ import pojosastronomia.Usuario;
 
 public class ChatActivity extends AppCompatActivity {
 
+    // Definición de vistas y variables necesarias para la actividad de chat
     private RecyclerView chatRecyclerView;
     private ChatAdapter chatAdapter;
     private List<Mensaje> messages;
@@ -43,6 +44,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
 
+        // Inicialización de vistas
         chatRecyclerView = findViewById(R.id.chatRecyclerView);
         messageEditText = findViewById(R.id.messageEditText);
         sendButton = findViewById(R.id.sendButton);
@@ -63,13 +65,16 @@ public class ChatActivity extends AppCompatActivity {
             return;
         }
 
+        // Inicialización de listas de mensajes
         messages = new ArrayList<>();
         allMessages = new ArrayList<>();
 
+        // Configuración del RecyclerView y su adaptador
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         chatAdapter = new ChatAdapter(this, messages, currentUser != null ? currentUser.getNombre() : "Unknown User");
         chatRecyclerView.setAdapter(chatAdapter);
 
+        // Configuración del botón de enviar
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +87,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        // Configuración del botón de volver
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +100,7 @@ public class ChatActivity extends AppCompatActivity {
         new LoadMessagesTask().execute();
     }
 
+    // Método para filtrar mensajes por evento
     private void filterMessagesByEvent(int eventId) {
         messages.clear();
         for (Mensaje mensaje : allMessages) {
@@ -109,10 +116,12 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        // Actualizar el adaptador y mover la vista al último mensaje
         chatAdapter.notifyDataSetChanged();
         chatRecyclerView.scrollToPosition(messages.size() - 1);
     }
 
+    // Tarea asíncrona para cargar el usuario
     private class LoadUserTask extends AsyncTask<Integer, Void, Usuario> {
         private Excepciones excepcion;
 
@@ -141,6 +150,7 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    // Tarea asíncrona para cargar los mensajes
     private class LoadMessagesTask extends AsyncTask<Void, Void, ArrayList<Mensaje>> {
         private Excepciones excepcion;
 
@@ -170,6 +180,7 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    // Tarea asíncrona para enviar un mensaje
     private class SendMessageTask extends AsyncTask<Mensaje, Void, Mensaje> {
         private Excepciones excepcion;
 

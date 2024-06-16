@@ -32,7 +32,7 @@
         android:background="#1E7EA1" />
 
     <Button
-        android:id="@+id/editProfileButton"
+        android:id="@+id/faqButton"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginEnd="8dp"
@@ -55,7 +55,7 @@
         android:background="#1E7EA1" />
 
     <Button
-        android:id="@+id/optionsButton"
+        android:id="@+id/contactButton"
         android:layout_width="0dp"
         android:layout_height="66dp"
         android:layout_weight="1"

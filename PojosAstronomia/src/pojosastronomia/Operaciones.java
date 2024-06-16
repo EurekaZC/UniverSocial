@@ -39,5 +39,6 @@ public class Operaciones implements Serializable{
     
     public static final int BUCAR_USUARIO_POR_EMAIL = 21;
     public static final int EVENTOS_POR_PROVINCIA_USUARIO = 22;
+    public static final int RECUPERAR_CUENTA = 23;
     
 }

@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
-    private Usuario usuario; // Definir el objeto usuario como variable de instancia
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -112,7 +112,6 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("EditProfileActivity", "Guardar botón clicado");
-                Toast.makeText(EditProfileActivity.this, "Guardar botón clicado", Toast.LENGTH_SHORT).show();
 
                 try {
                     // Recopilar datos de los campos de entrada
@@ -124,6 +123,18 @@ public class EditProfileActivity extends AppCompatActivity {
                     String password = editTextPassword.getText().toString();
                     String confirmPassword = editTextConfirmPassword.getText().toString();
                     String descripcion = editTextDescripcion.getText().toString(); // Nueva línea para obtener la descripción
+
+                    // Validar el número de teléfono
+                    if (!movil.isEmpty() && movil.length() != 9) {
+                        Toast.makeText(EditProfileActivity.this, "El nº de móvil debe ser de 9 caracteres", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Validar el correo electrónico
+                    if (!email.isEmpty() && !email.matches(".+@.+\\..+")) {
+                        Toast.makeText(EditProfileActivity.this, "Email erróneo", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     int selectedGeneroId = radioGroupGenero.getCheckedRadioButtonId();
                     String genero = "";

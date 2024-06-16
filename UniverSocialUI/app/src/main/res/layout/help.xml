@@ -31,22 +31,22 @@
             android:layout_marginEnd="8dp"
             android:background="#1E7EA1" />
 
+        <!-- Línea azul separadora -->
         <Button
-            android:id="@+id/editProfileButton"
+            android:id="@+id/faqButton"
             android:layout_width="0dp"
             android:layout_height="65dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
             android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginRight="1dp"
             android:layout_marginBottom="2dp"
-            android:textSize="18dp"
+            android:layout_weight="1"
             android:background="@drawable/bar_button_background"
             android:stateListAnimator="@null"
             android:text="Preguntas frecuentes"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
 
-        <!-- Línea azul separadora -->
         <View
             android:layout_width="2dp"
             android:layout_height="match_parent"
@@ -55,7 +55,7 @@
             android:background="#1E7EA1" />
 
         <Button
-            android:id="@+id/optionsButton"
+            android:id="@+id/contactButton"
             android:layout_width="0dp"
             android:layout_height="66dp"
             android:layout_weight="1"

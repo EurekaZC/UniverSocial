@@ -30,7 +30,7 @@ public class HelpActivity extends AppCompatActivity {
         faqRecyclerView.setAdapter(adapter);
 
         // Botón Volver al Menú
-        Button backToMenuButton = findViewById(R.id.backToMenuButton);
+        Button backToMenuButton = findViewById(R.id.menuButton);
         backToMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,12 +40,12 @@ public class HelpActivity extends AppCompatActivity {
             }
         });
 
-        // Botón Preguntas Frecuentes (No funcionalidad definida)
+        // Botón Preguntas Frecuentes
         Button faqButton = findViewById(R.id.faqButton);
         faqButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Añadir funcionalidad para Preguntas Frecuentes aquí
+
             }
         });
 

@@ -81,6 +81,10 @@ public class ManejadorPeticion extends Thread {
                     buscarUsuarioPorEmail(p);
                     break;
                     
+                case Operaciones.RECUPERAR_CUENTA:
+                    recuperarCuenta(p);
+                    break;
+                    
                 case Operaciones.INSERTAR_EVENTO:
                     insertarEvento(p);
                     break;
@@ -300,9 +304,32 @@ public class ManejadorPeticion extends Thread {
         }
     }
 
-    
+    private void recuperarCuenta(Peticion p) {
+        ObjectOutputStream oos = null;
+        try {
+            Integer idUsuario = p.getIdEntidad();
+
+            CadAstronomia cad = new CadAstronomia();
+            cad.recuperarCuenta(idUsuario);
+
+            Respuesta r = new Respuesta();
+            r.setIdOperacion(p.getIdOperacion());
+            r.setCantidad(1);
+
+            oos = new ObjectOutputStream(clienteConectado.getOutputStream());
+            oos.writeObject(r);
+            oos.close();
+
+        } catch (IOException ex) {
+            manejadorIOExceptionOOS(ex, oos);
+
+        } catch (Excepciones ex) {
+            manejadorExcepciones(ex);
+        }
+    }
+
     // -------------------------------------------------------------------------- >>> E V E N T O
-   
+
     private void leerEvento(Peticion p) {
         ObjectOutputStream oos = null;
         try {

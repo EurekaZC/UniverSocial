@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="questions">
-        <item>¿csvertgsvertavert?</item>
-        <item>Pregunta 2</item>
-        <item>Pregunta 3</item>
-        <item>Pregunta 4</item>
+        <item>¿Cómo visualizar todos los eventos?</item>
+        <item>¿Los usuarios puden acceder a mi información personal?</item>
+        <item>¿Cómo cambio la contraseña?</item>
+        <item>¿Cómo eliminar la cuenta?</item>
     </string-array>
     <string-array name="answers">
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</item>
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</item>
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</item>
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</item>
+        <item>Para visualizar todos los eventos debes dirigirte, desde el menú, al botón "EVENTOS ASTRONÓMICOS". Una vez en dicha pantalla, verás un btón en la barra superior que pone "España". Al darle a ese botón, podrás ver todos los eventos registrados en el país.</item>
+        <item>Los demás usuarios podrán ver la misma información que puedes ver en tu propio perfil, de manera que toda la información comprometedora no se mostrará.</item>
+        <item>Para cambiar la contrasña debes ir a tu perfil y, en la barra superior, darle al botón de "editar perfil". La nueva ventana que se te muestra es para cambiar todos los datos personales que quieras.</item>
+        <item>Si deseas borrar tu cuenta en nuestra plataforma, deberás dirigirte a la pantalla de tu perfil. Una vez allí, en la barra superior, le tienes que dar al botón de "opciones" y posteriormente al de "eliminar cuenta."</item>
     </string-array>
 </resources>

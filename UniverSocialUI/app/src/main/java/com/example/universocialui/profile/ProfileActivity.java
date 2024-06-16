@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         nameTextView = findViewById(R.id.nameTextView);
         provinceTextView = findViewById(R.id.provinceTextView);
-        emailTextView = findViewById(R.id.emailTextView);   // Añadido
+        emailTextView = findViewById(R.id.emailTextView);
         novatoCircle = findViewById(R.id.novatoCircle);
         surnameTextView = findViewById(R.id.surnameTextView);
         avanzadoCircle = findViewById(R.id.avanzadoCircle);
@@ -87,9 +87,15 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Recuperar el ID del usuario desde SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("userId", -1);
+        // Recuperar el ID del usuario desde el Intent
+        Intent intent = getIntent();
+        int userId = intent.getIntExtra("userId", -1);
+
+        if (userId == -1) {
+            // Si no hay un ID de usuario en el Intent, usar el ID del usuario desde SharedPreferences
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            userId = sharedPreferences.getInt("userId", -1);
+        }
 
         if (userId != -1) {
             // Cargar datos del usuario
@@ -237,6 +243,7 @@ public class ProfileActivity extends AppCompatActivity {
                 surnameTextView.setText(usuario.getApe1() + " " + usuario.getApe2());
                 emailTextView.setText(usuario.getEmail());
                 descriptionTextView.setText(usuario.getDescripcion());
+                provinceTextView.setText(usuario.getProvincia().getProvincia());
                 setKnowledgeLevel(usuario.getNivelConocimiento());
             } else {
                 Toast.makeText(ProfileActivity.this, "No se pudieron cargar los datos del usuario", Toast.LENGTH_SHORT).show();

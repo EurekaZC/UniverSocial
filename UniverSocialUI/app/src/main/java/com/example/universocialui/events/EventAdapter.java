@@ -10,14 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.universocialui.R;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import pojosastronomia.Evento;
 import pojosastronomia.Excepciones;
 import pojosastronomia.Provincia;
@@ -50,13 +53,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         // Cargar la provincia de forma asíncrona
         new LoadProvinceTask(holder.provinceTextView).execute(event);
 
-        holder.infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, com.example.universocialui.events.EventActivity.class);
-                intent.putExtra("event_id", event.getIdEvento());
-                context.startActivity(intent);
-            }
+        holder.infoButton.setOnClickListener(v -> {
+            Intent intent = new Intent(context, com.example.universocialui.events.EventActivity.class);
+            intent.putExtra("event_id", event.getIdEvento());
+            context.startActivity(intent);
         });
     }
 
@@ -66,7 +66,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     private class LoadProvinceTask extends AsyncTask<Evento, Void, String> {
-        private TextView provinceTextView;
+        private final TextView provinceTextView;
         private Excepciones excepcion;
 
         public LoadProvinceTask(TextView provinceTextView) {
@@ -79,7 +79,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             String provinciaNombre = null;
             try {
                 AstronomiaCC cc = new AstronomiaCC(new Socket(EQUIPO_SERVIDOR, PUERTO_SERVIDOR));
-                Provincia provincia = cc.leerProvincia(event.getIdEvento());
+                Provincia provincia = cc.leerProvinciaPorEvento(event.getIdEvento());
                 if (provincia != null) {
                     provinciaNombre = provincia.getProvincia();
                 }

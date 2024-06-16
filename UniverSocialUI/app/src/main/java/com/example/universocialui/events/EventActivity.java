@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.universocialui.R;
 import com.example.universocialui.chat.ChatActivity;
+import com.example.universocialui.menu.MenuActivity;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -72,8 +73,8 @@ public class EventActivity extends AppCompatActivity {
         });
 
         menuButton.setOnClickListener(v -> {
-            // Implementar la acción para el botón de menú
-        });
+            Intent intent = new Intent(EventActivity.this, MenuActivity.class);
+            startActivity(intent);        });
     }
 
     private class LoadEventDetailsTask extends AsyncTask<Integer, Void, Evento> {

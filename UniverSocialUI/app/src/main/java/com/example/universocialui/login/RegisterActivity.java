@@ -172,6 +172,18 @@ public class RegisterActivity extends AppCompatActivity {
                     conocimiento = "N";
                 }
 
+                // Validar el número de teléfono
+                if (!movil.isEmpty() && movil.length() != 9) {
+                    Toast.makeText(RegisterActivity.this, "El nº de móvil debe ser de 9 caracteres", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Validar el correo electrónico
+                if (!email.isEmpty() && !email.matches(".+@.+\\..+")) {
+                    Toast.makeText(RegisterActivity.this, "Email erróneo", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // Validar que las contraseñas coincidan
                 if (!password.equals(confirmPassword)) {
                     Toast.makeText(RegisterActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();

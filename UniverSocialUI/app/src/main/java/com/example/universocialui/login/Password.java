@@ -6,14 +6,14 @@ import java.security.NoSuchAlgorithmException;
 import pojosastronomia.Excepciones;
 
 public class Password {
-    private static final String SALT = "h3liC0pt3r"; // Usamos salt para hacer el hasheo más seguro
+    private static final String SALT = "h3ll0w0r1d"; // Usamos salt para hacer el hasheo más seguro
 
     public static String passCodificada(String pass) throws Excepciones {
         byte[] arrayCodificado = null;
         String passFinal;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            pass = pass + SALT; // Añadir la sal a la contraseña
+            pass = pass + SALT; // Añadir la salt a la contraseña
             arrayCodificado = md.digest(pass.getBytes());
             // Convertir el array de bytes a una representación hexadecimal
             passFinal = bytesToHex(arrayCodificado);

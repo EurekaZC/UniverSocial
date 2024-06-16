@@ -172,8 +172,18 @@ public class NewMain {
 //            
 //        }
 
-//      -------------------------------------------------------------------------------------------------------------------------------------------------------------------- >>> E V E N T O
+//      -------------------------------------- \ RECUPERAR CUENTA / ----------------------------------------------------
+        
+//try {
+//            CadAstronomia cad = new CadAstronomia();
+//            cad.recuperarCuenta(400); 
+//            System.out.println("Cuenta recuperada exitosamente.");
+//        } catch (Excepciones ex) {
+//            System.out.println(ex.getMensajeUsuario());
+//            System.out.println("Log: " + ex.getCodigoErrorBd() + " - " + ex.getMensajeErrorBd() + " - " + ex.getSentenciaSQL());
+//        }
 
+//      -------------------------------------------------------------------------------------------------------------------------------------------------------------------- >>> E V E N T O
 //       ------------------------------------- \ INSERTAR EVENTO / -------------------------------------------------------------------
 //        try {
 //            CadAstronomia consola = new CadAstronomia(); // Suponiendo que la clase principal se llama ConsolaAstronomia
@@ -287,7 +297,7 @@ public class NewMain {
 //        try {
 //            
 //            cad = new CadAstronomia();
-//            ArrayList le  = cad.obtenerEventosPorProvinciaUsuario(0);
+//            ArrayList le  = cad.obtenerEventosPorProvinciaUsuario(7);
 //            System.out.println(le);
 //            
 //        } catch (Excepciones ex) {
